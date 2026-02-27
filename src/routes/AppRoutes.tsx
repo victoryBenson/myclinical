@@ -7,6 +7,7 @@ import NewLabRequest from "../pages/lab/NewLabRequests";
 import LabRequests from "../pages/lab/LabRequests";
 import LabQueue from "../pages/lab/LabQueue";
 import LabResults from "../pages/lab/LabResults";
+import LabReports from "../pages/lab/LabReports";
 
 interface AppRoutesProps {
   isDark: boolean;
@@ -38,6 +39,7 @@ export default function AppRoutes({
           <Route path="/lab/requests" element={<LabRequests />} />
           <Route path="/lab/queue" element={<LabQueue />} />
           <Route path="/lab/results" element={<LabResults />} />
+          <Route path="/lab/reports" element={<LabReports />} />
         </Route>
 
       </Routes>

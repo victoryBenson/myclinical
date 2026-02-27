@@ -1,4 +1,4 @@
-import type { LabRequest, LabResult } from "../types/lab.types";
+import type { LabReport, LabRequest, LabResult } from "../types/lab.types";
 
 export const mockRequests: LabRequest[] = [
   {
@@ -34,6 +34,7 @@ export const mockResults: LabResult[] = [
     status: "pending",
     resultSummary: "WBC slightly elevated",
     completedAt: "2026-02-20",
+    notes: "",
   },
   {
     id: 2,
@@ -44,5 +45,40 @@ export const mockResults: LabResult[] = [
     status: "verified",
     resultSummary: "Negative",
     completedAt: "2026-02-21",
+    notes: "",
+  },
+];
+
+
+export const mockReports: LabReport[] = [
+  {
+    id: "1",
+    reportId: 1001,
+    patientName: "John Doe",
+    testName: "Complete Blood Count",
+    status: "approved",
+    issuedAt: "2026-02-20",
+    createdAt: "2026-02-18",
+    remarks: "All values within normal range",
+  },
+  {
+    id: "2",
+    reportId: 1002,
+    patientName: "Mary Smith",
+    testName: "Liver Function Test",
+    status: "pending",
+    issuedAt: "2026-02-22",
+    createdAt: "2026-02-21",
+    remarks: "Awaiting supervisor approval",
+  },
+  {
+    id: "3",
+    reportId: 1003,
+    patientName: "David Johnson",
+    testName: "Renal Profile",
+    status: "rejected",
+    issuedAt: "2026-02-23",
+    createdAt: "2026-02-22",
+    remarks: "Sample integrity compromised",
   },
 ];

@@ -27,3 +27,15 @@ export interface LabResult {
   completedAt: string;
   notes: string;
 }
+
+export interface LabReport {
+  id: string;
+  reportId: number;
+  patientName: string;
+  testName: string;
+  status: "pending" | "approved" | "rejected";
+  issuedAt: string;
+  createdAt: string;
+  remarks?: string;
+  pdfUrl?: string;
+}

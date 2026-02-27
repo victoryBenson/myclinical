@@ -7,7 +7,6 @@ const Sidebar = () => {
   return (
     <div className="h-full flex flex-col p-5">
 
-      {/* Logo */}
       <div className="flex items-center gap-3 mb-10">
         <div className="bg-white/20 p-2 rounded-xl backdrop-blur">
           <img
@@ -21,7 +20,6 @@ const Sidebar = () => {
         </h2>
       </div>
 
-      {/* Modules */}
       <div className="flex-1 space-y-8">
         {sidebarModules.map((module, index) => (
           <div key={index} className="space-y-3">
@@ -72,10 +70,9 @@ const Sidebar = () => {
         ))}
       </div>
 
-      {/* Bottom Section */}
       <div className="pt-6 border-t border-white/10">
         <p className="text-xs text-white/40 text-center">
-          © © {new Date().getFullYear()} MyClinic
+          © {new Date().getFullYear()} MyClinic
         </p>
       </div>
     </div>
