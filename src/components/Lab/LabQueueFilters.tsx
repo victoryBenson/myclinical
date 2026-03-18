@@ -38,7 +38,6 @@ const LabQueueFilters: React.FC<LabQueueFiltersProps> = ({
   return (
     <div className="flex flex-wrap gap-4 items-end">
 
-      {/* Search */}
       <div className="flex flex-col w-56">
         <label className="text-sm mb-1">Search</label>
         <Input
@@ -49,7 +48,6 @@ const LabQueueFilters: React.FC<LabQueueFiltersProps> = ({
         />
       </div>
 
-      {/* Date */}
       <div className="flex flex-col">
         <label className="text-sm mb-1">Date Range</label>
         <DateRangePicker
@@ -58,7 +56,6 @@ const LabQueueFilters: React.FC<LabQueueFiltersProps> = ({
         />
       </div>
 
-      {/* Priority */}
       <div className="flex flex-col w-40">
         <label className="text-sm mb-1">Priority</label>
         <Select value={priority} onChange={setPriority}>
@@ -70,7 +67,6 @@ const LabQueueFilters: React.FC<LabQueueFiltersProps> = ({
         </Select>
       </div>
 
-      {/* Test */}
       <div className="flex flex-col w-48">
         <label className="text-sm mb-1">Test</label>
         <Select value={test} onChange={setTest}>
@@ -81,7 +77,6 @@ const LabQueueFilters: React.FC<LabQueueFiltersProps> = ({
         </Select>
       </div>
 
-      {/* Technician */}
       <div className="flex flex-col w-48">
         <label className="text-sm mb-1">Technician</label>
         <Select value={technician} onChange={setTechnician}>
@@ -91,7 +86,6 @@ const LabQueueFilters: React.FC<LabQueueFiltersProps> = ({
         </Select>
       </div>
 
-      {/* Reset */}
       <Button
         icon={<ReloadOutlined />}
         onClick={onReset}

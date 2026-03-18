@@ -7,20 +7,15 @@ import {
   PlusCircle,
 } from "lucide-react";
 
-import type { LabRequest } from "../../types/lab.types";
 import { mockRequests } from "../../data/lab.mock";
 import TableRow from "../../components/Lab/TableRow";
-import StatCard from "../../components/Lab/StatCard";
 import QueueItem from "../../components/Lab/QueueItem";
 import QuickButton from "../../components/Lab/QuickButton";
 import SectionHeader from "../../components/ui/SectionHeader";
+import StatsCard from "../../components/ui/StatsCard";
 
-/* =========================
-   Component
-========================= */
 
 const LabDashboard: React.FC = () => {
-  // ===== KPI Calculations from Mock Data =====
   const total = mockRequests.length;
   const waiting = mockRequests.filter(r => r.status === "waiting").length;
   const processing = mockRequests.filter(r => r.status === "processing").length;
@@ -29,13 +24,41 @@ const LabDashboard: React.FC = () => {
   return (
     <div className="p-6 space-y-6">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
+        <StatsCard
+          title="Total Requests"
+          value={total}
+          icon={ClipboardList}
+          iconBg="bg-primary/10"
+          iconColor="text-primary"
+        />
 
-        <StatCard title="Total Requests" value={total} icon={ClipboardList} />
-        <StatCard title="Waiting" value={waiting} icon={Clock} />
-        <StatCard title="Processing" value={processing} icon={FlaskConical} />
-        <StatCard title="Completed" value={completed} icon={AlertTriangle} />
+        <StatsCard
+          title="Waiting"
+          value={waiting}
+          icon={Clock}
+          iconBg="bg-yellow-100 dark:bg-yellow-900"
+          iconColor="text-yellow-600"
+          valueColor="text-yellow-600"
+        />
 
+        <StatsCard
+          title="Processing"
+          value={processing}
+          icon={FlaskConical}
+          iconBg="bg-blue-100 dark:bg-blue-900"
+          iconColor="text-blue-600"
+          valueColor="text-blue-600"
+        />
+
+        <StatsCard
+          title="Completed"
+          value={completed}
+          icon={AlertTriangle}
+          iconBg="bg-green-100 dark:bg-green-900"
+          iconColor="text-green-600"
+          valueColor="text-green-600"
+        />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">

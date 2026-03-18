@@ -28,13 +28,15 @@ const Sidebar = () => {
               {module.title}
             </h3>
 
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {module.items.map((item, idx) => {
                 const Icon = item.icon;
                 return (
                   <li key={idx}>
                     <NavLink
                       to={item.path}
+                      // end={item.path === "/" || item.path === "/pharmacy"}
+                      end
                       className={({ isActive }) =>
                         `group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
                           isActive

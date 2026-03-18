@@ -9,6 +9,12 @@ import {
   ListChecks,
   Clock,
   FileText,
+  Pill,
+  Boxes,
+  ClipboardCheck,
+  Truck,
+  ShoppingCart,
+  Receipt,
 } from "lucide-react";
 
 export const sidebarModules = [
@@ -22,7 +28,20 @@ export const sidebarModules = [
         { name: "Results", path: "/lab/results", icon: FlaskConical },
         { name: "Reports", path: "/lab/reports", icon: FileText },
     ],
-  },
+},
+{
+  title: "Pharmacy",
+  items: [
+    { name: "Dashboard", path: "/pharmacy", icon: LayoutDashboard },
+    { name: "Medications", path: "/pharmacy/medications", icon: Pill },
+    { name: "Inventory", path: "/pharmacy/inventory", icon: Boxes },
+    { name: "Prescriptions", path: "/pharmacy/prescriptions", icon: ClipboardList },
+    { name: "Suppliers", path: "/pharmacy/suppliers", icon: Truck },
+    { name: "Purchase Orders", path: "/pharmacy/purchase-orders", icon: ShoppingCart },
+    { name: "Sales", path: "/pharmacy/sales", icon: Receipt },
+    { name: "Reports", path: "/pharmacy/reports", icon: FileText },
+  ],
+},
   {
     title: "Patients Module",
     items: [

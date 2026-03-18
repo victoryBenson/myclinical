@@ -8,6 +8,13 @@ import LabRequests from "../pages/lab/LabRequests";
 import LabQueue from "../pages/lab/LabQueue";
 import LabResults from "../pages/lab/LabResults";
 import LabReports from "../pages/lab/LabReports";
+import PharmacyDashboard from "../pages/pharmacy/PharmacyDashboard";
+import Medications from "../pages/pharmacy/Medications";
+import Inventory from "../pages/pharmacy/Inventory";
+import Prescriptions from "../pages/pharmacy/Prescriptions";
+import Suppliers from "../pages/pharmacy/Suppliers";
+import PharmacyOrders from "../pages/pharmacy/PharmacyOrders";
+import PharmacySales from "../pages/pharmacy/Sales";
 
 interface AppRoutesProps {
   isDark: boolean;
@@ -40,6 +47,14 @@ export default function AppRoutes({
           <Route path="/lab/queue" element={<LabQueue />} />
           <Route path="/lab/results" element={<LabResults />} />
           <Route path="/lab/reports" element={<LabReports />} />
+
+          <Route path="/pharmacy" element={<PharmacyDashboard />} />
+          <Route path="/pharmacy/medications" element={<Medications />} />
+          <Route path="/pharmacy/inventory" element={<Inventory />} />
+          <Route path="/pharmacy/prescriptions" element={<Prescriptions />} />
+          <Route path="/pharmacy/suppliers" element={<Suppliers />} />
+          <Route path="/pharmacy/purchase-orders" element={<PharmacyOrders />} />
+          <Route path="/pharmacy/sales" element={<PharmacySales />} />
         </Route>
 
       </Routes>

@@ -20,10 +20,10 @@ const LabReports: React.FC = () => {
     const [showFilters, setShowFilters] = useState(true);
 
     const resetFilters = () => {
-    setSearch("");
-    setStatus("all");
-    setTest("all");
-    setDateRange(null);
+        setSearch("");
+        setStatus("all");
+        setTest("all");
+        setDateRange(null);
     };
 
     const filteredData = useMemo(() => {
@@ -62,71 +62,71 @@ const LabReports: React.FC = () => {
         });
     }, [search, status, test, dateRange]);
 
-  const exportCSV = () => {
-    const headers = ["Report ID", "Patient", "Test", "Status", "Issued Date"];
+    const exportCSV = () => {
+        const headers = ["Report ID", "Patient", "Test", "Status", "Issued Date"];
 
-    const rows = filteredData.map((r) => [
-      r.reportId,
-      r.patientName,
-      r.testName,
-      r.status,
-      r.issuedAt,
-    ]);
+        const rows = filteredData.map((r) => [
+        r.reportId,
+        r.patientName,
+        r.testName,
+        r.status,
+        r.issuedAt,
+        ]);
 
-    const csvContent = [
-      headers.join(","),
-      ...rows.map((row) =>
-        row.map((field) => `"${field ?? ""}"`).join(",")
-      ),
-    ].join("\n");
+        const csvContent = [
+        headers.join(","),
+        ...rows.map((row) =>
+            row.map((field) => `"${field ?? ""}"`).join(",")
+        ),
+        ].join("\n");
 
-    const blob = new Blob([csvContent], {
-      type: "text/csv;charset=utf-8;",
-    });
+        const blob = new Blob([csvContent], {
+        type: "text/csv;charset=utf-8;",
+        });
 
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "lab-reports.csv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "lab-reports.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
-  const columns: ColumnsType<LabReport> = [
-    { title: "Report ID", dataIndex: "reportId" },
-    { title: "Patient", dataIndex: "patientName" },
-    { title: "Test", dataIndex: "testName" },
-    {
-      title: "Status",
-      dataIndex: "status",
-      render: (status) => {
-        const color =
-          status === "approved"
-            ? "green"
-            : status === "pending"
-            ? "orange"
-            : "red";
+    const columns: ColumnsType<LabReport> = [
+        { title: "Report ID", dataIndex: "reportId" },
+        { title: "Patient", dataIndex: "patientName" },
+        { title: "Test", dataIndex: "testName" },
+        {
+        title: "Status",
+        dataIndex: "status",
+        render: (status) => {
+            const color =
+            status === "approved"
+                ? "green"
+                : status === "pending"
+                ? "orange"
+                : "red";
 
-        return <Tag color={color}>{status.toUpperCase()}</Tag>;
-      },
-    },
-    { title: "Issued", dataIndex: "issuedAt" },
-    {
-      title: "Action",
-      render: (_, record) => (
-        <Button
-          size="small"
-          icon={<Eye size={14} />}
-          onClick={() => {
-            setSelectedReport(record);
-            setModalOpen(true);
-          }}
-        >
-          View
-        </Button>
-      ),
-    },
-  ];
+            return <Tag color={color}>{status.toUpperCase()}</Tag>;
+        },
+        },
+        { title: "Issued", dataIndex: "issuedAt" },
+        {
+        title: "Action",
+        render: (_, record) => (
+            <Button
+            size="small"
+            icon={<Eye size={14} />}
+            onClick={() => {
+                setSelectedReport(record);
+                setModalOpen(true);
+            }}
+            >
+            View
+            </Button>
+        ),
+        },
+    ];
 
   return (
     <div className="p-6 space-y-6">
