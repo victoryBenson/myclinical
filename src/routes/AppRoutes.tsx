@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "../pages/Login";
+import Login from "../pages/auth/Login";
 import ProtectedRoute from "./ProtectedRoutes";
 import DashboardLayout from "../layouts/DashboardLayouts";
 import LabDashboard from "../pages/lab/LabDashboard";

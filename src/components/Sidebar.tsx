@@ -28,7 +28,7 @@ const Sidebar = () => {
               {module.title}
             </h3>
 
-            <ul className="space-y-1.5">
+            <ul className="space-y-1">
               {module.items.map((item, idx) => {
                 const Icon = item.icon;
                 return (
@@ -41,7 +41,7 @@ const Sidebar = () => {
                         `group flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
                           isActive
                             ? "bg-white text-primary shadow-md"
-                            : "text-white/80 hover:bg-white/10 hover:text-white"
+                            : "text-white hover:bg-white/10 hover:text-white/80"
                         }`
                       }
                     >

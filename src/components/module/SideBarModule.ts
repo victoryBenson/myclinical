@@ -11,7 +11,6 @@ import {
   FileText,
   Pill,
   Boxes,
-  ClipboardCheck,
   Truck,
   ShoppingCart,
   Receipt,
