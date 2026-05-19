@@ -31,16 +31,17 @@ export default function AppRoutes({
 
         <Route path="/login" element={<Login />} />
 
-        <Route
-          element={
-            <ProtectedRoute>
-              <DashboardLayout
-                isDark={isDark}
-                toggleTheme={toggleTheme}
-              />
-            </ProtectedRoute>
-          }
-        >
+          <Route
+            element={
+              <ProtectedRoute>
+                <DashboardLayout
+                  isDark={isDark}
+                  toggleTheme={toggleTheme}
+                />
+              </ProtectedRoute>
+            }
+          >
+          <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
           <Route path="/" element={<LabDashboard />} />
           <Route path="/lab/new-request" element={<NewLabRequest />} />
           <Route path="/lab/requests" element={<LabRequests />} />
