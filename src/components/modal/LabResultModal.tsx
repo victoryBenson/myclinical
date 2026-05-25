@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Descriptions, Tag, Button } from "antd";
-import type { LabResult } from "../../types/lab.types";
+import type { LabResult } from "../../types/lab";
 
 interface LabResultModalProps {
   open: boolean;

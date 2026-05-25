@@ -4,7 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import SectionHeader from "../../components/ui/SectionHeader";
 import dayjs from "../../utils/dayJs";
 import type { Dayjs } from "dayjs";
-import type { LabResult } from "../../types/lab.types";
+import type { LabResult } from "../../types/lab";
 import { mockResults } from "../../data/lab.mock";
 import LabResultFilters from "../../components/Lab/LabResultFilter";
 import { Download } from "lucide-react";

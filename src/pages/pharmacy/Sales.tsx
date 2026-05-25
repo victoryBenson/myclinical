@@ -423,7 +423,7 @@ import {
   mockPatients,
 } from "../../data/pharmacy";
 
-import type { Sale, SaleItem } from "../../types/pharmacy.types";
+import type { Sale, SaleItem } from "../../types/pharmacy";
 
 const { Option } = Select;
 

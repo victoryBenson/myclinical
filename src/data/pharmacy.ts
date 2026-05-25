@@ -1,4 +1,4 @@
-import type { Medication, Prescription, PurchaseOrder, Supplier } from "../types/pharmacy.types";
+import type { Medication, Prescription, PurchaseOrder, Supplier } from "../types/pharmacy";
 
 export const pharmacyStats = {
   totalMedications: 128,

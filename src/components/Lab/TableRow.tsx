@@ -1,4 +1,4 @@
-import type { LabRequest } from "../../types/lab.types";
+import type { LabRequest } from "../../types/lab";
 
 interface TableRowProps {
   request: LabRequest;

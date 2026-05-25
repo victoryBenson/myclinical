@@ -15,6 +15,8 @@ import Prescriptions from "../pages/pharmacy/Prescriptions";
 import Suppliers from "../pages/pharmacy/Suppliers";
 import PharmacyOrders from "../pages/pharmacy/PharmacyOrders";
 import PharmacySales from "../pages/pharmacy/Sales";
+import PatientDashboard from "../pages/patients/PatientDashboard";
+import Patients from "../pages/patients/Patients";
 
 interface AppRoutesProps {
   isDark: boolean;
@@ -31,18 +33,25 @@ export default function AppRoutes({
 
         <Route path="/login" element={<Login />} />
 
-          <Route
-            element={
-              <ProtectedRoute>
-                <DashboardLayout
-                  isDark={isDark}
-                  toggleTheme={toggleTheme}
-                />
-              </ProtectedRoute>
-            }
-          >
+            <Route
+                element={
+                <ProtectedRoute>
+                    <DashboardLayout
+                    isDark={isDark}
+                    toggleTheme={toggleTheme}
+                    />
+                </ProtectedRoute>
+                }
+            >
+            {/* patient's module routes */}
+
+            <Route path="/" element={<PatientDashboard />} />
+            <Route path="/patients" element={<Patients/>} />
+            <Route path="/admissions" element={<div>Admissions List</div>} />
+            <Route path="/admissions/new" element={<div>New Admission Form</div>} />
+
           <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
-          <Route path="/" element={<LabDashboard />} />
+          <Route path="/lab" element={<LabDashboard />} />
           <Route path="/lab/new-request" element={<NewLabRequest />} />
           <Route path="/lab/requests" element={<LabRequests />} />
           <Route path="/lab/queue" element={<LabQueue />} />

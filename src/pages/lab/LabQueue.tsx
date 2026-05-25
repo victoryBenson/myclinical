@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Table, Tag, Button, Space } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import type { LabRequest, LabStatus } from "../../types/lab.types";
+import type { LabRequest, LabStatus } from "../../types/lab";
 import { mockRequests } from "../../data/lab.mock";
 import dayjs from "../../utils/dayJs";
 import type { Dayjs } from "dayjs";

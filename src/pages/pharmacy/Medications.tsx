@@ -5,7 +5,7 @@ import type { Dayjs } from "dayjs";
 import dayjs from "../../utils/dayJs";
 import { Download } from "lucide-react";
 import SectionHeader from "../../components/ui/SectionHeader";
-import type { Medication } from "../../types/pharmacy.types";
+import type { Medication } from "../../types/pharmacy";
 import { mockMedications } from "../../data/pharmacy";
 import MedicationFilters from "../../components/pharmacy/MedicationFilters";
 

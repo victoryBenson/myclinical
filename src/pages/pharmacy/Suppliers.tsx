@@ -15,7 +15,7 @@ import { Download } from "lucide-react";
 import dayjs from "../../utils/dayJs";
 import SectionHeader from "../../components/ui/SectionHeader";
 import { mockSuppliers } from "../../data/pharmacy";
-import type { Supplier } from "../../types/pharmacy.types";
+import type { Supplier } from "../../types/pharmacy";
 import SuppliersFilters from "../../components/pharmacy/SuppliersFilters";
 
 const { Option } = Select;  

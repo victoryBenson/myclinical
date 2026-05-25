@@ -17,10 +17,19 @@ import {
 } from "lucide-react";
 
 export const sidebarModules = [
+    {
+    title: "Patient's Module",
+    items: [
+      { name: "Dashboard", path: "/", icon: LayoutDashboard },
+      { name: "Patients", path: "/patients", icon: Users },
+      { name: "Admissions", path: "/admissions", icon: ClipboardList },
+      { name: "Appointment", path: "/admissions/new", icon: ClipboardList },
+    ],
+  },
   {
     title: "Lab Module",
       items: [
-        { name: "Dashboard", path: "/", icon: LayoutDashboard },
+        { name: "Dashboard", path: "/lab", icon: LayoutDashboard },
         { name: "New Request", path: "/lab/new-request", icon: ClipboardPlus },
         { name: "Requests", path: "/lab/requests", icon: ListChecks },
         { name: "Queue", path: "/lab/queue", icon: Clock },
@@ -41,13 +50,7 @@ export const sidebarModules = [
     { name: "Reports", path: "/pharmacy/reports", icon: FileText },
   ],
 },
-  {
-    title: "Patients Module",
-    items: [
-      { name: "All Patients", path: "/patients", icon: Users },
-      { name: "Admissions", path: "/admissions", icon: ClipboardList },
-    ],
-  },
+
   {
     title: "Billing Module",
     items: [

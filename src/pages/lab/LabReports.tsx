@@ -4,7 +4,7 @@ import type { ColumnsType } from "antd/es/table";
 import { Download, Eye } from "lucide-react";
 import SectionHeader from "../../components/ui/SectionHeader";
 import { mockReports } from "../../data/lab.mock";
-import type { LabReport } from "../../types/lab.types";
+import type { LabReport } from "../../types/lab";
 import LabReportModal from "../../components/modal/LabReportModal";
 import LabReportFilters from "../../components/Lab/LabReportFilters";
 import dayjs from "../../utils/dayJs";

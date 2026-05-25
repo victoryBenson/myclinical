@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, Descriptions, Tag, Button, Timeline, Divider } from "antd";
 import { FileText, Printer, CheckCircle, XCircle } from "lucide-react";
-import type { LabReport } from "../../types/lab.types";
+import type { LabReport } from "../../types/lab";
 
 interface Props {
   open: boolean;

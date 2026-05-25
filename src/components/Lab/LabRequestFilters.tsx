@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Select, Button } from "antd";
 import { SearchOutlined, ReloadOutlined } from "@ant-design/icons";
-import type { LabStatus } from "../../types/lab.types";
+import type { LabStatus } from "../../types/lab";
 import type { Dayjs } from "dayjs";
 import DateRangePicker from "../ui/DateRangePicker";
 

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Table, Tag, Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import SectionHeader from "../../components/ui/SectionHeader";
-import type { LabRequest, LabStatus } from "../../types/lab.types";
+import type { LabRequest, LabStatus } from "../../types/lab";
 import dayjs from "../../utils/dayJs";
 import type { Dayjs } from "dayjs";
 import DateRangePicker from "../../components/ui/DateRangePicker";
@@ -22,7 +22,6 @@ const LabRequests: React.FC = () => {
   const [dateRange, setDateRange] =
     useState<[Dayjs | null, Dayjs | null] | null>(null);
 
-  // FILTERED DATA
   const filteredRequests = useMemo(() => {
     return mockRequests.filter((request) => {
       const matchesSearch =
@@ -63,7 +62,6 @@ const LabRequests: React.FC = () => {
     });
   }, [search, statusFilter, priorityFilter, testFilter, dateRange]);
 
-  // CSV EXPORT
   const exportCSV = () => {
     const headers = [
       "ID",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from "antd";
 import { ShoppingCart, Wallet, Clock } from "lucide-react";
-import type { Sale } from "../../types/pharmacy.types";
+import type { Sale } from "../../types/pharmacy";
 
 interface Props {
   sales: Sale[];

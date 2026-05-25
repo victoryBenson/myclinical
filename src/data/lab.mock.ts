@@ -1,4 +1,4 @@
-import type { LabReport, LabRequest, LabResult } from "../types/lab.types";
+import type { LabReport, LabRequest, LabResult } from "../types/lab";
 
 export const mockRequests: LabRequest[] = [
   {

@@ -292,7 +292,7 @@ import type { Dayjs } from "dayjs";
 import dayjs from "../../utils/dayJs";
 import { Download } from "lucide-react";
 import SectionHeader from "../../components/ui/SectionHeader";
-import type { Prescription } from "../../types/pharmacy.types";
+import type { Prescription } from "../../types/pharmacy";
 import { mockPrescriptions, mockMedications } from "../../data/pharmacy";
 import PrescriptionFilters from "../../components/pharmacy/PrescriptionsFilter";
 

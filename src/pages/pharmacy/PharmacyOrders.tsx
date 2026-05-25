@@ -23,7 +23,7 @@ import {
   mockSuppliers,
   mockMedications,
 } from "../../data/pharmacy";
-import type { PurchaseItem, PurchaseOrder } from "../../types/pharmacy.types";
+import type { PurchaseItem, PurchaseOrder } from "../../types/pharmacy";
 import PurchaseOrderFilters from "../../components/pharmacy/PurchaseOrderFilters";
 
 const { Option } = Select;

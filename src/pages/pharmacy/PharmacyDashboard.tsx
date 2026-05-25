@@ -204,7 +204,6 @@ const PharmacyDashboard: React.FC = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Sales Table */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-4">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-lg">

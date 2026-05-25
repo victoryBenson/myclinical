@@ -8,7 +8,7 @@ export interface Medication {
   unitPrice: number;
   expiryDate: string;
   status: StockStatus;
-}
+};
 
 export type PaymentStatus =
   | "unpaid"
