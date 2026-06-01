@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { patientService } from "../services/patient.service";
-import type { Patient } from "../types/patients";
+import type { CreatePatientDto } from "../types/patients/createPatientDto";
+import type { Patient } from "../types/patients/fetchPatientDto";
 
 interface PatientStore {
   patients: Patient[];
@@ -10,6 +11,7 @@ interface PatientStore {
   error: string | null;
 
   fetchPatients: () => Promise<void>;
+  createPatient: (data: CreatePatientDto) => Promise<void>;
 };
 
 export const usePatientStore = create<PatientStore>(
@@ -40,6 +42,28 @@ export const usePatientStore = create<PatientStore>(
         });
 
         console.log(error);
+      }
+    },
+    createPatient: async (data: CreatePatientDto) => {
+      try {
+        set({
+          loading: true,
+          error: null,
+        });
+
+        const newPatient = await patientService.createPatient(data);
+
+        set((state) => ({
+          patients: [...state.patients, newPatient],
+          loading: false,
+        }));
+      } catch (error) {
+        set({
+          error: "Failed to create patient",
+          loading: false,
+        });
+        throw error;
+        console.log(error); 
       }
     },
   })

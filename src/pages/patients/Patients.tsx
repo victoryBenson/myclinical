@@ -1,29 +1,36 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { Table, Tag, Button, Drawer, Tooltip } from "antd";
+import { Table, Tag, Button, Drawer, Tooltip, Modal } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { Dayjs } from "dayjs";
 import dayjs from "../../utils/dayJs";
 import { Download, Eye } from "lucide-react";
 import SectionHeader from "../../components/ui/SectionHeader";
 import { tabDetails } from "../../data/patients";
-import type { Patient } from "../../types/patients";
 import { usePatientStore } from "../../store/patient.store";
 import PatientProfileModal from "../../components/modal/patients/PatientProfile";
 import PatientFilters from "../../components/Patients/PatientsFilter";
 import CreatePatient from "./CreatePatientDashboard";
+import toast from "react-hot-toast";
+import type { Patient } from "../../types/patients";
+import OpdPatientProfile from "../../components/modal/patients/OpdPatientProfile";
+
 
 const Patients: React.FC = () => {
   const [showFilters, setShowFilters] = useState(true);
   const [search, setSearch] = useState("");
   const [patientType, setPatientType] = useState("all");
   const [dateRange, setDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
-  const [tab, setTab] = useState('all')
+  const [tab, setTab] = useState(() => {
+    return localStorage.getItem("patient-tab") || "all";
+  });
   const [status, setStatus] = useState("all");
   const [hmoFilter, setHmoFilter] = useState("all");
   const currentTab =  tabDetails[tab] || tabDetails["all"];
   const [open, setOpen] = useState(false)
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
   const { patients, loading, error,  fetchPatients} = usePatientStore();
+  const [viewOpd, setViewOpd] = useState(false);
+  
 
 
   const resetFilters = () => {
@@ -123,7 +130,10 @@ const Patients: React.FC = () => {
 
   {
     title: "Gender",
-    dataIndex: "gender"
+    dataIndex: "gender",
+    render: (e)=> {
+      return `${e.charAt(0).toUpperCase() + e.slice(1)}`
+    }
   },
 
   {
@@ -147,18 +157,23 @@ const Patients: React.FC = () => {
   {
     title: "Patient Type",
     dataIndex: "is_out_patient",
-    render: (item:boolean) => item ? "Out-Patient" : "In-Patient",
+    // render: (item:boolean) => item ? "Out-Patient" : "In-Patient",
+    render:(_, record) => record.is_out_patient ? (
+      <Tag color="blue">Out-Patient</Tag>
+    ) : (
+      <Tag color="purple">In-Patient</Tag>
+    )
   },
-  {
-    title: "Status",
-    render: (_, record) => {
-      return record.is_active ? (
-        <Tag color="green">Active</Tag>
-      ) : (
-        <Tag color="red">Inactive</Tag>
-      );
-    },
-  },
+  // {
+  //   title: "Status",
+  //   render: (_, record) => {
+  //     return record.is_active ? (
+  //       <Tag color="green">Active</Tag>
+  //     ) : (
+  //       <Tag color="red">Inactive</Tag>
+  //     );
+  //   },
+  // },
   {
   title: "Actions",
   render: (_, record) => (
@@ -178,12 +193,33 @@ const Patients: React.FC = () => {
 
  const handleView = (record: Patient) => {
     setSelectedPatient(record);
+    if(record.is_out_patient){
+      setViewOpd(true);
+    } else {
     setOpen(true);
-  };
+    }
+};
+
 
   useEffect(() => {
     fetchPatients();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("patient-tab", tab);
+  }, [tab]);
+
+  useEffect(() => {
+  localStorage.setItem(
+    "patient-filters",
+    JSON.stringify({
+      search,
+      patientType,
+      status,
+      hmoFilter,
+    })
+  );
+}, [search, patientType, status, hmoFilter]);
 
 
  const renderContent = () => {
@@ -247,7 +283,7 @@ const Patients: React.FC = () => {
             <Button
               type="primary"
               icon={<Download size={14} />}
-              // onClick={exportCSV}
+              onClick={() => toast.success("Export feature coming soon!")}
             >
               Export CSV
             </Button>
@@ -295,7 +331,7 @@ const Patients: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center gap-1 bg-[#F5FDF2] p-2 rounded-xl border border-[#E0F6D6] overflow-x-auto current-tab-track">
+        <div className="flex items-center gap-1 bg-[#F5FDF2] p-2 rounded-lg border border-[#E0F6D6] overflow-x-auto current-tab-track">
           <button
             onClick={() => setTab("all")}
             className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
@@ -347,16 +383,27 @@ const Patients: React.FC = () => {
       </div>
       {renderContent()}
       {open && selectedPatient && (
-      <Drawer        
-        title="Patient Profile"
-        placement="right"
-        onClose={() => setOpen(false)}
-        open={open}
-        width='99%'
-        
-      > 
-        <PatientProfileModal patient={selectedPatient} />
-      </Drawer>
+        <Drawer        
+          title="Patient Profile"
+          placement="right"
+          onClose={() => setOpen(false)}
+          open={open}
+          width='99%'
+          
+        > 
+          <PatientProfileModal patient={selectedPatient} />
+        </Drawer>
+      )}
+      {viewOpd && selectedPatient && (
+        <Modal
+          title="OPD Patient Profile"
+          open={viewOpd}
+          onCancel={() => setViewOpd(false)}
+          footer={null}
+          width='50%'
+        >
+          <OpdPatientProfile patient={selectedPatient} />
+        </Modal>
       )}
     </div>
   );

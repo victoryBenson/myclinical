@@ -22,8 +22,8 @@ export const sidebarModules = [
     items: [
       { name: "Dashboard", path: "/", icon: LayoutDashboard },
       { name: "Patients", path: "/patients", icon: Users },
-      { name: "Admissions", path: "/admissions", icon: ClipboardList },
       { name: "Appointment", path: "/admissions/new", icon: ClipboardList },
+      { name: "Admissions", path: "/admissions", icon: ClipboardList },
     ],
   },
   {

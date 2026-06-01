@@ -113,7 +113,7 @@ export default function Header({ isDark, toggleTheme }: HeaderProps) {
               />
               <div className="text-sm">
                 <p className="font-medium text-gray-700 dark:text-white">
-                  Dr. Grace
+                  Dr. Lilian
                 </p>
                 <p className="text-gray-400 text-xs">Admin</p>
               </div>

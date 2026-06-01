@@ -1,4 +1,3 @@
-import type { Patient } from "../../../types/patients";
 import {
   Phone,
   Mail,
@@ -21,6 +20,7 @@ import {
   UserPen,
   UserPlus,
 } from "lucide-react";
+import type { Patient } from "../../../types/patients";
 
 const PatientProfileModal = ({ patient }: { patient: Patient }) => {
   const workspaceNav = [
@@ -219,7 +219,7 @@ const PatientProfileModal = ({ patient }: { patient: Patient }) => {
 
         <div className="bg-white rounded-2xl border border-zinc-200/60 shadow-sm overflow-hidden">
           <div className="flex overflow-x-auto border-b border-zinc-100 bg-zinc-50/40 px-6">
-            {["Patient Information", "Next Of Kin", "Appointments", "Medical History", "Billing", "Documents"].map((tab, idx) => (
+            {["Patient Information", "Appointments", "Medical History", "Billing", "Documents"].map((tab, idx) => (
               <button
                 key={tab}
                 className={`px-4 py-3.5 text-xs font-semibold tracking-wide border-b-2 whitespace-nowrap transition-all

@@ -1,4 +1,5 @@
 import type { Patient } from "../types/patients";
+import type { CreatePatientDto } from "../types/patients/createPatientDto";
 import api from "./api";
 
 interface GetPatientsParams {
@@ -14,12 +15,7 @@ export const patientService = {
     params?: GetPatientsParams
   ): Promise<Patient[]> {
     try {
-      const response = await api.get(
-        "/patients",
-        {
-          params,
-        }
-      );
+      const response = await api.get("/patients", { params} );
 
       return response.data;
     } catch (error) {
@@ -27,4 +23,9 @@ export const patientService = {
       throw error;
     }
   },
+
+  createPatient: async (data: CreatePatientDto) => {
+  const response = await api.post("/patients", data);
+  return response.data;
+}
 };

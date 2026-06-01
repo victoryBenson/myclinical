@@ -273,7 +273,6 @@ const PatientDashboard: React.FC = () => {
         </div> */}
       </div>
 
-      {/* Appointment Status Analysis */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm p-6">
         <h3 className="font-semibold mb-4"> Appointment Status Analysis</h3>
         <ResponsiveContainer width="100%" height={250}>
