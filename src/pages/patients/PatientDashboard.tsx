@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { Button, Table, Drawer, Select } from "antd";
+import { Button, Table, Select } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   AlertTriangle,
   Clock,
-  Eye,
   Printer,
   CheckIcon,
   VerifiedIcon,
@@ -147,47 +146,47 @@ const PatientDashboard: React.FC = () => {
           title="Total Appointments"
           value={patientStats.totalAppointments}
           icon={CalendarDays }
-          iconBg="bg-primary/10"
+          iconBg="bg-primary-soft"
           iconColor="text-primary"
         />
         <StatsCard
           title="Checked-in Patients"
           value={patientStats.checkedInPatients}
           icon={CheckIcon}
-          iconBg="bg-green-100 dark:bg-green-900"
-          iconColor="text-green-600"
+          iconBg="bg-success-soft dark:bg-success-dark"
+          iconColor="text-success"
         />
         <StatsCard
           title="Waiting Patients"
           value={patientStats.waitingPatients}
           icon={Clock}
-          iconBg="bg-yellow-100 dark:bg-yellow-900"
-          iconColor="text-yellow-600"
-          valueColor="text-yellow-600"
+          iconBg="bg-warning-soft dark:bg-warning-dark"
+          iconColor="text-warning"
+          valueColor="text-warning"
         />
         <StatsCard
           title="Doctors Available"
           value={patientStats.doctorsAvailable}
           icon={AlertTriangle}
-          iconBg="bg-blue-100 dark:bg-blue-900"
-          iconColor="text-blue-600"
-          valueColor="text-blue-600"
+          iconBg="bg-info-soft dark:bg-info-dark"
+          iconColor="text-info"
+          valueColor="text-info"
         />
         <StatsCard
           title="Completed Visits"
           value={patientStats.completedVisits}
           icon={VerifiedIcon}
-          iconBg="bg-green-100 dark:bg-green-900"
-          iconColor="text-green-600"
-          valueColor="text-green-600"
+          iconBg="bg-success-soft dark:bg-success-dark"
+          iconColor="text-success"
+          valueColor="text-success"
         />
         <StatsCard
           title="Emergency Cases"
           value={patientStats.emergencyCases}
           icon={AlertTriangle}
-          iconBg="bg-red-100 dark:bg-red-900"
-          iconColor="text-red-600"
-          valueColor="text-red-600"
+          iconBg="bg-danger-soft dark:bg-danger-dark"
+          iconColor="text-danger"
+          valueColor="text-danger"
         />
       </div>
         {/* Patient Trend Chart */}
@@ -248,7 +247,7 @@ const PatientDashboard: React.FC = () => {
               <Option value="month">Month</Option>
             </Select>
 
-            <Button type="primary">
+            <Button type="primary" icon={<Printer size={14} />}>
               Export
             </Button>
           </div>

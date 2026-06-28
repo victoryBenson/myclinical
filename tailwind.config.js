@@ -8,19 +8,43 @@ export default {
         sans: ["Inter", "sans-serif"],
       },
       colors: {
-       
         primary: {
-          DEFAULT: "#2EB62C",
+          DEFAULT: '#001A00',
+          dark: "#001300",
+          darker: "#000D00",
+          deepest: "#000600",
+          light: "#ccd1cc",
+          lighter: "#dce0dc",
+          soft: "#e6eae6",
+          subtle: "#f2f4f2",
+          ultraLight: "#f9faf9"
+        },
+         success: {
+          DEFAULT: '#16a34a', 
+          soft: '#dcfce7', 
+          dark: '#14532d',
+          50: '#F0FDF4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+        },
 
-          dark: "#249422",      
-          darker: "#1B6F19",    
-          deepest: "#145212",   
+        info: {
+          DEFAULT: '#2563eb',
+          soft: '#dbeafe',
+          dark: '#1e3a8a',   
+        },
 
-          light: "#C5E8B7",
-          lighter: "#D4F1C8",
-          soft: "#E0F6D6",
-          subtle: "#ECFBE6",
-          ultraLight: "#F5FDF2"
+        warning: {
+          DEFAULT: '#ca8a04', 
+          soft: '#fef9c3',
+          dark: '#713f12',     
+        },
+
+        danger: {
+          DEFAULT: '#dc2626', 
+          soft: '#fee2e2',
+          dark: '#7f1d1d',     
         },
       },
       keyframes: {

@@ -17,6 +17,7 @@ import PharmacyOrders from "../pages/pharmacy/PharmacyOrders";
 import PharmacySales from "../pages/pharmacy/Sales";
 import PatientDashboard from "../pages/patients/PatientDashboard";
 import Patients from "../pages/patients/Patients";
+import Appointments from "../pages/appointments/Home";
 
 interface AppRoutesProps {
   isDark: boolean;
@@ -47,8 +48,8 @@ export default function AppRoutes({
 
             <Route path="/" element={<PatientDashboard />} />
             <Route path="/patients" element={<Patients/>} />
-            <Route path="/admissions" element={<div>Admissions List</div>} />
-            <Route path="/admissions/new" element={<div>New Admission Form</div>} />
+            <Route path="/appointments/new" element={<Appointments />} />
+            <Route path="/admissions" element={<div>this is admission page</div>} />
 
           <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />
           <Route path="/lab" element={<LabDashboard />} />

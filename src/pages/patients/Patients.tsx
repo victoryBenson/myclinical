@@ -30,6 +30,13 @@ const Patients: React.FC = () => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
   const { patients, loading, error,  fetchPatients} = usePatientStore();
   const [viewOpd, setViewOpd] = useState(false);
+
+  const tabs = [
+    { key: 'all', label: 'All Patients' },
+    { key: 'new-patient', label: 'Register Patient' },
+    { key: 'admitted-patient', label: 'Admitted Patients' },
+    { key: 'opd-patient', label: 'OPD Patients' },
+  ];
   
 
 
@@ -331,55 +338,23 @@ const Patients: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center gap-1 bg-[#F5FDF2] p-2 rounded-lg border border-[#E0F6D6] overflow-x-auto current-tab-track">
-          <button
-            onClick={() => setTab("all")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "all"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            All Patients
-          </button>
-
-          <button
-            onClick={() => setTab("new-patient")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "new-patient"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            Register Patient
-          </button>
-
-          <button
-            onClick={() => setTab("admitted-patient")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "admitted-patient"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            Admitted Patients
-          </button>
-
-          <button
-            onClick={() => setTab("opd-patient")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "opd-patient"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            OPD Patients
-          </button>
-        </div>
+        <div className="flex items-center gap-2 p-2 rounded-xl bg-success-50 border border-success-100 overflow-x-auto">
+          {tabs.map((item) => (
+            <Button
+              key={item.key}
+              type={tab === item.key ? 'primary' : 'text'}
+              onClick={() => setTab(item.key)}
+              className={`
+                !h-10
+                !rounded-xl
+                !font-semibold
+                whitespace-nowrap
+              `}
+            >
+              {item.label}
+            </Button>
+          ))}
+      </div>
       </div>
       {renderContent()}
       {open && selectedPatient && (
