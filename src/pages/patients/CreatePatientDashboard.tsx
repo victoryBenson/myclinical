@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CreateOPDPatient from "./CreateOPDPatient";
 import CreateNewPatient from "./CreateNewPatient";
-import ActionButton from "../../utils/GlobalButtonStyles";
 import QuickActionsCard from "../../utils/QuickActionCard";
 import {
   UserAddOutlined,

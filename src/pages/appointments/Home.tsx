@@ -21,7 +21,7 @@ const Appointments: React.FC = () => {
   const [patientType, setPatientType] = useState("all");
   const [dateRange, setDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
   const [tab, setTab] = useState(() => {
-    return localStorage.getItem("patient-tab") || "all";
+    return localStorage.getItem("patient-tab") || "today-appointments";
   });
   const [status, setStatus] = useState("all");
   const [hmoFilter, setHmoFilter] = useState("all");

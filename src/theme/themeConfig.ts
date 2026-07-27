@@ -1,7 +1,17 @@
 import { theme as antdTheme } from "antd";
 
 export const COLORS = {
-  primary: "#001A00",
+  primary: {
+    DEFAULT: "#2EB62C",
+    dark: "#259224",
+    darker: "#1C6D1B",
+    deepest: "#124912",
+    light: "#D5F0D5",
+    lighter: "#E4F6E4",
+    soft: "#EDF9ED",
+    subtle: "#F5FCF5",
+    ultraLight: "#FBFEFB",
+  },
 
   success: {
     DEFAULT: "#16a34a",
@@ -28,63 +38,9 @@ export const COLORS = {
   },
 };
 
-// export const COLORS = {
-//   primary: '#001A00',
-
-//   success: '#16a34a',
-//   successSoft: '#dcfce7',
-//   successDark: '#14532d',
-
-//   info: '#2563eb',
-//   infoSoft: '#dbeafe',
-//   infoDark: '#1e3a8a',
-
-//   warning: '#ca8a04',
-//   warningSoft: '#fef9c3',
-//   warningDark: '#713f12',
-
-//   error: '#dc2626',
-//   errorSoft: '#fee2e2',
-//   errorDark: '#7f1d1d',
-// };
-
-
-// export const lightTheme = {
-//   token: {
-//     colorPrimary: COLORS.primary,
-
-//     colorSuccess: COLORS.success,
-//     colorWarning: COLORS.warning,
-//     colorError: COLORS.error,
-//     colorInfo: COLORS.info,
-
-//     borderRadius: 12,
-//     fontFamily: "Inter, sans-serif",
-//     colorBgBase: '#ffffff',
-//     colorTextBase: '#111827',
-//   },
-// };
-
-// export const darkTheme = {
-//   algorithm: antdTheme.darkAlgorithm,
-//   token: {
-//     colorPrimary: COLORS.primary,
-
-//     colorSuccess: COLORS.success,
-//     colorWarning: COLORS.warning,
-//     colorError: COLORS.error,
-//     colorInfo: COLORS.info,
-
-//     borderRadius: 12,
-//     fontFamily: "Inter, sans-serif",
-//     colorBgBase: '#0a0a0a',
-//     colorTextBase: '#f5f5f5',
-//   },
-// };
-
 export const lightTheme = {
   token: {
-    colorPrimary: COLORS.primary,
+    colorPrimary: COLORS.primary.DEFAULT,
 
     colorSuccess: COLORS.success.DEFAULT,
     colorWarning: COLORS.warning.DEFAULT,
@@ -97,7 +53,15 @@ export const lightTheme = {
     colorBgBase: "#ffffff",
     colorTextBase: "#111827",
 
-    // 👇 IMPORTANT ADDITIONS (for full control)
+    // Primary colors
+    colorPrimaryBg: COLORS.primary.soft,
+    colorPrimaryBgHover: COLORS.primary.light,
+    colorPrimaryBorder: COLORS.primary.light,
+    colorPrimaryBorderHover: COLORS.primary.DEFAULT,
+    colorPrimaryHover: COLORS.primary.dark,
+    colorPrimaryActive: COLORS.primary.darker,
+
+    // Status colors
     colorSuccessBg: COLORS.success.soft,
     colorSuccessBorder: COLORS.success.soft,
 
@@ -116,7 +80,7 @@ export const darkTheme = {
   algorithm: antdTheme.darkAlgorithm,
 
   token: {
-    colorPrimary: COLORS.primary,
+    colorPrimary: COLORS.primary.DEFAULT,
 
     colorSuccess: COLORS.success.DEFAULT,
     colorWarning: COLORS.warning.DEFAULT,
@@ -129,6 +93,14 @@ export const darkTheme = {
     colorBgBase: "#0a0a0a",
     colorTextBase: "#f5f5f5",
 
+    // Primary colors
+    colorPrimaryBg: COLORS.primary.deepest,
+    colorPrimaryBgHover: COLORS.primary.darker,
+    colorPrimaryBorder: COLORS.primary.dark,
+    colorPrimaryHover: "#4CCB4A",
+    colorPrimaryActive: COLORS.primary.DEFAULT,
+
+    // Status colors
     colorSuccessBg: COLORS.success.dark,
     colorErrorBg: COLORS.error.dark,
     colorWarningBg: COLORS.warning.dark,
