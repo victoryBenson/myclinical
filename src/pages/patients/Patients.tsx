@@ -331,6 +331,23 @@ const Patients: React.FC = () => {
           />
         </div>
 
+        {/* <div className="flex items-center gap-1 bg-[#F5FDF2] p-2 rounded-lg border border-[#E0F6D6] overflow-x-auto current-tab-track">
+          {tabs.map((item) => (
+            <Button
+              key={item.key}
+              type={tab === item.key ? 'primary' : 'text'}
+              onClick={() => setTab(item.key)}
+              className={`
+                !h-10
+                !rounded-xl
+                !font-semibold
+                whitespace-nowrap
+              `}
+            >
+              {item.label}
+            </Button>
+          ))}
+        </div> */}
         <div className="flex items-center gap-1 bg-[#F5FDF2] p-2 rounded-lg border border-[#E0F6D6] overflow-x-auto current-tab-track">
           <button
             onClick={() => setTab("all")}
@@ -343,7 +360,6 @@ const Patients: React.FC = () => {
           >
             All Patients
           </button>
-
           <button
             onClick={() => setTab("new-patient")}
             className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
@@ -353,7 +369,7 @@ const Patients: React.FC = () => {
                   : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
               }`}
           >
-            Register Patient
+            New Patient
           </button>
 
           <button
@@ -379,6 +395,8 @@ const Patients: React.FC = () => {
           >
             OPD Patients
           </button>
+
+          
         </div>
       </div>
       {renderContent()}

@@ -22,7 +22,7 @@ export const sidebarModules = [
     items: [
       { name: "Dashboard", path: "/", icon: LayoutDashboard },
       { name: "Patients", path: "/patients", icon: Users },
-      { name: "Appointment", path: "/admissions/new", icon: ClipboardList },
+      { name: "Appointments", path: "/appointments/new", icon: ClipboardList },
       { name: "Admissions", path: "/admissions", icon: ClipboardList },
     ],
   },

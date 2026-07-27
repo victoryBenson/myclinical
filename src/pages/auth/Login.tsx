@@ -67,7 +67,7 @@ export default function Login() {
         <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-primary to-primary-dark flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-[#4CBB17]/10 to-[#4CBB17] flex items-center justify-center shadow-lg shadow-[#4CBB17]/20 border border-white/10">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
@@ -83,7 +83,7 @@ export default function Login() {
         <div className="relative z-10 max-w-lg mb-4">
           <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-[1.15] mb-5">
             Precision care, <br />
-            connected in real <span className="font-serif italic text-primary font-normal">time</span>.
+            connected in real <span className="font-serif italic text-[#4CBB17] font-normal">time</span>.
           </h2>
           <p className="text-zinc-400 text-sm font-light leading-relaxed max-w-sm">
             Access secure electronic health records, streamline patient encounters, and manage clinical workflows effortlessly.
@@ -123,7 +123,7 @@ export default function Login() {
               Clinical Authentication
             </p>
             <h1 className="text-2xl font-light text-zinc-100 tracking-tight">
-              Staff <span className="font-serif italic text-primary font-normal">Sign</span> In
+              Staff <span className="font-serif italic text-[#4CBB17] font-normal">Sign</span> In
             </h1>
           </header>
 
@@ -162,7 +162,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-primary to-primary-dark hover:brightness-110 text-white text-sm font-medium tracking-wide shadow-lg shadow-primary/10 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center justify-center gap-2.5 border border-white/5"
+              className="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-[#4CBB17]/50 to-[#4CBB17] hover:brightness-110 text-white text-sm font-medium tracking-wide shadow-lg shadow-[#4CBB17]/10 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center justify-center gap-2.5 border border-white/5"
             >
               {mutation.isPending && (
                 <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
