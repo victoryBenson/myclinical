@@ -13,6 +13,7 @@ import CreatePatient from "./CreatePatientDashboard";
 import toast from "react-hot-toast";
 import type { Patient } from "../../types/patients";
 import OpdPatientProfile from "../../components/modal/patients/OpdPatientProfile";
+import Skeleton from "react-loading-skeleton";
 
 
 const Patients: React.FC = () => {
