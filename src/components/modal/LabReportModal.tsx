@@ -74,10 +74,10 @@ const LabReportModal: React.FC<Props> = ({
           <Tag
             color={
               report.status === "approved"
-                ? "green"
+                ? "success"
                 : report.status === "pending"
-                ? "orange"
-                : "red"
+                ? "warning"
+                : "error"
             }
           >
             {report.status.toUpperCase()}

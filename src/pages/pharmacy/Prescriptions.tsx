@@ -432,10 +432,10 @@ const Prescriptions: React.FC = () => {
       dataIndex: "status",
       render: (status: string) => {
         if (status === "pending")
-          return <Tag color="orange">Pending</Tag>;
+          return <Tag color="warning">Pending</Tag>;
         if (status === "dispensed")
-          return <Tag color="green">Dispensed</Tag>;
-        return <Tag color="red">Cancelled</Tag>;
+          return <Tag color="success">Dispensed</Tag>;
+        return <Tag color="error">Cancelled</Tag>;
       },
     },
     {
@@ -443,9 +443,9 @@ const Prescriptions: React.FC = () => {
       dataIndex: "paymentStatus",
       render: (payment: string) =>
         payment === "paid" ? (
-          <Tag color="green">Paid</Tag>
+          <Tag color="success">Paid</Tag>
         ) : (
-          <Tag color="red">Unpaid</Tag>
+          <Tag color="error">Unpaid</Tag>
         ),
     },
     { title: "Date", dataIndex: "createdAt" },

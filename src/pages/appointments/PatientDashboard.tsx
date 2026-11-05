@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { Button, Table, Drawer, Select } from "antd";
+import { Button, Table, Select } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   AlertTriangle,
   Clock,
-  Eye,
   Printer,
   CheckIcon,
   VerifiedIcon,
@@ -23,6 +22,7 @@ import toast from "react-hot-toast";
 import SectionHeader from "../../components/ui/SectionHeader";
 import StatsCard from "../../components/ui/StatsCard";
 import { appointmentStatusData, patientStats, patientTrendData } from "../../data/patients";
+import { COLORS } from "../../theme/themeConfig";
 
 const { Option } = Select;
 
@@ -110,8 +110,8 @@ const PatientDashboard: React.FC = () => {
       render: (status: string) => {
         const color =
           status === "Paid"
-            ? "bg-green-100 text-green-600 dark:bg-green-900"
-            : "bg-yellow-100 text-yellow-600 dark:bg-yellow-900";
+            ? "bg-success-soft text-success dark:bg-success-dark/30"
+            : "bg-warning-soft text-warning dark:bg-warning-dark/30";
 
         return (
           <span className={`px-2 py-1 text-xs rounded-lg ${color}`}>
@@ -202,28 +202,28 @@ const PatientDashboard: React.FC = () => {
             <Line
               type="monotone"
               dataKey="patients"
-              stroke="#2563eb"   
+              stroke={COLORS.info.DEFAULT}   
               strokeWidth={2}
             />
 
             <Line
               type="monotone"
               dataKey="checkedIn"
-              stroke="#0d9488"  
+              stroke={COLORS.primary.dark}  
               strokeWidth={2}
             />
 
             <Line
               type="monotone"
               dataKey="completedVisits"
-              stroke="#16a34a"   
+              stroke={COLORS.success.DEFAULT}   
               strokeWidth={2}
             />
 
             <Line
               type="monotone"
               dataKey="emergencyCases"
-              stroke="#dc2626"   
+              stroke={COLORS.danger.DEFAULT}   
               strokeWidth={2}
             />
           </LineChart>
@@ -284,7 +284,7 @@ const PatientDashboard: React.FC = () => {
             <Line
               type="monotone"
               dataKey="count"
-              stroke="#0d9488"  
+              stroke={COLORS.primary.DEFAULT}  
               strokeWidth={2}
             />
           </LineChart>

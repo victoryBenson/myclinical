@@ -67,7 +67,7 @@ export default function Login() {
         <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-[#4CBB17]/10 to-[#4CBB17] flex items-center justify-center shadow-lg shadow-[#4CBB17]/20 border border-white/10">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-primary/10 to-primary flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
@@ -83,7 +83,7 @@ export default function Login() {
         <div className="relative z-10 max-w-lg mb-4">
           <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-[1.15] mb-5">
             Precision care, <br />
-            connected in real <span className="font-serif italic text-[#4CBB17] font-normal">time</span>.
+            connected in real <span className="font-serif italic text-primary font-normal">time</span>.
           </h2>
           <p className="text-zinc-400 text-sm font-light leading-relaxed max-w-sm">
             Access secure electronic health records, streamline patient encounters, and manage clinical workflows effortlessly.
@@ -92,7 +92,7 @@ export default function Login() {
 
         <div className="relative z-10 flex items-center gap-4 text-xs font-normal text-zinc-500">
           <span className="flex items-center gap-1.5">
-            <svg className="w-3.5 h-3.5 text-emerald-500/80" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-3.5 h-3.5 text-primary/80" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 4.925-3.075 9.136-7.466 10.801a1.241 1.241 0 01-.868 0C5.075 16.136 2 11.925 2 7.001c0-.68.056-1.35.166-2.001zm11.548 4.28a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             End-to-End HIPAA Encryption Secure
@@ -123,7 +123,7 @@ export default function Login() {
               Clinical Authentication
             </p>
             <h1 className="text-2xl font-light text-zinc-100 tracking-tight">
-              Staff <span className="font-serif italic text-[#4CBB17] font-normal">Sign</span> In
+              Staff <span className="font-serif italic text-primary font-normal">Sign</span> In
             </h1>
           </header>
 
@@ -162,7 +162,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-[#4CBB17]/50 to-[#4CBB17] hover:brightness-110 text-white text-sm font-medium tracking-wide shadow-lg shadow-[#4CBB17]/10 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center justify-center gap-2.5 border border-white/5"
+              className="w-full mt-4 py-3.5 rounded-xl bg-gradient-to-r from-primary-dark to-primary hover:brightness-110 text-white text-sm font-medium tracking-wide shadow-lg shadow-primary/20 active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center justify-center gap-2.5 border border-white/5"
             >
               {mutation.isPending && (
                 <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
@@ -187,8 +187,8 @@ export default function Login() {
 
             {/* Error Handlers */}
             {mutation.isError && (
-              <div className="mt-3 p-3 bg-red-500/5 border border-red-500/10 rounded-xl">
-                <p className="text-center text-xs text-red-400 font-light tracking-wide">
+              <div className="mt-3 p-3 bg-danger/5 border border-danger/20 rounded-xl">
+                <p className="text-center text-xs text-danger font-light tracking-wide">
                   {(mutation.error as any)?.message ?? "Invalid staff credentials. System access denied."}
                 </p>
               </div>

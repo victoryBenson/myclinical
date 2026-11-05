@@ -17,7 +17,22 @@ export const patientService = {
     try {
       const response = await api.get("/patients", { params} );
 
-      return response.data;
+      const payload: unknown = response.data;
+
+      if (Array.isArray(payload)) {
+        return payload as Patient[];
+      }
+
+      if (payload && typeof payload === "object") {
+        const envelope = payload as { data?: unknown; patients?: unknown };
+        const patients = envelope.patients ?? envelope.data;
+
+        if (Array.isArray(patients)) {
+          return patients as Patient[];
+        }
+      }
+
+      throw new Error("Unexpected patients response: expected an array");
     } catch (error) {
       console.log(error);
       throw error;

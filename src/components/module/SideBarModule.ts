@@ -18,7 +18,7 @@ import {
 
 export const sidebarModules = [
     {
-    title: "Patient's Module",
+    title: "Patient Management",
     items: [
       { name: "Dashboard", path: "/", icon: LayoutDashboard },
       { name: "Patients", path: "/patients", icon: Users },
@@ -27,7 +27,7 @@ export const sidebarModules = [
     ],
   },
   {
-    title: "Lab Module",
+    title: "Medical Lab",
       items: [
         { name: "Dashboard", path: "/lab", icon: LayoutDashboard },
         { name: "New Request", path: "/lab/new-request", icon: ClipboardPlus },
@@ -52,14 +52,14 @@ export const sidebarModules = [
 },
 
   {
-    title: "Billing Module",
+    title: "Billing & Payments",
     items: [
       { name: "Payments", path: "/payments", icon: CreditCard },
       { name: "Invoices", path: "/invoices", icon: ClipboardList },
     ],
   },
   {
-    title: "Inventory Module",
+    title: "Inventory Management",
     items: [
       { name: "Products", path: "/products", icon: Package },
       { name: "Stock Logs", path: "/stock-logs", icon: ClipboardList },

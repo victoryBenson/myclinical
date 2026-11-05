@@ -5,7 +5,6 @@ import SectionHeader from "../../components/ui/SectionHeader";
 import type { LabRequest, LabStatus } from "../../types/lab";
 import dayjs from "../../utils/dayJs";
 import type { Dayjs } from "dayjs";
-import DateRangePicker from "../../components/ui/DateRangePicker";
 import { mockRequests } from "../../data/lab.mock";
 import LabRequestFilters from "../../components/Lab/LabRequestFilters";
 import { Download } from "lucide-react";
@@ -106,12 +105,12 @@ const LabRequests: React.FC = () => {
       render: (priority) => {
         const color =
           priority === "urgent"
-            ? "red"
+            ? "error"
             : priority === "high"
-            ? "orange"
+            ? "warning"
             : priority === "medium"
-            ? "gold"
-            : "green";
+            ? "warning"
+            : "success";
 
         return <Tag color={color}>{priority.toUpperCase()}</Tag>;
       },
@@ -122,10 +121,10 @@ const LabRequests: React.FC = () => {
       render: (status) => {
         const color =
           status === "waiting"
-            ? "blue"
+            ? "processing"
             : status === "processing"
-            ? "orange"
-            : "green";
+            ? "warning"
+            : "success";
 
         return <Tag color={color}>{status.toUpperCase()}</Tag>;
       },

@@ -279,8 +279,8 @@ const DataTile = ({ label, value, compact = false, variant = "default" }: DataTi
   const variantStyles = {
     default: "bg-zinc-50/50 border-zinc-200/60 text-zinc-800",
     brandSuccess: "bg-primary-ultraLight border-primary-soft text-primary-deepest",
-    warning: "bg-amber-50/60 border-amber-200/60 text-amber-900",
-    danger: "bg-rose-50/60 border-rose-200/60 text-rose-900",
+    warning: "bg-warning-soft/60 border-warning-200/60 text-warning-dark",
+    danger: "bg-danger-soft/60 border-danger-200/60 text-danger-dark",
   };
 
   return (

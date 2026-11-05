@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "../pages/auth/Login";
 import ProtectedRoute from "./ProtectedRoutes";
 import DashboardLayout from "../layouts/DashboardLayouts";
@@ -33,6 +33,7 @@ export default function AppRoutes({
       <Routes>
 
         <Route path="/login" element={<Login />} />
+        <Route path="/auth/login" element={<Login />} />
 
             <Route
                 element={
@@ -67,6 +68,8 @@ export default function AppRoutes({
           <Route path="/pharmacy/purchase-orders" element={<PharmacyOrders />} />
           <Route path="/pharmacy/sales" element={<PharmacySales />} />
         </Route>
+
+        <Route path="*" element={<Navigate to="/login" replace />} />
 
       </Routes>
     </BrowserRouter>

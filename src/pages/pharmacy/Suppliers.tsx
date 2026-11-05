@@ -31,7 +31,6 @@ const Suppliers: React.FC = () => {
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("all");
   const [city, setCity] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
 
   const [formState, setFormState] = useState<Partial<Supplier>>({});
 
@@ -150,7 +149,7 @@ const Suppliers: React.FC = () => {
     {
       title: "Status",
       render: (_, record) => (
-        <Tag color={record.status === "active" ? "green" : "red"}>
+        <Tag color={record.status === "active" ? "success" : "error"}>
           {record.status}
         </Tag>
       ),
@@ -199,7 +198,6 @@ const Suppliers: React.FC = () => {
     setSearch("");
     setStatus("all");
     setCity("");
-    setStatusFilter("all");
   };
 
   return (

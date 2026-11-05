@@ -102,10 +102,10 @@ const LabReports: React.FC = () => {
         render: (status) => {
             const color =
             status === "approved"
-                ? "green"
+                ? "success"
                 : status === "pending"
-                ? "orange"
-                : "red";
+                ? "warning"
+                : "error";
 
             return <Tag color={color}>{status.toUpperCase()}</Tag>;
         },

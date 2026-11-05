@@ -37,27 +37,27 @@ const LabDashboard: React.FC = () => {
           title="Waiting"
           value={waiting}
           icon={Clock}
-          iconBg="bg-yellow-100 dark:bg-yellow-900"
-          iconColor="text-yellow-600"
-          valueColor="text-yellow-600"
+          iconBg="bg-warning-soft dark:bg-warning-dark/30"
+          iconColor="text-warning"
+          valueColor="text-warning"
         />
 
         <StatsCard
           title="Processing"
           value={processing}
           icon={FlaskConical}
-          iconBg="bg-blue-100 dark:bg-blue-900"
-          iconColor="text-blue-600"
-          valueColor="text-blue-600"
+          iconBg="bg-info-soft dark:bg-info-dark/30"
+          iconColor="text-info"
+          valueColor="text-info"
         />
 
         <StatsCard
           title="Completed"
           value={completed}
           icon={AlertTriangle}
-          iconBg="bg-green-100 dark:bg-green-900"
-          iconColor="text-green-600"
-          valueColor="text-green-600"
+          iconBg="bg-success-soft dark:bg-success-dark/30"
+          iconColor="text-success"
+          valueColor="text-success"
         />
       </div>
 

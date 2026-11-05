@@ -113,7 +113,7 @@ export default function Header({ isDark, toggleTheme }: HeaderProps) {
               />
               <div className="text-sm">
                 <p className="font-medium text-gray-700 dark:text-white">
-                  Dr. Lilian
+                  Dr. Lee
                 </p>
                 <p className="text-gray-400 text-xs">Admin</p>
               </div>
@@ -132,10 +132,10 @@ export default function Header({ isDark, toggleTheme }: HeaderProps) {
             >
               <div className="p-3 border-b dark:border-gray-700">
                 <p className="font-semibold text-gray-800 dark:text-white">
-                  Dr. Lilian
+                  Dr. Lee
                 </p>
                 <p className="text-xs text-gray-400">
-                  lilian@clinic.com
+                  lee@clinic.com
                 </p>
               </div>
 
@@ -159,7 +159,7 @@ export default function Header({ isDark, toggleTheme }: HeaderProps) {
 
                 <div className="border-t my-2 dark:border-gray-700"></div>
 
-                <li className="flex items-center gap-3 px-4 py-2 text-red-500 hover:bg-red-50 dark:hover:bg-[#2a2a2a] cursor-pointer" onClick={logout}>
+                <li className="flex items-center gap-3 px-4 py-2 text-danger hover:bg-danger-soft dark:hover:bg-[#2a2a2a] cursor-pointer" onClick={logout}>
                   <LogOut size={16} /> Logout
                 </li>
 

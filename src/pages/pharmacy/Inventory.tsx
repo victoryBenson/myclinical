@@ -110,10 +110,10 @@ const Inventory: React.FC = () => {
       dataIndex: "status",
       render: (status: string) => {
         if (status === "active")
-          return <Tag color="green">Active</Tag>;
+          return <Tag color="success">Active</Tag>;
         if (status === "expired")
-          return <Tag color="red">Expired</Tag>;
-        return <Tag color="orange">Depleted</Tag>;
+          return <Tag color="error">Expired</Tag>;
+        return <Tag color="warning">Depleted</Tag>;
       },
     },
   ];

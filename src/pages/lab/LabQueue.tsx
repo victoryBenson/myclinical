@@ -124,7 +124,7 @@ const LabQueue: React.FC = () => {
     {
       title: "Priority",
       dataIndex: "priority",
-      render: p => <Tag color="red">{p}</Tag>,
+      render: p => <Tag color="error">{p}</Tag>,
     },
     {
       title: "Status",

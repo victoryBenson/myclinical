@@ -6,7 +6,6 @@ import {
   Space,
   Drawer,
   Modal,
-  Input,
   Select,
   InputNumber,
   message,
@@ -177,9 +176,9 @@ const PurchaseOrders: React.FC = () => {
       title: "Status",
       render: (_, record) => {
         if (record.status === "pending")
-          return <Tag color="orange">Pending</Tag>;
+          return <Tag color="warning">Pending</Tag>;
         if (record.status === "received")
-          return <Tag color="green">Received</Tag>;
+          return <Tag color="success">Received</Tag>;
         return <Tag>Ordered</Tag>;
       },
     },
@@ -316,7 +315,7 @@ const PurchaseOrders: React.FC = () => {
             </Select>
           </div>
 
-          {items.map((item, index) => (
+          {items.map((_, index) => (
             <div key={index} className="space-y-1">
               <label className="text-sm font-medium">
                 Medication Item {index + 1}

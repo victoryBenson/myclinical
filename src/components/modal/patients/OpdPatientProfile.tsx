@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Patient } from '../../../types/patients';
 import { User, Contact, MapPin } from 'lucide-react';
 

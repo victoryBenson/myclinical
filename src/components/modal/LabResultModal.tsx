@@ -49,10 +49,10 @@ const LabResultModal: React.FC<LabResultModalProps> = ({
           <Tag
             color={
               result.status === "pending"
-                ? "orange"
+                ? "warning"
                 : result.status === "verified"
-                ? "green"
-                : "red"
+                ? "success"
+                : "error"
             }
           >
             {result.status.toUpperCase()}

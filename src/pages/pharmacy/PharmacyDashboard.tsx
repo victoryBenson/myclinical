@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import SectionHeader from "../../components/ui/SectionHeader";
 import { pharmacyStats, recentSales } from "../../data/pharmacy";
 import StatsCard from "../../components/ui/StatsCard";
+import { COLORS } from "../../theme/themeConfig";
 
 const { Option } = Select;
 
@@ -104,8 +105,8 @@ const PharmacyDashboard: React.FC = () => {
       render: (status: string) => {
         const color =
           status === "Paid"
-            ? "bg-green-100 text-green-600 dark:bg-green-900"
-            : "bg-yellow-100 text-yellow-600 dark:bg-yellow-900";
+            ? "bg-success-soft text-success dark:bg-success-dark/30"
+            : "bg-warning-soft text-warning dark:bg-warning-dark/30";
 
         return (
           <span className={`px-2 py-1 text-xs rounded-lg ${color}`}>
@@ -158,32 +159,32 @@ const PharmacyDashboard: React.FC = () => {
           title="Total Stock Units"
           value={pharmacyStats.totalStockUnits.toLocaleString()}
           icon={Boxes}
-          iconBg="bg-blue-100 dark:bg-blue-900"
-          iconColor="text-blue-600"
+          iconBg="bg-info-soft dark:bg-info-dark/30"
+          iconColor="text-info"
         />
         <StatsCard
           title="Low Stock"
           value={pharmacyStats.lowStock}
           icon={AlertTriangle}
-          iconBg="bg-red-100 dark:bg-red-900"
-          iconColor="text-red-600"
-          valueColor="text-red-600"
+          iconBg="bg-danger-soft dark:bg-danger-dark/30"
+          iconColor="text-danger"
+          valueColor="text-danger"
         />
         <StatsCard
           title="Expiring Soon"
           value={pharmacyStats.expiringSoon}
           icon={Clock}
-          iconBg="bg-yellow-100 dark:bg-yellow-900"
-          iconColor="text-yellow-600"
-          valueColor="text-yellow-600"
+          iconBg="bg-warning-soft dark:bg-warning-dark/30"
+          iconColor="text-warning"
+          valueColor="text-warning"
         />
         <StatsCard
           title="Today Sales"
           value={`₦${pharmacyStats.todaySales.toLocaleString()}`}
           icon={DollarSign}
-          iconBg="bg-green-100 dark:bg-green-900"
-          iconColor="text-green-600"
-          valueColor="text-green-600"
+          iconBg="bg-success-soft dark:bg-success-dark/30"
+          iconColor="text-success"
+          valueColor="text-success"
         />
       </div>
 
@@ -197,7 +198,7 @@ const PharmacyDashboard: React.FC = () => {
             <Line
               type="monotone"
               dataKey="amount"
-              stroke="#16a34a"
+              stroke={COLORS.primary.DEFAULT}
               strokeWidth={2}
             />
           </LineChart>
@@ -240,7 +241,7 @@ const PharmacyDashboard: React.FC = () => {
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Total Revenue
             </p>
-            <h3 className="text-lg font-semibold text-green-600">
+            <h3 className="text-lg font-semibold text-success">
               ₦{totalRevenue.toLocaleString()}
             </h3>
           </div>
@@ -260,7 +261,7 @@ const PharmacyDashboard: React.FC = () => {
             <p><strong>Patient:</strong> {selectedSale.patient}</p>
             <p><strong>Status:</strong> {selectedSale.status}</p>
             <p><strong>Date:</strong> {selectedSale.date}</p>
-            <p className="text-lg font-semibold text-green-600">
+            <p className="text-lg font-semibold text-success">
               ₦{selectedSale.amount.toLocaleString()}
             </p>
           </div>

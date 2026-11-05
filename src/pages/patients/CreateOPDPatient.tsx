@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Input, Select, Steps, Form } from "antd";
 import CustomDatePicker from "../../components/ui/CustomDatePicker";
+import { useHmos } from "../../features/hmo/useHmos";
 import { usePatientStore } from "../../store/patient.store";
 import type { CreatePatientDto } from "../../types/patients/createPatientDto";
 
@@ -12,6 +13,7 @@ const CreateOpdPatient: React.FC = () => {
     const prev = () => setCurrentStep((prev) => prev - 1);
     const [loading, setLoading] = useState(false)
     const { createPatient } = usePatientStore();
+    const { data: hmos = [], isLoading: hmosLoading, isError: hmosError } = useHmos();
     const [form] = Form.useForm();
     const values = form.getFieldsValue(true);
 
@@ -285,13 +287,13 @@ const handleSubmit = async () => {
                             >
                                 <Select
                                     placeholder="Select Hmo"
-                                    
                                     className="w-full"
-                                    >
-                                    <Option value={1}>Axamansard</Option>
-                                    <Option value={2}>NNPC</Option>
-                                    <Option value={3}>CIGNA</Option>
-                                    <Option value={4}>UNITED NATIONS</Option>
+                                    loading={hmosLoading}
+                                    notFoundContent={hmosError ? "Unable to load HMOs" : "No HMOs found"}
+                                >
+                                    {hmos.map((hmo) => (
+                                        <Option key={hmo.id} value={hmo.id}>{hmo.name}</Option>
+                                    ))}
                                 </Select>
                             </Form.Item>
                         </div>

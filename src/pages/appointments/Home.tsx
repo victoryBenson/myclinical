@@ -3,7 +3,13 @@ import { Table, Tag, Button, Drawer, Tooltip, Modal } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { Dayjs } from "dayjs";
 import dayjs from "../../utils/dayJs";
-import { Download, Eye } from "lucide-react";
+import {
+  CalendarDays,
+  CalendarCheck,
+  CalendarPlus,
+  Download,
+  Eye,
+} from "lucide-react";
 import SectionHeader from "../../components/ui/SectionHeader";
 import { tabDetails } from "../../data/appointments";
 import { usePatientStore } from "../../store/patient.store";
@@ -28,7 +34,7 @@ const Appointments: React.FC = () => {
   const currentTab =  tabDetails[tab] || tabDetails["all"];
   const [open, setOpen] = useState(false)
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
-  const { patients, loading, error,  fetchPatients} = usePatientStore();
+  const { patients, loading, fetchPatients} = usePatientStore();
   const [viewOpd, setViewOpd] = useState(false);
   
 
@@ -158,7 +164,7 @@ const Appointments: React.FC = () => {
     title: "Patient Type",
     dataIndex: "is_out_patient",
     render:(_, record) => record.is_out_patient ? (
-      <Tag color="blue">Out-Patient</Tag>
+      <Tag color="processing">Out-Patient</Tag>
     ) : (
       <Tag color="purple">In-Patient</Tag>
     )
@@ -368,43 +374,80 @@ const Appointments: React.FC = () => {
           />
         </div>
 
-        <div className="flex items-center gap-1 bg-[#F5FDF2] p-2 rounded-lg border border-[#E0F6D6] overflow-x-auto current-tab-track">
-          <button
-            onClick={() => setTab("today-appointments")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "today-appointments"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            Today Appointments
-          </button>
-          <button
-            onClick={() => setTab("all")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "all"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            All Appointments
-          </button>
+        <div className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-slate-200/80 bg-slate-50/80 p-1.5">
+          {[
+            {
+              id: "today-appointments",
+              label: "Today Appointments",
+              subtitle: "Today's schedule",
+              icon: CalendarDays,
+            },
+            {
+              id: "all",
+              label: "All Appointments",
+              subtitle: "Appointment directory",
+              icon: CalendarCheck,
+            },
+            {
+              id: "new-appointment",
+              label: "New Appointment",
+              subtitle: "Schedule a visit",
+              icon: CalendarPlus,
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+            const active = tab === item.id;
 
-          <button
-            onClick={() => setTab("new-appointment")}
-            className={`px-5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 whitespace-nowrap
-              ${
-                tab === "new-appointment"
-                  ? "bg-[#2EB62C] text-white shadow-sm shadow-[#2EB62C]/20 borde border-[#249422]"
-                  : "text-[#145212] hover:text-[#1B6F19] hover:bg-[#ECFBE6]"
-              }`}
-          >
-            New Appointment
-          </button>
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setTab(item.id)}
+                aria-current={active ? "page" : undefined}
+                className={`
+                  group relative flex shrink-0 items-center gap-2.5
+                  rounded-xl px-3.5 lg:px-4 py-2.5 lg:py-3
+                  text-left transition-all duration-200 ease-out
+                  ${
+                    active
+                      ? "bg-white text-primary-darker shadow-sm ring-1 ring-slate-200/80"
+                      : "text-slate-500 hover:bg-white/70 hover:text-slate-800"
+                  }
+                `}
+              >
+                <span
+                  className={`
+                    flex h-9 w-9 shrink-0 items-center justify-center
+                    rounded-lg transition-colors duration-200
+                    ${
+                      active
+                        ? "bg-primary-soft text-primary-dark"
+                        : "bg-slate-100 text-slate-500 group-hover:bg-slate-200/70"
+                    }
+                  `}
+                >
+                  <Icon size={18} strokeWidth={1.8} />
+                </span>
 
-          
+                <span className="flex flex-col gap-0.5">
+                  <span className="whitespace-nowrap text-xs font-semibold">
+                    {item.label}
+                  </span>
+                  <span
+                    className={`whitespace-nowrap text-[10px] ${
+                      active ? "text-primary-dark/80" : "text-slate-400"
+                    }`}
+                  >
+                    {item.subtitle}
+                  </span>
+                </span>
+
+                {active && (
+                  <span className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-primary" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
       {renderContent()}

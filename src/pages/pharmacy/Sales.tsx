@@ -619,9 +619,9 @@ const PharmacySales: React.FC = () => {
       title: "Payment",
       render: (_, record) =>
         record.paymentStatus === "paid" ? (
-          <Tag color="green">Paid</Tag>
+          <Tag color="success">Paid</Tag>
         ) : (
-          <Tag color="orange">Pending</Tag>
+          <Tag color="warning">Pending</Tag>
         ),
     },
 
@@ -788,6 +788,18 @@ const PharmacySales: React.FC = () => {
 
             </Select>
 
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Payment Status</label>
+            <Select
+              value={payment}
+              onChange={(value: "paid" | "pending") => setPayment(value)}
+              style={{ width: "100%" }}
+            >
+              <Option value="paid">Paid</Option>
+              <Option value="pending">Pending</Option>
+            </Select>
           </div>
 
           {items.map((item, index) => (

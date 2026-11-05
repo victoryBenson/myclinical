@@ -20,7 +20,7 @@ const LabResults: React.FC = () => {
   const [selectedResult, setSelectedResult] = useState<LabResult | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [isDark, setIsDark] = useState(false)
+  const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
 
   const filteredData = useMemo(() => {
     const filterResult = (r: LabResult): boolean => {
@@ -97,10 +97,10 @@ const LabResults: React.FC = () => {
       render: (status) => {
         const color =
           status === "pending"
-            ? "orange"
+            ? "warning"
             : status === "verified"
-            ? "green"
-            : "red";
+            ? "success"
+            : "error";
         return <Tag color={color}>{status.toUpperCase()}</Tag>;
       },
     },

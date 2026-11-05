@@ -1,5 +1,3 @@
-import type { Medication, Prescription, PurchaseOrder, Supplier } from "../types/pharmacy";
-
 export const patientStats = {
   totalAppointments: 85,
   checkedInPatients: 54,

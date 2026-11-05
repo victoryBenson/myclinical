@@ -30,7 +30,7 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
         bg-white
         rounded-2xl
         border
-        border-gray-100
+        border-slate-200/80
         shadow-sm
         p-6
         ${className}
@@ -38,7 +38,7 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
     >
       {/* Header */}
       <div className="mb-5">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-lg font-semibold text-slate-900">
           {title}
         </h3>
       </div>
@@ -57,10 +57,10 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
 
               ${
                 action.active
-                  ? 'bg-primary text-white shadow-md'
+                  ? 'bg-gradient-to-r from-primary to-primary-400 text-white shadow-[0_18px_30px_theme(colors.primary.DEFAULT/24%)]'
                   : action.primary
-                  ? 'bg-primary-light text-primary hover:bg-primary hover:text-white'
-                  : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                  ? 'bg-primary-soft text-primary-darker hover:bg-gradient-to-r hover:from-primary hover:to-primary-400 hover:text-white'
+                  : 'bg-slate-50 text-slate-700 hover:bg-slate-100'
               }
 
               ${
@@ -89,21 +89,21 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
 
       {/* Tip */}
       {(tipTitle || tipMessage) && (
-        <div className="mt-6 pt-5 border-t border-gray-100">
+        <div className="mt-6 border-t border-slate-200/80 pt-5">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-primary-light flex items-center justify-center flex-shrink-0">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-darker">
               💡
             </div>
 
             <div>
               {tipTitle && (
-                <p className="text-sm font-medium text-gray-700">
+                <p className="text-sm font-medium text-slate-700">
                   {tipTitle}
                 </p>
               )}
 
               {tipMessage && (
-                <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+                <p className="mt-1 text-sm leading-relaxed text-slate-500">
                   {tipMessage}
                 </p>
               )}

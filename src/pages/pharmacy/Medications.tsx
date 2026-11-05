@@ -99,10 +99,10 @@ const Medications: React.FC = () => {
       dataIndex: "status",
       render: (status: string) => {
         if (status === "in_stock")
-          return <Tag color="green">In Stock</Tag>;
+          return <Tag color="success">In Stock</Tag>;
         if (status === "low_stock")
-          return <Tag color="orange">Low Stock</Tag>;
-        return <Tag color="red">Out of Stock</Tag>;
+          return <Tag color="warning">Low Stock</Tag>;
+        return <Tag color="error">Out of Stock</Tag>;
       },
     },
   ];
