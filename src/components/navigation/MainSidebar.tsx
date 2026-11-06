@@ -65,11 +65,10 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
               alt="myClinical logo"
               className="h-5 w-5 object-contain"
               onError={(e) => {
-                // fallback if image not found
                 e.currentTarget.style.display = "none";
               }}
             />
-            <Sparkles className="absolute -right-1 -top-1 h-3.5 w-3.5 text-warning-300" />
+            {/* <Sparkles className="absolute -right-1 -top-1 h-3.5 w-3.5 text-warning-300" /> */}
           </div>
 
           {!collapsed && (

@@ -1564,26 +1564,20 @@ export const HMIS_DEPARTMENTS: DepartmentConfig[] = [
   },
 ];
 
-/**
- * Resolves the active department from any given pathname.
- * Gracefully maps legacy and nested paths to their corresponding HMIS department.
- */
 export function findDepartmentByPath(pathname: string): DepartmentConfig {
   const cleanPath = pathname.toLowerCase();
 
-  // 1. Patient Management paths
   if (
     cleanPath === "/patients" ||
     cleanPath.startsWith("/patients/") ||
     cleanPath.startsWith("/appointments") ||
     cleanPath.startsWith("/admissions")
   ) {
-    return HMIS_DEPARTMENTS[1]; // Patient Management
+    return HMIS_DEPARTMENTS[1];
   }
 
-  // 2. Clinical Services paths
   if (cleanPath.startsWith("/clinical")) {
-    return HMIS_DEPARTMENTS[2]; // Clinical Services
+    return HMIS_DEPARTMENTS[2]; 
   }
 
   // 3. Pharmacy & Diagnostics paths (including legacy /pharmacy and /lab routes)
