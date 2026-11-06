@@ -1,6 +1,7 @@
 import React from "react";
 import HmisPlaceholderPage from "../../components/ui/HmisPlaceholderPage";
 import { Settings2, Sliders, CheckCircle2, Shield } from "lucide-react";
+import { APP_INFO } from "../../app/appInfo";
 
 export const SystemConfiguration: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ export const SystemConfiguration: React.FC = () => {
         { title: "Configuration Parameters", value: "148 Keys", icon: Sliders },
         { title: "Connected Gateways", value: "All Active", icon: CheckCircle2, valueColor: "text-emerald-600" },
         { title: "SMS Balance (Twilio)", value: "24,800 Units", icon: Settings2 },
-        { title: "Configuration Version", value: "v2.4.0 Release", icon: Shield },
+        { title: "Application Version", value: APP_INFO.versionLabel, icon: Shield },
       ]}
       capabilities={[
         "Secure environment variable management with encrypted storage for external API tokens",

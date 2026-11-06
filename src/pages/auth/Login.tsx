@@ -4,6 +4,7 @@ import { useAuthStore } from "../../store/auth.store";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { APP_INFO } from "../../app/appInfo";
 
 const inputCls = `
   w-full bg-zinc-900/60 border border-white/[0.06] rounded-xl px-4 py-3.5
@@ -73,17 +74,17 @@ export default function Login() {
             </svg>
           </div>
           <span className="text-base font-bold tracking-tight text-white">
-            my<span className="text-primary-400">Clinical</span>
+            Ithere <span className="text-primary-400">Care</span>
           </span>
           <span className="text-[10px] uppercase tracking-wider bg-white/[0.08] border border-white/[0.08] text-primary-300 px-2.5 py-0.5 rounded-full font-semibold backdrop-blur-sm">
-            Enterprise HMIS
+            {APP_INFO.deploymentBadge}
           </span>
         </div>
 
         <div className="relative z-10 max-w-lg mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-xs text-zinc-300 font-medium mb-4 backdrop-blur-md">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            Hospital Enterprise Network Active
+            {APP_INFO.deploymentName} • {APP_INFO.attribution}
           </div>
           <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-[1.15] mb-5">
             Integrated care, <br />
@@ -94,12 +95,15 @@ export default function Login() {
           </p>
         </div>
 
-        <div className="relative z-10 flex items-center gap-4 text-xs font-normal text-zinc-400">
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 text-xs font-normal text-zinc-400">
           <span className="flex items-center gap-1.5 bg-white/[0.04] px-3 py-1 rounded-lg border border-white/[0.05]">
             <svg className="w-3.5 h-3.5 text-primary/80" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 4.925-3.075 9.136-7.466 10.801a1.241 1.241 0 01-.868 0C5.075 16.136 2 11.925 2 7.001c0-.68.056-1.35.166-2.001zm11.548 4.28a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            HIPAA & ISO 27001 Certified • HL7 FHIR
+            {APP_INFO.parentCompany} — {APP_INFO.parentTagline}
+          </span>
+          <span className="text-[11px] text-zinc-500 font-medium">
+            {APP_INFO.name} • {APP_INFO.versionLabel}
           </span>
         </div>
       </div>
@@ -119,16 +123,21 @@ export default function Login() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <span className="text-sm font-bold tracking-tight text-zinc-100">myClinical <span className="text-xs font-normal text-primary-400">Enterprise</span></span>
+            <span className="text-sm font-bold tracking-tight text-zinc-100">
+              Ithere Care <span className="text-xs font-normal text-primary-400">• Hospital Edition</span>
+            </span>
           </div>
 
           <header className="mb-8">
             <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-primary/80 mb-1.5">
-              Clinical Authentication
+              {APP_INFO.deploymentName}
             </p>
             <h1 className="text-2xl font-light text-zinc-100 tracking-tight">
               Staff <span className="font-serif italic text-primary font-normal">Sign</span> In
             </h1>
+            <p className="text-[11px] text-zinc-500 mt-1">
+              {APP_INFO.attribution} • {APP_INFO.versionLabel}
+            </p>
           </header>
 
           <form onSubmit={handleSubmit} className="space-y-6">
