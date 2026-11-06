@@ -3,114 +3,186 @@ import {
   ClipboardList,
   FlaskConical,
   Clock,
-  AlertTriangle,
+  CheckCircle2,
   PlusCircle,
+  Activity,
+  FileCheck2,
 } from "lucide-react";
+import { Tag } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import { mockRequests } from "../../data/lab.mock";
 import TableRow from "../../components/Lab/TableRow";
 import QueueItem from "../../components/Lab/QueueItem";
 import QuickButton from "../../components/Lab/QuickButton";
-import SectionHeader from "../../components/ui/SectionHeader";
 import StatsCard from "../../components/ui/StatsCard";
 
-
 const LabDashboard: React.FC = () => {
+  const navigate = useNavigate();
   const total = mockRequests.length;
-  const waiting = mockRequests.filter(r => r.status === "waiting").length;
-  const processing = mockRequests.filter(r => r.status === "processing").length;
-  const completed = mockRequests.filter(r => r.status === "completed").length;
+  const waiting = mockRequests.filter((r) => r.status === "waiting").length;
+  const processing = mockRequests.filter((r) => r.status === "processing").length;
+  const completed = mockRequests.filter((r) => r.status === "completed").length;
 
   return (
     <div className="p-6 space-y-6">
+      {/* Header Container */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-gray-800 p-5 lg:p-6 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 bg-primary/10 px-2.5 py-0.5 rounded-full">
+              Pharmacy & Diagnostics
+            </span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
+            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded-full">
+              <CheckCircle2 size={12} /> Pathology Lab Online
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            <FlaskConical className="h-6 w-6 text-primary" />
+            Medical Laboratory & Diagnostics Control
+          </h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Real-time accessioning, specimen analysis queue, quality control telemetry and diagnostic verifications
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
+        <div className="flex items-center gap-2">
+          <Tag color="purple" className="font-semibold text-xs py-1 px-3 rounded-lg">
+            ANALYZERS CONNECTED
+          </Tag>
+        </div>
+      </div>
+
+      {/* Balanced 4-Card Operational Metrics Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Requests"
+          title="Total Test Requests"
           value={total}
           icon={ClipboardList}
-          iconBg="bg-primary/10"
-          iconColor="text-primary"
+          iconBg="bg-primary-soft dark:bg-primary/20"
+          iconColor="text-primary-dark dark:text-primary-300"
         />
 
         <StatsCard
-          title="Waiting"
+          title="Specimens Waiting"
           value={waiting}
           icon={Clock}
-          iconBg="bg-warning-soft dark:bg-warning-dark/30"
-          iconColor="text-warning"
-          valueColor="text-warning"
+          iconBg="bg-amber-50 dark:bg-amber-950/40"
+          iconColor="text-amber-600 dark:text-amber-400"
+          valueColor="text-amber-600 dark:text-amber-400"
         />
 
         <StatsCard
-          title="Processing"
+          title="In Processing / Analysis"
           value={processing}
           icon={FlaskConical}
-          iconBg="bg-info-soft dark:bg-info-dark/30"
-          iconColor="text-info"
-          valueColor="text-info"
+          iconBg="bg-sky-50 dark:bg-sky-950/40"
+          iconColor="text-sky-600 dark:text-sky-400"
+          valueColor="text-sky-600 dark:text-sky-400"
         />
 
         <StatsCard
-          title="Completed"
+          title="Verified & Completed"
           value={completed}
-          icon={AlertTriangle}
-          iconBg="bg-success-soft dark:bg-success-dark/30"
-          iconColor="text-success"
-          valueColor="text-success"
+          icon={CheckCircle2}
+          iconBg="bg-emerald-50 dark:bg-emerald-950/40"
+          iconColor="text-emerald-600 dark:text-emerald-400"
+          valueColor="text-emerald-600 dark:text-emerald-400"
         />
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-
-        <div className="xl:col-span-2 bg-white rounded-2xl shadow-sm p-6">
-            <SectionHeader title="Lab Queue Overview" />
-
-            <div className="space-y-4">
-                <QueueItem label="Waiting" count={waiting} />
-                <QueueItem label="Processing" count={processing} />
-                <QueueItem label="Completed" count={completed} />
+        <div className="xl:col-span-2 bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm p-6 space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-gray-700">
+            <div>
+              <h3 className="font-bold text-base text-slate-900 dark:text-white flex items-center gap-2">
+                <Activity size={18} className="text-primary" />
+                Laboratory Accession Queue Overview
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Specimen staging across phlebotomy, analyzer runs and pathologist verification
+              </p>
             </div>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-          <SectionHeader title="Quick Actions" />
+          </div>
 
           <div className="space-y-3">
-            <QuickButton label="New Lab Request" icon={PlusCircle} />
-            <QuickButton label="View Queue" icon={Clock} />
-            <QuickButton label="Enter Results" icon={FlaskConical} />
+            <QueueItem label="Waiting for Specimen Collection" count={waiting} />
+            <QueueItem label="Under Technical Analysis" count={processing} />
+            <QueueItem label="Pathology Completed & Signed" count={completed} />
           </div>
         </div>
 
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm p-6 space-y-4">
+          <div className="pb-3 border-b border-slate-100 dark:border-gray-700">
+            <h3 className="font-bold text-base text-slate-900 dark:text-white">
+              Bench Quick Actions
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Direct access to pathology workflows
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            <QuickButton
+              label="New Test Order"
+              icon={PlusCircle}
+              onClick={() => navigate("/pharmacy-diagnostics/lab-requests/new")}
+            />
+            <QuickButton
+              label="Specimen Worklist Queue"
+              icon={Clock}
+              onClick={() => navigate("/pharmacy-diagnostics/lab-queue")}
+            />
+            <QuickButton
+              label="Enter & Verify Results"
+              icon={FileCheck2}
+              onClick={() => navigate("/pharmacy-diagnostics/lab-results")}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm p-6">
-        <SectionHeader title="Recent Lab Requests" subtitle="Latest activity in the lab" action={
-            <button className="text-primary text-sm font-medium">
-            View All
-            </button>
-        } />
+      {/* Recent Activity Table */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-100 dark:border-gray-700">
+          <div>
+            <h3 className="font-bold text-base text-slate-900 dark:text-white">
+              Recent Diagnostic Accessions
+            </h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Latest physician orders and clinical laboratory tests
+            </p>
+          </div>
 
-        <table className="w-full text-sm">
-          <thead className="text-gray-500 border-b">
-            <tr>
-              <th className="text-left py-3">Patient</th>
-              <th className="text-left">Test</th>
-              <th className="text-left">Priority</th>
-              <th className="text-left">Status</th>
-              <th className="text-left">Date</th>
-            </tr>
-          </thead>
+          <button
+            type="button"
+            onClick={() => navigate("/pharmacy-diagnostics/lab-requests")}
+            className="text-xs font-semibold text-primary hover:text-primary-dark transition-colors"
+          >
+            View Full Registry →
+          </button>
+        </div>
 
-          <tbody className="divide-y">
-            {mockRequests.map(request => (
-              <TableRow key={request.id} request={request} />
-            ))}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead>
+              <tr className="border-b border-slate-100 dark:border-gray-700 text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
+                <th className="py-3">Patient</th>
+                <th>Test Ordered</th>
+                <th>Priority</th>
+                <th>Accession Status</th>
+                <th>Order Date</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 dark:divide-gray-700/50">
+              {mockRequests.slice(0, 6).map((request) => (
+                <TableRow key={request.id} request={request} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-
     </div>
   );
 };

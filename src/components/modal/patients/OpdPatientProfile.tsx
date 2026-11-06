@@ -1,89 +1,147 @@
-import type { Patient } from '../../../types/patients';
-import { User, Contact, MapPin } from 'lucide-react';
+import React from "react";
+import type { Patient } from "../../../types/patients";
+import dayjs from "../../../utils/dayJs";
+import {
+  User,
+  Phone,
+  Mail,
+  MapPin,
+  Shield,
+  Layers,
+  ArrowRight,
+} from "lucide-react";
 
-const OpdPatientProfile = ({ patient }: { patient: Patient }) => {
-  
-  const sections = [
-    {
-      title: "Identity Specifics",
-      icon: User,
-      fields: [
-        { label: "Title", value: patient?.title },
-        { label: "Surname", value: patient?.surname },
-        { label: "Other Names", value: patient?.other_names },
-        { label: "Gender", value: patient?.gender },
-        { label: "Date of Birth", value: patient?.date_of_birth },
-        { label: "Marital Status", value: patient?.maritalStatus },
-      ]
-    },
-    {
-      title: "Contact & Localization",
-      icon: Contact,
-      fields: [
-        { label: "Phone Number", value: patient?.phone_number },
-        { label: "Email Address", value: patient?.email, className: "break-all" },
-      ]
-    }
-  ];
+interface OpdPatientProfileProps {
+  patient: Patient;
+  onOpenComprehensive?: () => void;
+}
+
+export const OpdPatientProfile: React.FC<OpdPatientProfileProps> = ({
+  patient,
+  onOpenComprehensive,
+}) => {
+  const calculateAge = (dobString?: string | null): string => {
+    if (!dobString) return "—";
+    const birth = dayjs(dobString);
+    if (!birth.isValid()) return "—";
+    return `${dayjs().diff(birth, "year")} yrs`;
+  };
+
+  const formatDate = (dateString?: string | null): string => {
+    if (!dateString) return "—";
+    const d = dayjs(dateString);
+    if (!d.isValid()) return dateString;
+    return d.format("DD MMM YYYY");
+  };
+
+  const initials = `${patient?.surname?.[0] || ""}${
+    patient?.other_names?.[0] || ""
+  }`.toUpperCase() || "OP";
+
+  const fullName = `${patient?.title ? `${patient.title} ` : ""}${patient?.surname || ""} ${patient?.other_names || ""}`.trim();
 
   return (
-    <div className="space-y-6 pt-4 font-sans text-zinc-800">
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* LEFT / CENTER COLUMNS: IDENTITY & CONTACT INFO */}
-        <div className="lg:col-span-2 space-y-6">
-          {sections.map((section, sIdx) => (
-            <div key={sIdx} className="bg-white rounded-xl border border-zinc-200/60 p-5 space-y-4 shadow-sm">
-              <div className="flex items-center gap-2 pb-1 border-b border-zinc-100">
-                <section.icon size={14} className="text-primary" />
-                <h3 className="text-xs uppercase font-bold tracking-wider text-zinc-400">
-                  {section.title}
-                </h3>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-4">
-                {section.fields.map((field, fIdx) => (
-                  <div key={fIdx} className="group">
-                    <p className="text-[10px] uppercase font-bold tracking-wider text-zinc-400 transition-colors group-hover:text-zinc-500">
-                      {field.label}
-                    </p>
-                    <p className={`text-xs font-semibold text-zinc-800 mt-1 capitalize ${field.className || ""}`}>
-                      {field.value || "—"}
-                    </p>
-                  </div>
-                ))}
-              </div>
+    <div className="space-y-6 pt-2 font-sans antialiased text-slate-800 dark:text-zinc-100">
+      {/* Header Profile Identity */}
+      <div className="flex items-start justify-between gap-4 p-4 rounded-2xl bg-slate-50/80 dark:bg-zinc-850 border border-slate-200/80 dark:border-zinc-800">
+        <div className="flex items-center gap-3.5">
+          <div className="w-13 h-13 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 text-white font-bold text-lg flex items-center justify-center shadow-sm">
+            {initials}
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">
+                {fullName || "Unnamed Patient"}
+              </h2>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800">
+                <Layers size={10} />
+                OPD Care
+              </span>
             </div>
-          ))}
+            <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5 font-mono">
+              MRN: {patient?.patient_number || `PID-${patient?.id}`}
+            </p>
+          </div>
         </div>
 
-        {/* RIGHT COLUMN: PERMANENT ADDRESS GEO BLOCK */}
-        <div className="lg:col-span-1">
-          <div className="h-full bg-primary-ultraLight/40 rounded-xl border border-primary-soft p-5 space-y-4 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 pb-1 border-b border-primary-soft">
-                <MapPin size={14} className="text-primary" />
-                <h3 className="text-xs uppercase font-bold tracking-wider text-primary-deepest/60">
-                  Residential Location
-                </h3>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase font-bold tracking-wider text-primary-deepest/50">
-                  Permanent Address
-                </p>
-                <p className="text-xs font-bold text-zinc-800 mt-1.5 leading-relaxed">
-                  {patient?.address || "—"}
-                </p>
-              </div>
+        {onOpenComprehensive && (
+          <button
+            type="button"
+            onClick={onOpenComprehensive}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-primary text-white hover:bg-primary-600 shadow-xs transition"
+          >
+            <span>Full Profile</span>
+            <ArrowRight size={13} />
+          </button>
+        )}
+      </div>
+
+      {/* Main Grid: Identity & Contact */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Personal Details */}
+        <div className="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 shadow-xs">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-zinc-800 text-xs font-bold uppercase tracking-wider text-slate-400">
+            <User size={13} className="text-primary" />
+            <span>Biographical Specifics</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <p className="text-[10px] uppercase font-bold text-slate-400">Gender</p>
+              <p className="font-semibold text-slate-800 dark:text-zinc-200 mt-0.5">{patient?.gender || "—"}</p>
             </div>
-            
-            <div className="hidden lg:block pt-4 text-[11px] font-medium text-primary-dark/60 border-t border-primary-soft/60">
-              OPD Verified Entry
+            <div>
+              <p className="text-[10px] uppercase font-bold text-slate-400">Age / DOB</p>
+              <p className="font-semibold text-slate-800 dark:text-zinc-200 mt-0.5">
+                {calculateAge(patient?.date_of_birth)} ({formatDate(patient?.date_of_birth)})
+              </p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase font-bold text-slate-400">Marital Status</p>
+              <p className="font-semibold text-slate-800 dark:text-zinc-200 mt-0.5">{patient?.maritalStatus || "—"}</p>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase font-bold text-slate-400">Blood / Genotype</p>
+              <p className="font-semibold text-rose-600 dark:text-rose-400 mt-0.5">
+                {patient?.blood_group || "—"} ({patient?.genotype || "—"})
+              </p>
             </div>
           </div>
         </div>
 
+        {/* Contact Info */}
+        <div className="bg-white dark:bg-zinc-900 rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 space-y-3 shadow-xs">
+          <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-zinc-800 text-xs font-bold uppercase tracking-wider text-slate-400">
+            <Phone size={13} className="text-primary" />
+            <span>Contact Channels</span>
+          </div>
+          <div className="space-y-2.5 text-xs">
+            <div className="flex items-center gap-2">
+              <Phone size={13} className="text-slate-400" />
+              <span className="font-semibold text-slate-800 dark:text-zinc-200">{patient?.phone_number || "—"}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Mail size={13} className="text-slate-400" />
+              <span className="font-semibold text-slate-800 dark:text-zinc-200 break-all">{patient?.email || "No email on record"}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield size={13} className="text-slate-400" />
+              <span className="font-semibold text-slate-800 dark:text-zinc-200">{patient?.hmo?.name || "Self-Pay / Cash Patient"}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Full Residential Address Block */}
+        <div className="md:col-span-2 bg-slate-50/60 dark:bg-zinc-850 rounded-xl border border-slate-200/80 dark:border-zinc-800 p-4 flex items-start gap-3">
+          <MapPin size={16} className="text-rose-500 mt-0.5 flex-shrink-0" />
+          <div className="text-xs">
+            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              Permanent Domicile / Address
+            </p>
+            <p className="font-semibold text-slate-800 dark:text-zinc-100 mt-1 leading-relaxed">
+              {patient?.address || "No residential address provided upon outpatient registration."}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

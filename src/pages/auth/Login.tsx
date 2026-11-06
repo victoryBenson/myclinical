@@ -67,35 +67,39 @@ export default function Login() {
         <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] rounded-full bg-primary/10 blur-[120px] pointer-events-none" />
 
         <div className="relative z-10 flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-primary/10 to-primary flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-primary/20 to-primary flex items-center justify-center shadow-lg shadow-primary/20 border border-white/10">
             <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <span className="text-base font-semibold tracking-tight text-white">
-            My<span className="font-light text-zinc-400">Clinic</span>
+          <span className="text-base font-bold tracking-tight text-white">
+            my<span className="text-primary-400">Clinical</span>
           </span>
-          <span className="text-[10px] uppercase tracking-wider bg-white/[0.08] border border-white/[0.05] text-zinc-300 px-2.5 py-0.5 rounded-full font-medium backdrop-blur-sm">
-            EMR System
+          <span className="text-[10px] uppercase tracking-wider bg-white/[0.08] border border-white/[0.08] text-primary-300 px-2.5 py-0.5 rounded-full font-semibold backdrop-blur-sm">
+            Enterprise HMIS
           </span>
         </div>
 
         <div className="relative z-10 max-w-lg mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-xs text-zinc-300 font-medium mb-4 backdrop-blur-md">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            Hospital Enterprise Network Active
+          </div>
           <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-[1.15] mb-5">
-            Precision care, <br />
-            connected in real <span className="font-serif italic text-primary font-normal">time</span>.
+            Integrated care, <br />
+            synchronized in real <span className="font-serif italic text-primary font-normal">time</span>.
           </h2>
           <p className="text-zinc-400 text-sm font-light leading-relaxed max-w-sm">
-            Access secure electronic health records, streamline patient encounters, and manage clinical workflows effortlessly.
+            Enterprise electronic health records, clinical orders, pharmacy fulfillment, revenue cycle and hospital operations.
           </p>
         </div>
 
-        <div className="relative z-10 flex items-center gap-4 text-xs font-normal text-zinc-500">
-          <span className="flex items-center gap-1.5">
+        <div className="relative z-10 flex items-center gap-4 text-xs font-normal text-zinc-400">
+          <span className="flex items-center gap-1.5 bg-white/[0.04] px-3 py-1 rounded-lg border border-white/[0.05]">
             <svg className="w-3.5 h-3.5 text-primary/80" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 4.925-3.075 9.136-7.466 10.801a1.241 1.241 0 01-.868 0C5.075 16.136 2 11.925 2 7.001c0-.68.056-1.35.166-2.001zm11.548 4.28a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
-            End-to-End HIPAA Encryption Secure
+            HIPAA & ISO 27001 Certified • HL7 FHIR
           </span>
         </div>
       </div>
@@ -115,7 +119,7 @@ export default function Login() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <span className="text-sm font-bold tracking-tight text-zinc-100">MyClinic <span className="font-light text-zinc-500">EMR</span></span>
+            <span className="text-sm font-bold tracking-tight text-zinc-100">myClinical <span className="text-xs font-normal text-primary-400">Enterprise</span></span>
           </div>
 
           <header className="mb-8">

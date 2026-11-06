@@ -27,10 +27,10 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
   return (
     <div
       className={`
-        bg-white
+        bg-white dark:bg-gray-800
         rounded-2xl
         border
-        border-slate-200/80
+        border-slate-200/80 dark:border-gray-700
         shadow-sm
         p-6
         ${className}
@@ -38,7 +38,7 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
     >
       {/* Header */}
       <div className="mb-5">
-        <h3 className="text-lg font-semibold text-slate-900">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white">
           {title}
         </h3>
       </div>
@@ -57,10 +57,10 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
 
               ${
                 action.active
-                  ? 'bg-gradient-to-r from-primary to-primary-400 text-white shadow-[0_18px_30px_theme(colors.primary.DEFAULT/24%)]'
+                  ? 'bg-gradient-to-r from-primary to-primary-400 text-white shadow-md'
                   : action.primary
-                  ? 'bg-primary-soft text-primary-darker hover:bg-gradient-to-r hover:from-primary hover:to-primary-400 hover:text-white'
-                  : 'bg-slate-50 text-slate-700 hover:bg-slate-100'
+                  ? 'bg-primary-soft dark:bg-primary/20 text-primary-darker dark:text-primary-300 hover:bg-gradient-to-r hover:from-primary hover:to-primary-400 hover:text-white'
+                  : 'bg-slate-50 dark:bg-gray-700/60 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-gray-700'
               }
 
               ${
@@ -76,7 +76,7 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
               </span>
             )}
 
-            <span className="flex-1 text-left">
+            <span className="flex-1 text-left font-medium">
               {action.label}
             </span>
 
@@ -89,21 +89,21 @@ const QuickActionsCard: React.FC<QuickActionsCardProps> = ({
 
       {/* Tip */}
       {(tipTitle || tipMessage) && (
-        <div className="mt-6 border-t border-slate-200/80 pt-5">
+        <div className="mt-6 border-t border-slate-200/80 dark:border-gray-700 pt-5">
           <div className="flex items-start gap-3">
-            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-darker">
+            <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-primary-soft dark:bg-primary/20 text-primary-darker dark:text-primary-300">
               💡
             </div>
 
             <div>
               {tipTitle && (
-                <p className="text-sm font-medium text-slate-700">
+                <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
                   {tipTitle}
                 </p>
               )}
 
               {tipMessage && (
-                <p className="mt-1 text-sm leading-relaxed text-slate-500">
+                <p className="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
                   {tipMessage}
                 </p>
               )}

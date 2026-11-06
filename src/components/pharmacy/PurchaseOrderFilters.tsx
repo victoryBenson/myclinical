@@ -31,53 +31,70 @@ const PurchaseOrderFilters: React.FC<PurchaseOrderFiltersProps> = ({
 }) => {
   return (
     <div className="flex flex-wrap gap-4 items-end">
-
-      {/* Search */}
-      <div className="flex flex-col w-56">
-        <label className="text-sm mb-1">Search Order</label>
+      <div className="flex flex-col flex-1 min-w-[200px]">
+        <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+          Search PO
+        </label>
         <Input
-          prefix={<SearchOutlined />}
-          placeholder="Order number"
+          prefix={<SearchOutlined className="text-slate-400" />}
+          placeholder="PO number or supplier..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          allowClear
+          className="rounded-xl h-10 border-slate-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
         />
       </div>
 
-      {/* Supplier */}
       <div className="flex flex-col w-48">
-        <label className="text-sm mb-1">Supplier</label>
-        <Select value={supplier} onChange={setSupplier}>
-          <Option value="all">All</Option>
+        <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+          Supplier
+        </label>
+        <Select value={supplier} onChange={setSupplier} className="h-10 rounded-xl">
+          <Option value="all">All Suppliers</Option>
           <Option value="MedPlus Ltd">MedPlus Ltd</Option>
           <Option value="PharmaHub">PharmaHub</Option>
           <Option value="HealthLine">HealthLine</Option>
         </Select>
       </div>
 
-      {/* Status */}
       <div className="flex flex-col w-40">
-        <label className="text-sm mb-1">Status</label>
-        <Select value={status} onChange={setStatus}>
-          <Option value="all">All</Option>
+        <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+          Order Status
+        </label>
+        <Select value={status} onChange={setStatus} className="h-10 rounded-xl">
+          <Option value="all">All Statuses</Option>
           <Option value="pending">Pending</Option>
           <Option value="ordered">Ordered</Option>
           <Option value="received">Received</Option>
         </Select>
       </div>
 
-      {/* Date */}
       <div className="flex flex-col">
-        <label className="text-sm mb-1">Date Range</label>
+        <label className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1.5">
+          Order Date
+        </label>
         <DateRangePicker
           value={dateRange}
           onChange={setDateRange}
         />
       </div>
 
-      {/* Reset */}
-      <Button icon={<ReloadOutlined />} onClick={onReset}>
-        Reset
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button
+          type="primary"
+          icon={<SearchOutlined />}
+          className="h-10 px-4 rounded-xl font-medium shadow-sm"
+        >
+          Filter
+        </Button>
+        <Button
+          icon={<ReloadOutlined />}
+          onClick={onReset}
+          className="h-10 px-4 rounded-xl border-slate-200 dark:border-gray-700 text-slate-600 dark:text-slate-300 hover:text-slate-900"
+        >
+          Reset
+        </Button>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { Table, Tag, Button, Drawer, Tooltip, Modal } from "antd";
+import { Table, Button, Drawer, Tooltip, Modal } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { Dayjs } from "dayjs";
 import dayjs from "../../utils/dayJs";
@@ -9,8 +9,9 @@ import {
   CalendarPlus,
   Download,
   Eye,
+  Filter,
+  CheckCircle2,
 } from "lucide-react";
-import SectionHeader from "../../components/ui/SectionHeader";
 import { tabDetails } from "../../data/appointments";
 import { usePatientStore } from "../../store/patient.store";
 import PatientProfileModal from "../../components/modal/patients/PatientProfile";
@@ -19,7 +20,6 @@ import CreatePatient from "./CreatePatientDashboard";
 import toast from "react-hot-toast";
 import type { Patient } from "../../types/patients";
 import OpdPatientProfile from "../../components/modal/patients/OpdPatientProfile";
-
 
 const Appointments: React.FC = () => {
   const [showFilters, setShowFilters] = useState(true);
@@ -31,13 +31,11 @@ const Appointments: React.FC = () => {
   });
   const [status, setStatus] = useState("all");
   const [hmoFilter, setHmoFilter] = useState("all");
-  const currentTab =  tabDetails[tab] || tabDetails["all"];
-  const [open, setOpen] = useState(false)
-  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null)
-  const { patients, loading, fetchPatients} = usePatientStore();
+  const currentTab = tabDetails[tab] || tabDetails["all"];
+  const [open, setOpen] = useState(false);
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+  const { patients, loading, fetchPatients } = usePatientStore();
   const [viewOpd, setViewOpd] = useState(false);
-  
-
 
   const resetFilters = () => {
     setSearch("");
@@ -48,8 +46,7 @@ const Appointments: React.FC = () => {
   };
 
   const filteredData = useMemo(() => {
-    return patients.filter((item) => {
-
+    return (patients || []).filter((item) => {
       const fullName =
         `${item.surname} ${item.other_names}`.toLowerCase();
 
@@ -64,17 +61,13 @@ const Appointments: React.FC = () => {
 
       const matchesPatientType =
         patientType === "all" ||
-        (patientType === "in" &&
-          !item.is_out_patient) ||
-        (patientType === "out" &&
-          item.is_out_patient);
+        (patientType === "in" && !item.is_out_patient) ||
+        (patientType === "out" && item.is_out_patient);
 
       const matchesStatus =
         status === "all" ||
-        (status === "active" &&
-          item.is_active) ||
-        (status === "inactive" &&
-          !item.is_active);
+        (status === "active" && item.is_active) ||
+        (status === "inactive" && !item.is_active);
 
       const matchesHmo =
         hmoFilter === "all" ||
@@ -93,7 +86,6 @@ const Appointments: React.FC = () => {
           "[]"
         );
 
-
       return (
         matchesSearch &&
         matchesPatientType &&
@@ -111,100 +103,121 @@ const Appointments: React.FC = () => {
     dateRange,
   ]);
 
-
   const columns: ColumnsType<Patient> = [
     {
       title: "S/N",
       width: 60,
-      render: (_, __, index) => index + 1,
+      render: (_, __, index) => (
+        <span className="text-xs font-semibold text-slate-500">{index + 1}</span>
+      ),
     },
     {
       title: "Date Registered",
-      render: (_, record) =>
-        dayjs(record.createdAt).format("DD MMM YYYY, h:mm A"),
+      render: (_, record) => (
+        <span className="text-xs text-slate-600 dark:text-slate-300">
+          {dayjs(record.createdAt).format("DD MMM YYYY, h:mm A")}
+        </span>
+      ),
     },
     {
-    title: "Patient ID",
-    dataIndex: "patient_number",
-  },
+      title: "Patient ID",
+      dataIndex: "patient_number",
+      render: (val: string) => (
+        <span className="font-mono text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary/5 px-2 py-0.5 rounded-md">
+          {val || "N/A"}
+        </span>
+      ),
+    },
+    {
+      title: "Patient Name",
+      render: (_, record) => (
+        <div className="flex flex-col">
+          <span className="font-semibold text-slate-900 dark:text-white text-sm">
+            {record.surname.charAt(0).toUpperCase() + record.surname.slice(1)}{" "}
+            {record.other_names.charAt(0).toUpperCase() + record.other_names.slice(1)}
+          </span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400">
+            {record.email || record.phone_number || "No contact info"}
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: "Gender",
+      dataIndex: "gender",
+      render: (e) => (
+        <span className="text-xs font-medium capitalize text-slate-700 dark:text-slate-300">
+          {e ? `${e.charAt(0).toUpperCase()}${e.slice(1)}` : "N/A"}
+        </span>
+      ),
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone_number",
+      render: (phone: string) => (
+        <span className="text-xs text-slate-600 dark:text-slate-400">
+          {phone || "N/A"}
+        </span>
+      ),
+    },
+    {
+      title: "HMO Provider",
+      render: (_, record) => (
+        <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+          {record.hmo ? record.hmo.name : "Private / Cash"}
+        </span>
+      ),
+    },
+    {
+      title: "Balance",
+      dataIndex: "balance",
+      render: (balance: number) => (
+        <span className={`text-xs font-semibold ${Number(balance) > 0 ? "text-amber-600" : "text-emerald-600"}`}>
+          ₦{Number(balance || 0).toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      title: "Patient Type",
+      dataIndex: "is_out_patient",
+      render: (_, record) =>
+        record.is_out_patient ? (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200/60 dark:bg-blue-900/30 dark:text-blue-300">
+            Out-Patient
+          </span>
+        ) : (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-200/60 dark:bg-purple-900/30 dark:text-purple-300">
+            In-Patient
+          </span>
+        ),
+    },
+    {
+      title: "Actions",
+      align: "center",
+      render: (_, record) => (
+        <div className="flex justify-center gap-1.5">
+          <Tooltip title="View Patient Profile">
+            <button
+              type="button"
+              onClick={() => handleView(record)}
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-600 dark:text-slate-300 transition-colors"
+            >
+              <Eye size={15} />
+            </button>
+          </Tooltip>
+        </div>
+      ),
+    },
+  ];
 
-  {
-    title: "Patient Name",
-    render: (_, record) =>
-      `${record.surname.charAt(0).toUpperCase() + record.surname.slice(1)} ${record.other_names.at(0)?.toUpperCase() + record.other_names.slice(1)}`,
-  },
-
-  {
-    title: "Gender",
-    dataIndex: "gender",
-    render: (e)=> {
-      return `${e.charAt(0).toUpperCase() + e.slice(1)}`
-    }
-  },
-
-  {
-    title: "Phone",
-    dataIndex: "phone_number",
-  },
-   {
-    title: "Email",
-    dataIndex: "email",
-  },
-  {
-    title: "HMO",
-    render: (_, record) =>
-      record.hmo ? record.hmo.name : "N/A",
-  },
-  {
-    title: "Balance",
-    dataIndex: "balance",
-     render: (balance: number) => `₦${Number(balance).toLocaleString()}`,
-  },
-  {
-    title: "Patient Type",
-    dataIndex: "is_out_patient",
-    render:(_, record) => record.is_out_patient ? (
-      <Tag color="processing">Out-Patient</Tag>
-    ) : (
-      <Tag color="purple">In-Patient</Tag>
-    )
-  },
-  // {
-  //   title: "Status",
-  //   render: (_, record) => {
-  //     return record.is_active ? (
-  //       <Tag color="green">Active</Tag>
-  //     ) : (
-  //       <Tag color="red">Inactive</Tag>
-  //     );
-  //   },
-  // },
-  {
-  title: "Actions",
-  render: (_, record) => (
-    <div className="flex gap-2">
-      <Tooltip title="View Patient Profile">
-        <Button
-          size="small"
-          icon={<Eye size={14} />}
-          onClick={() => handleView(record)}
-        />
-      </Tooltip>
-    </div>
-  ),
-}
-
-];
-
- const handleView = (record: Patient) => {
+  const handleView = (record: Patient) => {
     setSelectedPatient(record);
-    if(record.is_out_patient){
+    if (record.is_out_patient) {
       setViewOpd(true);
     } else {
-    setOpen(true);
+      setOpen(true);
     }
-};
-
+  };
 
   useEffect(() => {
     fetchPatients();
@@ -215,166 +228,107 @@ const Appointments: React.FC = () => {
   }, [tab]);
 
   useEffect(() => {
-  localStorage.setItem(
-    "patient-filters",
-    JSON.stringify({
-      search,
-      patientType,
-      status,
-      hmoFilter,
-    })
-  );
-}, [search, patientType, status, hmoFilter]);
+    localStorage.setItem(
+      "patient-filters",
+      JSON.stringify({
+        search,
+        patientType,
+        status,
+        hmoFilter,
+      })
+    );
+  }, [search, patientType, status, hmoFilter]);
 
+  const renderContent = () => {
+    switch (tab) {
+      case "all":
+      case "today-appointments":
+        return (
+          <>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <div className="flex items-center gap-2">
+                <Button
+                  icon={<Filter size={14} />}
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="rounded-xl border-slate-200 dark:border-gray-700 font-medium"
+                >
+                  {showFilters ? "Hide Filters" : "Show Filters"}
+                </Button>
+                <span className="text-xs text-slate-500">
+                  Showing <strong>{filteredData.length}</strong> appointments
+                </span>
+              </div>
 
- const renderContent = () => {
-  switch (tab) {
-    case 'all':
-      return (
-        <>
-          <div className="flex justify-between items-center">
-            <Button onClick={() => setShowFilters(!showFilters)}>
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </Button>
+              <Button
+                type="primary"
+                icon={<Download size={14} />}
+                onClick={() => toast.success("Exporting Appointments CSV...")}
+                className="rounded-xl font-medium shadow-sm"
+              >
+                Export CSV
+              </Button>
+            </div>
 
-            <Button
-              type="primary"
-              icon={<Download size={14} />}
-              // onClick={exportCSV}
-            >
-              Export CSV
-            </Button>
-          </div>
-          {showFilters && (
-            <div className="bg-white rounded-2xl shadow-sm p-4">
-              <PatientFilters
-                search={search}
-                setSearch={setSearch}
-                patientType={patientType}
-                setPatientType={setPatientType}
-                dateRange={dateRange}
-                setDateRange={setDateRange}
-                hmoFilter={hmoFilter}
-                setHmoFilter={setHmoFilter}
-                onReset={resetFilters}
+            {showFilters && (
+              <div className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm p-5">
+                <PatientFilters
+                  search={search}
+                  setSearch={setSearch}
+                  patientType={patientType}
+                  setPatientType={setPatientType}
+                  dateRange={dateRange}
+                  setDateRange={setDateRange}
+                  hmoFilter={hmoFilter}
+                  setHmoFilter={setHmoFilter}
+                  onReset={resetFilters}
+                />
+              </div>
+            )}
+
+            <div className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm overflow-hidden p-2">
+              <Table
+                columns={columns}
+                dataSource={filteredData}
+                rowKey="id"
+                pagination={{ pageSize: 10, showSizeChanger: true }}
+                scroll={{ x: 1100 }}
+                loading={loading}
               />
             </div>
-          )}
+          </>
+        );
 
-          <div className="bg-white rounded-2xl shadow-sm p-4">
-            <Table
-              columns={columns}
-              dataSource={filteredData}
-              rowKey="id"
-              pagination={{ pageSize: 7 }}
-            />
-          </div>
-        </>
-      );
-    case 'new-appointment':
-      return <CreatePatient />;
-    case 'today-appointments':
-      return (
-        <>
-          <div className="flex justify-between items-center">
-            <Button onClick={() => setShowFilters(!showFilters)}>
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </Button>
+      case "new-appointment":
+        return <CreatePatient />;
 
-            <Button
-              type="primary"
-              icon={<Download size={14} />}
-              // onClick={exportCSV}
-            >
-              Export CSV
-            </Button>
-          </div>
-          {showFilters && (
-            <div className="bg-white rounded-2xl shadow-sm p-4">
-              <PatientFilters
-                search={search}
-                setSearch={setSearch}
-                patientType={patientType}
-                setPatientType={setPatientType}
-                dateRange={dateRange}
-                setDateRange={setDateRange}
-                hmoFilter={hmoFilter}
-                setHmoFilter={setHmoFilter}
-                onReset={resetFilters}
-              />
-            </div>
-          )}
-
-          <div className="bg-white rounded-2xl shadow-sm p-4">
-            <Table
-              columns={columns}
-              dataSource={filteredData}
-              rowKey="id"
-              pagination={{ pageSize: 10 }}
-            />
-          </div>
-        </>
-      )
-    default:
-      return (
-        <>
-          <div className="flex justify-between items-center">
-            <Button onClick={() => setShowFilters(!showFilters)}>
-              {showFilters ? "Hide Filters" : "Show Filters"}
-            </Button>
-
-            <Button
-              type="primary"
-              icon={<Download size={14} />}
-              onClick={() => toast.success("Export feature coming soon!")}
-            >
-              Export CSV
-            </Button>
-          </div>
-          {showFilters && (
-            <div className="bg-white rounded-2xl shadow-sm p-4">
-              <PatientFilters
-                search={search}
-                setSearch={setSearch}
-                patientType={patientType}
-                setPatientType={setPatientType}
-                hmoFilter={hmoFilter}
-                setHmoFilter={setHmoFilter}
-                dateRange={dateRange}
-                setDateRange={setDateRange}
-                onReset={resetFilters}
-              />
-            </div>
-          )}
-
-          <div className="bg-white rounded-2xl shadow-sm p-4">
-            <Table
-              columns={columns}
-              dataSource={filteredData}
-              rowKey="id"
-              pagination={{ pageSize: 10 }}
-              scroll={{ x: 1200 }}
-              loading={loading}
-            />
-          </div>
-        </>
-      );
-  }
-};
-
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="p-6 space-y-6">
-
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 bg-white p-6 rounded-2xl border border-zinc-100 shadow-md shadow-zinc-100/40">
-        <div className="space-y-1">
-          <SectionHeader
-            title={currentTab.title}
-            subtitle={currentTab.subtitle}
-          />
+      {/* Header Container */}
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5 bg-white dark:bg-gray-800 p-5 lg:p-6 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm">
+        <div className="space-y-1 shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 bg-primary/10 px-2.5 py-0.5 rounded-full">
+              Patient Management
+            </span>
+            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded-full">
+              <CheckCircle2 size={12} /> Appointment Desk
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+            {currentTab?.title || "Patient Appointments"}
+          </h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {currentTab?.subtitle || "Manage outpatient visits, clinic bookings and consultations"}
+          </p>
         </div>
 
-        <div className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-slate-200/80 bg-slate-50/80 p-1.5">
+        {/* Tab Navigation Pill Group */}
+        <div className="flex items-center gap-1.5 overflow-x-auto rounded-2xl border border-slate-200/80 dark:border-gray-700 bg-slate-50/80 dark:bg-gray-900/50 p-1.5">
           {[
             {
               id: "today-appointments",
@@ -406,41 +360,43 @@ const Appointments: React.FC = () => {
                 aria-current={active ? "page" : undefined}
                 className={`
                   group relative flex shrink-0 items-center gap-2.5
-                  rounded-xl px-3.5 lg:px-4 py-2.5 lg:py-3
+                  rounded-xl px-3.5 lg:px-4 py-2.5
                   text-left transition-all duration-200 ease-out
                   ${
                     active
-                      ? "bg-white text-primary-darker shadow-sm ring-1 ring-slate-200/80"
-                      : "text-slate-500 hover:bg-white/70 hover:text-slate-800"
+                      ? "bg-white dark:bg-gray-800 text-primary-600 dark:text-primary-400 shadow-sm ring-1 ring-slate-200/80 dark:ring-gray-700"
+                      : "text-slate-600 dark:text-slate-400 hover:bg-white/70 dark:hover:bg-gray-800/60 hover:text-slate-900 dark:hover:text-white"
                   }
                 `}
               >
                 <span
                   className={`
-                    flex h-9 w-9 shrink-0 items-center justify-center
+                    flex h-8 w-8 shrink-0 items-center justify-center
                     rounded-lg transition-colors duration-200
                     ${
                       active
-                        ? "bg-primary-soft text-primary-dark"
-                        : "bg-slate-100 text-slate-500 group-hover:bg-slate-200/70"
+                        ? "bg-primary/10 text-primary-600 dark:text-primary-400"
+                        : "bg-slate-100 dark:bg-gray-700 text-slate-500 dark:text-slate-400 group-hover:bg-slate-200/70"
                     }
                   `}
                 >
-                  <Icon size={18} strokeWidth={1.8} />
+                  <Icon size={16} strokeWidth={2} />
                 </span>
 
-                <span className="flex flex-col gap-0.5">
+                <div className="flex flex-col gap-0.5">
                   <span className="whitespace-nowrap text-xs font-semibold">
                     {item.label}
                   </span>
                   <span
                     className={`whitespace-nowrap text-[10px] ${
-                      active ? "text-primary-dark/80" : "text-slate-400"
+                      active
+                        ? "text-primary-600/80 dark:text-primary-400/80"
+                        : "text-slate-400"
                     }`}
                   >
                     {item.subtitle}
                   </span>
-                </span>
+                </div>
 
                 {active && (
                   <span className="absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-primary" />
@@ -450,28 +406,37 @@ const Appointments: React.FC = () => {
           })}
         </div>
       </div>
+
       {renderContent()}
+
       {open && selectedPatient && (
-        <Drawer        
-          title="Patient Profile"
+        <Drawer
+          title="Patient Comprehensive Profile"
           placement="right"
           onClose={() => setOpen(false)}
           open={open}
-          width='99%'
-          
-        > 
-          <PatientProfileModal patient={selectedPatient} />
+          width="90%"
+          styles={{ body: { padding: 0 } }}
+        >
+          <PatientProfileModal patient={selectedPatient} onClose={() => setOpen(false)} />
         </Drawer>
       )}
+
       {viewOpd && selectedPatient && (
         <Modal
-          title="OPD Patient Profile"
+          title="Out-Patient Department Profile"
           open={viewOpd}
           onCancel={() => setViewOpd(false)}
           footer={null}
-          width='50%'
+          width="50%"
         >
-          <OpdPatientProfile patient={selectedPatient} />
+          <OpdPatientProfile
+            patient={selectedPatient}
+            onOpenComprehensive={() => {
+              setViewOpd(false);
+              setOpen(true);
+            }}
+          />
         </Modal>
       )}
     </div>

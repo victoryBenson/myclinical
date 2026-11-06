@@ -99,7 +99,7 @@ const handleSubmit = async () => {
 
   return (
     <>
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200/70">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-gray-700">
         
         <Steps
             current={currentStep}
@@ -112,12 +112,12 @@ const handleSubmit = async () => {
                 <div className="space-y-8">
 
                     <div>
-                    <h3 className="text-lg font-semibold text-zinc-800">
-                        Personal Information
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                        OPD Fast-Track Registration
                     </h3>
 
-                    <p className="text-sm text-zinc-500 mt-1">
-                        Enter the patient's basic bio-data and identification details.
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        Rapidly register out-patients with essential demographic information.
                     </p>
                     </div>
 
@@ -326,19 +326,19 @@ const handleSubmit = async () => {
                 <div className="space-y-8">
 
                     <div>
-                    <h3 className="text-lg font-semibold text-zinc-800">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                         Review Patient Information
                     </h3>
 
-                    <p className="text-sm text-zinc-500 mt-1">
-                        Please review all patient details before submission.
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        Please review all patient details before final submission.
                     </p>
                     </div>
 
                     <div className="space-y-6">
 
-                    <div className="bg-zinc-50 border border-zinc-200/70 rounded-2xl p-5">
-                        <h4 className="text-sm font-semibold text-zinc-800 mb-4">
+                    <div className="bg-slate-50 dark:bg-gray-900/50 border border-slate-200/80 dark:border-gray-700 rounded-2xl p-5">
+                        <h4 className="text-sm font-bold text-slate-900 dark:text-white mb-4">
                         Personal Information
                         </h4>
 

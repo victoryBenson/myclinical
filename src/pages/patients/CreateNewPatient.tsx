@@ -105,7 +105,7 @@ const handleSubmit = async () => {
 
   return (
     <>
-        <div className="bg-white rounded-2xl p-6 shadow-sm border border-zinc-200/70">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-slate-200/80 dark:border-gray-700">
         
         <Steps
             current={currentStep}
@@ -118,12 +118,12 @@ const handleSubmit = async () => {
                 <div className="space-y-8">
 
                     <div>
-                    <h3 className="text-lg font-semibold text-zinc-800">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                         Personal Information
                     </h3>
 
-                    <p className="text-sm text-zinc-500 mt-1">
-                        Enter the patient's basic bio-data and identification details.
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        Enter the patient's comprehensive demographic and identification details.
                     </p>
                     </div>
 

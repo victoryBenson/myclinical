@@ -1,8 +1,9 @@
-import { useLocation } from "react-router-dom";
 import { useMemo } from "react";
+import { useLocation, NavLink } from "react-router-dom";
 import { Switch } from "antd";
-import { Sun, Moon, LayoutDashboard } from "lucide-react";
 import {
+  Sun,
+  Moon,
   Search,
   Bell,
   User,
@@ -10,161 +11,194 @@ import {
   Shield,
   HelpCircle,
   LogOut,
-  Users,
-  FlaskConical,
-  Pill,
+  Menu,
+  ChevronRight,
 } from "lucide-react";
 import { useAuthStore } from "../store/auth.store";
+import type { DepartmentConfig } from "../navigation/navigationConfig";
 
 interface HeaderProps {
   isDark: boolean;
   toggleTheme: () => void;
+  currentDepartment?: DepartmentConfig;
+  onToggleMobileMenu?: () => void;
 }
 
-export default function Header({ isDark, toggleTheme }: HeaderProps) {
+export default function Header({
+  isDark,
+  toggleTheme,
+  currentDepartment,
+  onToggleMobileMenu,
+}: HeaderProps) {
   const location = useLocation();
-  const { logout } = useAuthStore();
+  const { user, logout } = useAuthStore();
 
-    const { title, Icon } = useMemo(() => {
-    const sectionConfig: Record<
-      string,
-      { title: string; Icon: React.ElementType }
-    > = {
-      lab: {
-        title: "Lab Management",
-        Icon: FlaskConical,
-      },
-      pharmacy: {
-        title: "Pharmacy Management",
-        Icon: Pill,
-      },
-      patients: {
-        title: "Patient Management",
-        Icon: Users,
-      },
-    };
-
-    const segments = location.pathname.split("/").filter(Boolean);
-
-    if (segments.length === 0) {
-      return { title: "Dashboard", Icon: LayoutDashboard };
+  // Find active module name within current department
+  const activeModule = useMemo(() => {
+    if (!currentDepartment) return null;
+    for (const group of currentDepartment.groups) {
+      for (const item of group.items) {
+        if (
+          location.pathname === item.path ||
+          (item.path !== "/" &&
+            item.path !== "/dashboard" &&
+            location.pathname.startsWith(`${item.path}/`))
+        ) {
+          return item;
+        }
+      }
     }
+    return null;
+  }, [currentDepartment, location.pathname]);
 
-    const firstSegment = segments[0];
-
-    if (sectionConfig[firstSegment]) {
-      return sectionConfig[firstSegment];
-    }
-
-    const last = segments[segments.length - 1];
-    return {
-      title: last.charAt(0).toUpperCase() + last.slice(1),
-      Icon: LayoutDashboard,
-    };
-    }, [location.pathname]);
-
+  const DeptIcon = currentDepartment?.icon;
 
   return (
-    <header className="bg-white dark:bg-[#141414] shadow-sm px-6 h-20 flex items-center justify-between sticky top-0 z-10 transition-colors">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200/80 bg-white/95 px-6 backdrop-blur-md dark:border-white/10 dark:bg-[#141414]/95 transition-colors">
+      {/* Left: Mobile Menu Trigger + Breadcrumb trail */}
+      <div className="flex items-center gap-3 min-w-0">
+        {onToggleMobileMenu && (
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 transition hover:bg-slate-100 lg:hidden dark:border-white/10 dark:text-slate-300 dark:hover:bg-slate-800"
+            aria-label="Open mobile navigation"
+          >
+            <Menu size={18} />
+          </button>
+        )}
 
-      <div className="flex items-center gap-3">
-        <div className="p-2 rounded-xl bg-primary/10 dark:bg-primary/20">
-          <Icon size={20} className="text-primary" />
+        {/* Dynamic Breadcrumbs */}
+        <div className="flex items-center gap-2 min-w-0">
+          {DeptIcon && (
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-soft text-primary-darker dark:bg-primary/20 dark:text-primary-300 flex-shrink-0">
+              <DeptIcon size={16} />
+            </div>
+          )}
+
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 min-w-0">
+            {currentDepartment && (
+              <NavLink
+                to={currentDepartment.path}
+                className="font-medium hover:text-primary transition truncate"
+              >
+                {currentDepartment.name}
+              </NavLink>
+            )}
+
+            {activeModule && (
+              <>
+                <ChevronRight size={13} className="text-slate-400 flex-shrink-0" />
+                <span className="font-semibold text-slate-800 dark:text-white truncate">
+                  {activeModule.name}
+                </span>
+              </>
+            )}
+          </div>
         </div>
-        <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-          {title}
-        </h1>
       </div>
 
-      <div className="flex items-center gap-6">
-        
+      {/* Right: Search + Theme Toggle + Notifications + User Avatar */}
+      <div className="flex items-center gap-4">
+        {/* Quick Search */}
+        <div className="relative hidden md:block w-64 lg:w-80">
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+            size={16}
+          />
+          <input
+            type="text"
+            placeholder="Search patients, doctors, records..."
+            className="w-full rounded-xl border border-slate-200 bg-slate-50/80 py-1.5 pl-9 pr-4 text-xs text-slate-800 placeholder:text-slate-400 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white transition"
+          />
+        </div>
+
+        {/* Theme Switcher */}
         <Switch
           checked={isDark}
           onChange={toggleTheme}
           className="flex items-center"
-          checkedChildren={<Moon size={14} />}
-          unCheckedChildren={<Sun size={14} />}
+          checkedChildren={<Moon size={12} />}
+          unCheckedChildren={<Sun size={12} />}
         />
 
-        <div className="relative w-80">
-          <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-            size={18}
-          />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 dark:bg-[#1f1f1f] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-light transition"
-          />
+        {/* Notifications Icon with Badge */}
+        <div className="relative cursor-pointer p-1.5 text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary transition">
+          <Bell size={18} />
+          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-[#141414]" />
         </div>
 
-        <div className="flex items-center gap-4 relative">
-          <Bell
-            className="text-gray-600 dark:text-gray-300 cursor-pointer hover:text-primary-dark transition"
-            size={20}
-          />
+        {/* User Profile Dropdown */}
+        <div className="relative group">
+          <div className="flex items-center gap-2 cursor-pointer p-1 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-700 text-xs font-bold text-white shadow-sm border border-white/20">
+              {user?.name ? user.name.slice(0, 2).toUpperCase() : "DR"}
+            </div>
+            <div className="hidden sm:block text-left text-xs">
+              <p className="font-semibold text-slate-700 dark:text-white leading-tight">
+                {user?.name || "Dr. Alex"}
+              </p>
+              <p className="text-[10px] text-slate-400 leading-tight">
+                {user?.role || "Administrator"}
+              </p>
+            </div>
+          </div>
 
-          <div className="relative group">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <img
-                src="https://i.pravatar.cc/40"
-                alt="profile"
-                className="w-9 h-9 rounded-full object-cover border-2 border-primary-light"
-              />
-              <div className="text-sm">
-                <p className="font-medium text-gray-700 dark:text-white">
-                  Dr. Lee
-                </p>
-                <p className="text-gray-400 text-xs">Admin</p>
-              </div>
+          {/* Profile Flyout */}
+          <div className="invisible absolute right-0 mt-2 w-56 transform rounded-2xl border border-slate-200 bg-white p-1.5 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:opacity-100 dark:border-gray-700 dark:bg-[#1f1f1f] z-50">
+            <div className="border-b border-slate-100 p-2.5 dark:border-gray-700">
+              <p className="text-xs font-semibold text-slate-800 dark:text-white">
+                {user?.name || "Dr. Alex"}
+              </p>
+              <p className="text-[11px] text-slate-400 truncate">
+                {user?.email || "alex.clinic@myclinical.health"}
+              </p>
             </div>
 
-            <div
-              className="
-                absolute right-0 mt-3 w-56 
-                bg-white dark:bg-[#1f1f1f] shadow-xl rounded-xl 
-                opacity-0 invisible 
-                group-hover:opacity-100 group-hover:visible
-                transition-all duration-200
-                transform group-hover:translate-y-0 translate-y-2
-                z-50
-              "
-            >
-              <div className="p-3 border-b dark:border-gray-700">
-                <p className="font-semibold text-gray-800 dark:text-white">
-                  Dr. Lee
-                </p>
-                <p className="text-xs text-gray-400">
-                  lee@clinic.com
-                </p>
-              </div>
-
-              <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-
-                <li className="flex items-center gap-3 px-4 py-2 hover:bg-primary-ultraLight dark:hover:bg-[#2a2a2a] cursor-pointer">
-                  <User size={16} /> Personal Info
-                </li>
-
-                <li className="flex items-center gap-3 px-4 py-2 hover:bg-primary-ultraLight dark:hover:bg-[#2a2a2a] cursor-pointer">
-                  <Settings size={16} /> Account Settings
-                </li>
-
-                <li className="flex items-center gap-3 px-4 py-2 hover:bg-primary-ultraLight dark:hover:bg-[#2a2a2a] cursor-pointer">
-                  <Shield size={16} /> Security
-                </li>
-
-                <li className="flex items-center gap-3 px-4 py-2 hover:bg-primary-ultraLight dark:hover:bg-[#2a2a2a] cursor-pointer">
-                  <HelpCircle size={16} /> Help & Support
-                </li>
-
-                <div className="border-t my-2 dark:border-gray-700"></div>
-
-                <li className="flex items-center gap-3 px-4 py-2 text-danger hover:bg-danger-soft dark:hover:bg-[#2a2a2a] cursor-pointer" onClick={logout}>
-                  <LogOut size={16} /> Logout
-                </li>
-
-              </ul>
-            </div>
+            <ul className="py-1 text-xs text-slate-700 dark:text-slate-200">
+              <li>
+                <NavLink
+                  to="/system-admin/settings"
+                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 hover:bg-primary-soft hover:text-primary-darker dark:hover:bg-[#2a2a2a] transition"
+                >
+                  <User size={14} /> Personal Profile
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/system-admin/settings"
+                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 hover:bg-primary-soft hover:text-primary-darker dark:hover:bg-[#2a2a2a] transition"
+                >
+                  <Settings size={14} /> System Settings
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/system-admin/permissions"
+                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 hover:bg-primary-soft hover:text-primary-darker dark:hover:bg-[#2a2a2a] transition"
+                >
+                  <Shield size={14} /> Security & Roles
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/ict/service-desk"
+                  className="flex items-center gap-2.5 rounded-lg px-3 py-2 hover:bg-primary-soft hover:text-primary-darker dark:hover:bg-[#2a2a2a] transition"
+                >
+                  <HelpCircle size={14} /> Help Desk
+                </NavLink>
+              </li>
+              <li className="my-1 border-t border-slate-100 dark:border-gray-700" />
+              <li>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="w-full flex items-center gap-2.5 rounded-lg px-3 py-2 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition text-left"
+                >
+                  <LogOut size={14} /> Sign Out
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

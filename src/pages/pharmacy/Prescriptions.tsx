@@ -1,297 +1,9 @@
-// import React, { useMemo, useState } from "react";
-// import { Table, Tag, Button, Space } from "antd";
-// import type { ColumnsType } from "antd/es/table";
-// import type { Dayjs } from "dayjs";
-// import dayjs from "../../utils/dayJs";
-// import { Download } from "lucide-react";
-// import SectionHeader from "../../components/ui/SectionHeader";
-// import type { Prescription } from "../../types/pharmacy.types";
-// import { mockPrescriptions } from "../../data/pharmacy";
-// import PrescriptionFilters from "../../components/pharmacy/PrescriptionsFilter";
-// import { Drawer, Modal, InputNumber, message } from "antd";
-
-
-// const Prescriptions: React.FC = () => {
-//   const [data, setData] = useState<Prescription[]>(mockPrescriptions);
-//   const [showFilters, setShowFilters] = useState(true);
-//     const [selectedPrescription, setSelectedPrescription] =
-//   useState<Prescription | null>(null);
-
-// const [drawerOpen, setDrawerOpen] = useState(false);
-// const [dispenseModalOpen, setDispenseModalOpen] = useState(false);
-//   const [search, setSearch] = useState("");
-//   const [status, setStatus] = useState("all");
-//   const [paymentStatus, setPaymentStatus] = useState("all");
-//   const [doctor, setDoctor] = useState("all");
-//   const [dateRange, setDateRange] =
-//     useState<[Dayjs | null, Dayjs | null] | null>(null);
-
-//   const resetFilters = () => {
-//     setSearch("");
-//     setStatus("all");
-//     setPaymentStatus("all");
-//     setDoctor("all");
-//     setDateRange(null);
-//   };
-
-//   const updateStatus = (id: number, newStatus: any) => {
-//     setData(prev =>
-//       prev.map(item =>
-//         item.id === id ? { ...item, status: newStatus } : item
-//       )
-//     );
-//   };
-
-//   const filteredData = useMemo(() => {
-//     return data.filter(item => {
-
-//       const matchesSearch =
-//         item.patientName.toLowerCase().includes(search.toLowerCase()) ||
-//         item.id.toString().includes(search);
-
-//       const matchesStatus =
-//         status === "all" || item.status === status;
-
-//       const matchesPayment =
-//         paymentStatus === "all" || item.paymentStatus === paymentStatus;
-
-//       const matchesDoctor =
-//         doctor === "all" || item.doctorName === doctor;
-
-//       const matchesDate =
-//         !dateRange ||
-//         !dateRange[0] ||
-//         !dateRange[1] ||
-//         dayjs(item.date).isBetween(
-//           dateRange[0],
-//           dateRange[1],
-//           "day",
-//           "[]"
-//         );
-
-//       return (
-//         matchesSearch &&
-//         matchesStatus &&
-//         matchesPayment &&
-//         matchesDoctor &&
-//         matchesDate
-//       );
-//     });
-//   }, [data, search, status, paymentStatus, doctor, dateRange]);
-
-//   const exportCSV = () => {
-//     const csvRows = [
-//       ["ID", "Patient", "Doctor", "Total", "Status", "Payment", "Date"],
-//       ...filteredData.map(item => [
-//         item.id,
-//         item.patientName,
-//         item.doctorName,
-//         item.totalAmount,
-//         item.status,
-//         item.paymentStatus,
-//         item.date,
-//       ]),
-//     ];
-
-//     const blob = new Blob(
-//       [csvRows.map(row => row.join(",")).join("\n")],
-//       { type: "text/csv" }
-//     );
-
-//     const link = document.createElement("a");
-//     link.href = URL.createObjectURL(blob);
-//     link.download = "prescriptions.csv";
-//     link.click();
-//   };
-
-//   const columns: ColumnsType<Prescription> = [
-//     { title: "ID", dataIndex: "id" },
-//     { title: "Patient", dataIndex: "patientName" },
-//     { title: "Doctor", dataIndex: "doctorName" },
-//     {
-//       title: "Medications",
-//       render: (_, record) => record.medications.length,
-//     },
-//     {
-//       title: "Total (₦)",
-//       dataIndex: "totalAmount",
-//     },
-//     {
-//       title: "Status",
-//       dataIndex: "status",
-//       render: (status: string) => {
-//         if (status === "pending")
-//           return <Tag color="orange">Pending</Tag>;
-//         if (status === "dispensed")
-//           return <Tag color="green">Dispensed</Tag>;
-//         return <Tag color="red">Cancelled</Tag>;
-//       },
-//     },
-//     {
-//       title: "Payment",
-//       dataIndex: "paymentStatus",
-//       render: (payment: string) =>
-//         payment === "paid" ? (
-//           <Tag color="green">Paid</Tag>
-//         ) : (
-//           <Tag color="red">Unpaid</Tag>
-//         ),
-//     },
-//     { title: "Date", dataIndex: "date" },
-//     {
-//         title: "Actions",
-//         render: (_, record) => (
-//             <Space>
-//             <Button
-//                 size="small"
-//                 onClick={() => {
-//                 setSelectedPrescription(record);
-//                 setDrawerOpen(true);
-//                 }}
-//             >
-//                 View
-//             </Button>
-
-//             <Button
-//                 size="small"
-//                 type="primary"
-//                 onClick={() => {
-//                 setSelectedPrescription(record);
-//                 setDispenseModalOpen(true);
-//                 }}
-//             >
-//                 Dispense
-//             </Button>
-//             </Space>
-//         ),
-//         },
-//     ];
-
-//   return (
-//     <div className="p-6 space-y-6">
-
-//       <SectionHeader
-//         title="Prescriptions"
-//         subtitle="Manage and dispense patient prescriptions"
-//       />
-
-//       <div className="flex justify-between items-center">
-//         <Button onClick={() => setShowFilters(!showFilters)}>
-//           {showFilters ? "Hide Filters" : "Show Filters"}
-//         </Button>
-
-//         <Button
-//           type="primary"
-//           icon={<Download size={14} />}
-//           onClick={exportCSV}
-//         >
-//           Export CSV
-//         </Button>
-//       </div>
-
-//       {showFilters && (
-//         <div className="bg-white rounded-2xl shadow-sm p-4">
-//           <PrescriptionFilters
-//             search={search}
-//             setSearch={setSearch}
-//             status={status}
-//             setStatus={setStatus}
-//             paymentStatus={paymentStatus}
-//             setPaymentStatus={setPaymentStatus}
-//             doctor={doctor}
-//             setDoctor={setDoctor}
-//             dateRange={dateRange}
-//             setDateRange={setDateRange}
-//             onReset={resetFilters}
-//           />
-//         </div>
-//       )}
-
-//       <div className="bg-white rounded-2xl shadow-sm p-4">
-//         <Table
-//           columns={columns}
-//           dataSource={filteredData}
-//           rowKey="id"
-//           pagination={{ pageSize: 10 }}
-//         />
-//       </div>
-
-//         <Drawer
-//             title="Prescription Details"
-//             open={drawerOpen}
-//             onClose={() => setDrawerOpen(false)}
-//             width={480}
-//             >
-//             {selectedPrescription && (
-//                 <div className="space-y-4">
-
-//                 <p><strong>Patient:</strong> {selectedPrescription.patientName}</p>
-//                 <p><strong>Doctor:</strong> {selectedPrescription.doctorName}</p>
-//                 <p><strong>Date:</strong> {selectedPrescription.date}</p>
-//                 <p><strong>Status:</strong> {selectedPrescription.status}</p>
-//                 <p><strong>Payment:</strong> {selectedPrescription.paymentStatus}</p>
-
-//                 <div>
-//                     <strong>Medications:</strong>
-//                     <ul className="list-disc ml-6 mt-2">
-//                     {selectedPrescription.medications.map((med, index) => (
-//                         <li key={index}>{med}</li>
-//                     ))}
-//                     </ul>
-//                 </div>
-
-//                 <p className="text-lg font-semibold">
-//                     Total: ₦{selectedPrescription.totalAmount}
-//                 </p>
-
-//                 <Button
-//                     type="primary"
-//                     onClick={() => window.print()}
-//                 >
-//                     Print Receipt
-//                 </Button>
-//                 </div>
-//             )}
-//         </Drawer>
-
-//         <Modal
-//             title="Dispense Prescription"
-//             open={dispenseModalOpen}
-//             onCancel={() => setDispenseModalOpen(false)}
-//             onOk={() => {
-//                 if (selectedPrescription) {
-//                 updateStatus(selectedPrescription.id, "dispensed");
-//                 message.success("Prescription dispensed successfully");
-//                 setDispenseModalOpen(false);
-//                 }
-//             }}
-//             >
-//             {selectedPrescription && (
-//                 <div className="space-y-4">
-//                 {selectedPrescription.medications.map((med, index) => (
-//                     <div key={index} className="flex justify-between items-center">
-//                     <span>{med}</span>
-//                     <InputNumber min={1} defaultValue={1} />
-//                     </div>
-//                 ))}
-//                 </div>
-//             )}
-//         </Modal>
-
-//     </div>
-//   );
-// };
-
-// export default Prescriptions;
-
-
 import React, { useMemo, useState } from "react";
-import { Table, Tag, Button, Space, Drawer, Modal, InputNumber, message } from "antd";
+import { Table, Button, Space, Drawer, Modal, InputNumber, message, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { Dayjs } from "dayjs";
 import dayjs from "../../utils/dayJs";
-import { Download } from "lucide-react";
-import SectionHeader from "../../components/ui/SectionHeader";
+import { Download, Filter, Eye, CheckCircle2, Pill, Printer } from "lucide-react";
 import type { Prescription } from "../../types/pharmacy";
 import { mockPrescriptions, mockMedications } from "../../data/pharmacy";
 import PrescriptionFilters from "../../components/pharmacy/PrescriptionsFilter";
@@ -321,8 +33,8 @@ const Prescriptions: React.FC = () => {
   };
 
   const updateStatus = (id: number, newStatus: any) => {
-    setData(prev =>
-      prev.map(item => {
+    setData((prev) =>
+      prev.map((item) => {
         if (item.id === id) {
           if (newStatus === "dispensed") {
             return {
@@ -339,7 +51,7 @@ const Prescriptions: React.FC = () => {
   };
 
   const filteredData = useMemo(() => {
-    return data.filter(item => {
+    return data.filter((item) => {
       const matchesSearch =
         item.patientName.toLowerCase().includes(search.toLowerCase()) ||
         item.id.toString().includes(search);
@@ -377,7 +89,7 @@ const Prescriptions: React.FC = () => {
   const exportCSV = () => {
     const csvRows = [
       ["ID", "Patient", "Doctor", "Total", "Status", "Payment", "Date"],
-      ...filteredData.map(item => [
+      ...filteredData.map((item) => [
         item.id,
         item.patientName,
         item.doctorName,
@@ -389,7 +101,7 @@ const Prescriptions: React.FC = () => {
     ];
 
     const blob = new Blob(
-      [csvRows.map(row => row.join(",")).join("\n")],
+      [csvRows.map((row) => row.join(",")).join("\n")],
       { type: "text/csv" }
     );
 
@@ -400,68 +112,116 @@ const Prescriptions: React.FC = () => {
   };
 
   const renderTimeline = (prescription: Prescription) => (
-    <div className="flex gap-6 text-sm text-gray-500 mt-4">
+    <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-slate-50 dark:bg-gray-800 text-xs text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-gray-700">
       <div>
-        <p className="font-semibold">Created</p>
-        <p>{prescription.createdAt}</p>
+        <p className="font-semibold text-slate-800 dark:text-slate-200">Prescribed</p>
+        <p className="text-[11px] text-slate-500 mt-0.5">{prescription.createdAt}</p>
       </div>
 
       <div>
-        <p className="font-semibold">Paid</p>
-        <p>{prescription.paidAt || "Pending"}</p>
+        <p className="font-semibold text-slate-800 dark:text-slate-200">Payment</p>
+        <p className="text-[11px] text-slate-500 mt-0.5">{prescription.paidAt || "Pending Cashier"}</p>
       </div>
 
       <div>
-        <p className="font-semibold">Dispensed</p>
-        <p>{prescription.dispensedAt || "Pending"}</p>
+        <p className="font-semibold text-slate-800 dark:text-slate-200">Dispensed</p>
+        <p className="text-[11px] text-slate-500 mt-0.5">{prescription.dispensedAt || "Awaiting Dispense"}</p>
       </div>
     </div>
   );
 
   const columns: ColumnsType<Prescription> = [
-    { title: "ID", dataIndex: "id" },
-    { title: "Patient", dataIndex: "patientName" },
-    { title: "Doctor", dataIndex: "doctorName" },
     {
-      title: "Medications",
-      render: (_, record) => record.medications.length,
+      title: "Rx ID",
+      dataIndex: "id",
+      render: (id) => <span className="font-mono text-xs font-semibold text-primary-600 dark:text-primary-400 bg-primary/5 px-2 py-0.5 rounded-md">#{id}</span>,
     },
-    { title: "Total (₦)", dataIndex: "totalAmount" },
     {
-      title: "Status",
+      title: "Patient Name",
+      dataIndex: "patientName",
+      render: (p) => <span className="font-semibold text-xs text-slate-900 dark:text-white">{p}</span>,
+    },
+    {
+      title: "Prescribing Physician",
+      dataIndex: "doctorName",
+      render: (d) => <span className="text-xs text-slate-700 dark:text-slate-300">{d}</span>,
+    },
+    {
+      title: "Items",
+      render: (_, record) => (
+        <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
+          <Pill size={11} /> {record.medications.length} items
+        </span>
+      ),
+    },
+    {
+      title: "Total Amount",
+      dataIndex: "totalAmount",
+      render: (amount: number) => (
+        <span className="font-semibold text-xs text-slate-800 dark:text-slate-200">
+          ₦{amount.toLocaleString()}
+        </span>
+      ),
+    },
+    {
+      title: "Dispense Status",
       dataIndex: "status",
       render: (status: string) => {
-        if (status === "pending")
-          return <Tag color="warning">Pending</Tag>;
         if (status === "dispensed")
-          return <Tag color="success">Dispensed</Tag>;
-        return <Tag color="error">Cancelled</Tag>;
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400">
+              Dispensed
+            </span>
+          );
+        if (status === "pending")
+          return (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200/60 dark:bg-amber-950/40 dark:text-amber-400">
+              Pending
+            </span>
+          );
+        return (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200/60 dark:bg-rose-950/40 dark:text-rose-400">
+            Cancelled
+          </span>
+        );
       },
     },
     {
-      title: "Payment",
+      title: "Billing",
       dataIndex: "paymentStatus",
       render: (payment: string) =>
         payment === "paid" ? (
-          <Tag color="success">Paid</Tag>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 dark:bg-emerald-950/40 dark:text-emerald-400">
+            Paid
+          </span>
         ) : (
-          <Tag color="error">Unpaid</Tag>
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-200/60 dark:bg-rose-950/40 dark:text-rose-400">
+            Unpaid
+          </span>
         ),
     },
-    { title: "Date", dataIndex: "createdAt" },
+    {
+      title: "Date",
+      dataIndex: "createdAt",
+      render: (d) => <span className="text-xs text-slate-600 dark:text-slate-400">{d}</span>,
+    },
     {
       title: "Actions",
+      align: "center",
       render: (_, record) => (
-        <Space>
-          <Button
-            size="small"
-            onClick={() => {
-              setSelectedPrescription(record);
-              setDrawerOpen(true);
-            }}
-          >
-            View
-          </Button>
+        <Space size="small">
+          <Tooltip title="View prescription details">
+            <button
+              type="button"
+              onClick={() => {
+                setSelectedPrescription(record);
+                setDrawerOpen(true);
+              }}
+              className="p-1.5 rounded-lg border border-slate-200 dark:border-gray-700 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-600 dark:text-slate-300 transition-colors"
+            >
+              <Eye size={14} />
+            </button>
+          </Tooltip>
 
           <Button
             size="small"
@@ -474,6 +234,7 @@ const Prescriptions: React.FC = () => {
               setSelectedPrescription(record);
               setDispenseModalOpen(true);
             }}
+            className="rounded-lg text-xs font-medium"
           >
             Dispense
           </Button>
@@ -484,27 +245,54 @@ const Prescriptions: React.FC = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <SectionHeader
-        title="Prescriptions"
-        subtitle="Manage and dispense patient prescriptions"
-      />
+      {/* Header Container */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-gray-800 p-5 lg:p-6 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 bg-primary/10 px-2.5 py-0.5 rounded-full">
+              Pharmacy & Diagnostics
+            </span>
+            <span className="text-slate-300 dark:text-slate-600">•</span>
+            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded-full">
+              <CheckCircle2 size={12} /> Active Rx Queue
+            </span>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+            <Pill className="h-6 w-6 text-primary" />
+            Prescription Management & Dispensing
+          </h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            Verify physician prescriptions, inspect patient medication orders, validate cashier payments and dispense
+          </p>
+        </div>
+      </div>
 
-      <div className="flex justify-between items-center">
-        <Button onClick={() => setShowFilters(!showFilters)}>
-          {showFilters ? "Hide Filters" : "Show Filters"}
-        </Button>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div className="flex items-center gap-2">
+          <Button
+            icon={<Filter size={14} />}
+            onClick={() => setShowFilters(!showFilters)}
+            className="rounded-xl border-slate-200 dark:border-gray-700 font-medium"
+          >
+            {showFilters ? "Hide Filters" : "Show Filters"}
+          </Button>
+          <span className="text-xs text-slate-500">
+            Showing <strong>{filteredData.length}</strong> prescription orders
+          </span>
+        </div>
 
         <Button
           type="primary"
           icon={<Download size={14} />}
           onClick={exportCSV}
+          className="rounded-xl font-medium shadow-sm"
         >
           Export CSV
         </Button>
       </div>
 
       {showFilters && (
-        <div className="bg-white rounded-2xl shadow-sm p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm p-5">
           <PrescriptionFilters
             search={search}
             setSearch={setSearch}
@@ -521,50 +309,80 @@ const Prescriptions: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-2xl shadow-sm p-4">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200/80 dark:border-gray-700 shadow-sm overflow-hidden p-2">
         <Table
           columns={columns}
           dataSource={filteredData}
           rowKey="id"
-          pagination={{ pageSize: 10 }}
+          pagination={{ pageSize: 10, showSizeChanger: true }}
+          scroll={{ x: 1050 }}
         />
       </div>
 
       {/* Drawer */}
       <Drawer
-        title="Prescription Details"
+        title="Prescription Details & Fulfillment"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
         width={480}
       >
         {selectedPrescription && (
-          <div className="space-y-4">
-            <p><strong>Patient:</strong> {selectedPrescription.patientName}</p>
-            <p><strong>Doctor:</strong> {selectedPrescription.doctorName}</p>
-            <p><strong>Date:</strong> {selectedPrescription.createdAt}</p>
-            <p><strong>Status:</strong> {selectedPrescription.status}</p>
-            <p><strong>Payment:</strong> {selectedPrescription.paymentStatus}</p>
-
-            <div>
-              <strong>Medications:</strong>
-              <ul className="list-disc ml-6 mt-2">
-                {selectedPrescription.medications.map((med, index) => (
-                  <li key={index}>{med.name}</li>
-                ))}
-              </ul>
+          <div className="space-y-5">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-gray-800 border border-slate-200 dark:border-gray-700 space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-500">Rx ID:</span>
+                <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">#{selectedPrescription.id}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Patient:</span>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{selectedPrescription.patientName}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Doctor:</span>
+                <span className="text-slate-800 dark:text-slate-200">{selectedPrescription.doctorName}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Date:</span>
+                <span className="text-slate-700 dark:text-slate-300">{selectedPrescription.createdAt}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-500">Payment:</span>
+                <span className={`font-semibold ${selectedPrescription.paymentStatus === "paid" ? "text-emerald-600" : "text-rose-600"}`}>
+                  {selectedPrescription.paymentStatus.toUpperCase()}
+                </span>
+              </div>
             </div>
 
-            <p className="text-lg font-semibold">
-              Total: ₦{selectedPrescription.totalAmount}
-            </p>
+            <div>
+              <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                Prescribed Formulary
+              </h4>
+              <div className="divide-y divide-slate-100 dark:divide-gray-700 rounded-xl border border-slate-200 dark:border-gray-700 overflow-hidden">
+                {selectedPrescription.medications.map((med, index) => (
+                  <div key={index} className="p-3 bg-white dark:bg-gray-800 flex justify-between items-center text-sm">
+                    <span className="font-medium text-slate-800 dark:text-slate-200">{med.name}</span>
+                    <span className="text-xs text-slate-500">Qty: 1 Unit</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-primary/5 border border-primary/20 flex justify-between items-center">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400">Total Billed</span>
+              <span className="text-xl font-bold text-primary-600 dark:text-primary-400">
+                ₦{selectedPrescription.totalAmount.toLocaleString()}
+              </span>
+            </div>
 
             {renderTimeline(selectedPrescription)}
 
             <Button
               type="primary"
+              icon={<Printer size={14} />}
               onClick={() => window.print()}
+              className="w-full rounded-xl h-10 font-medium"
             >
-              Print Receipt
+              Print Prescription Receipt
             </Button>
           </div>
         )}
@@ -572,7 +390,7 @@ const Prescriptions: React.FC = () => {
 
       {/* Dispense Modal */}
       <Modal
-        title="Dispense Prescription"
+        title="Confirm Medication Dispense"
         open={dispenseModalOpen}
         onCancel={() => setDispenseModalOpen(false)}
         onOk={() => {
@@ -591,7 +409,7 @@ const Prescriptions: React.FC = () => {
           // Deduct stock
           selectedPrescription.medications.forEach((medName) => {
             const medication = mockMedications.find(
-              m => m.name === medName.name
+              (m) => m.name === medName.name
             );
             if (medication) {
               medication.stock -= 1;
@@ -600,16 +418,19 @@ const Prescriptions: React.FC = () => {
 
           updateStatus(selectedPrescription.id, "dispensed");
 
-          message.success("Prescription dispensed successfully");
+          message.success("Prescription dispensed successfully and formulary stock decremented.");
           setDispenseModalOpen(false);
         }}
       >
         {selectedPrescription && (
-          <div className="space-y-4">
+          <div className="space-y-4 py-2">
+            <p className="text-xs text-slate-500">
+              Verify units to decrement from hospital inventory before confirming:
+            </p>
             {selectedPrescription.medications.map((med, index) => (
-              <div key={index} className="flex justify-between items-center">
-                <span>{med.name}</span>
-                <InputNumber min={1} defaultValue={1} />
+              <div key={index} className="flex justify-between items-center p-3 rounded-xl bg-slate-50 dark:bg-gray-800">
+                <span className="font-medium text-sm text-slate-800 dark:text-slate-200">{med.name}</span>
+                <InputNumber min={1} defaultValue={1} className="rounded-lg" />
               </div>
             ))}
           </div>
