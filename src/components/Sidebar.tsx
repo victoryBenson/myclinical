@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { sidebarModules } from "./module/SideBarModule";
+import { APP_INFO } from "../app/appInfo";
 
 interface SidebarProps {
   collapsed?: boolean;
@@ -78,8 +79,8 @@ const Sidebar = ({ collapsed = false, onToggle }: SidebarProps) => {
         >
           <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/6 shadow-[0_16px_30px_theme(colors.primary.DEFAULT/18%)] backdrop-blur-md">
             <img
-              src="/logo.png"
-              alt="MyClinic logo"
+              src="/ithere-icon.svg"
+              alt="Ithere Care logo"
               className="h-6 w-6 object-contain"
             />
             <Sparkles className="absolute -right-1 -top-1 h-3.5 w-3.5 text-warning-300" />
@@ -88,10 +89,10 @@ const Sidebar = ({ collapsed = false, onToggle }: SidebarProps) => {
           {!collapsed && (
             <div className="min-w-0">
               <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-primary-300/80">
-                Clinical Suite
+                Ithere Systems
               </p>
               <h2 className="text-base font-semibold tracking-wide text-white">
-                MyClinic
+                {APP_INFO.name}
               </h2>
             </div>
           )}
@@ -294,7 +295,7 @@ const Sidebar = ({ collapsed = false, onToggle }: SidebarProps) => {
           </div>
 
           <p className="mt-3 text-center text-[10px] uppercase tracking-[0.22em] text-slate-500">
-            © {new Date().getFullYear()} MyClinic
+            © {new Date().getFullYear()} {APP_INFO.name} • {APP_INFO.shortVersion}
           </p>
         </div>
       )}

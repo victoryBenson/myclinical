@@ -1,12 +1,13 @@
 import React from "react";
 import HmisPlaceholderPage from "../../components/ui/HmisPlaceholderPage";
 import { Settings2, Globe, Calendar, CheckCircle2 } from "lucide-react";
+import { APP_INFO } from "../../app/appInfo";
 
 export const SystemSettings: React.FC = () => {
   return (
     <HmisPlaceholderPage
       title="Global System Settings & Localization"
-      subtitle="Currency format (₦ NGN), timezone (WAT), date formatting (DD/MM/YYYY), session timeouts and fiscal year boundaries"
+      subtitle={`${APP_INFO.deploymentName} (${APP_INFO.attribution} • ${APP_INFO.versionLabel}) — Currency format (₦ NGN), timezone (WAT), date formatting and session policies`}
       department="System Administration"
       badge="Global Localization"
       icon={Settings2}
@@ -19,8 +20,8 @@ export const SystemSettings: React.FC = () => {
       metrics={[
         { title: "System Currency", value: "Nigerian Naira (₦ / NGN)", icon: Globe, valueColor: "text-emerald-600" },
         { title: "Standard Date Format", value: "DD/MM/YYYY (24h)", icon: Calendar },
-        { title: "Session Inactivity Timeout", value: "15 Minutes (HIPAA)", icon: Settings2 },
-        { title: "System Operational Mode", value: "Production Active", icon: CheckCircle2 },
+        { title: "Application Version", value: APP_INFO.versionLabel, icon: Settings2 },
+        { title: "Deployment Edition", value: APP_INFO.deploymentName, icon: CheckCircle2, valueColor: "text-emerald-600" },
       ]}
       capabilities={[
         "Hospital financial localization: configure currency symbol, decimal precision, and rounding rules",

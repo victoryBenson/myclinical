@@ -6,7 +6,6 @@ import {
   LogOut,
   Search,
   Settings,
-  Sparkles,
   X,
 } from "lucide-react";
 import {
@@ -14,6 +13,7 @@ import {
 } from "../../navigation/navigationConfig";
 import type { DepartmentConfig } from "../../navigation/navigationConfig";
 import { useAuthStore } from "../../store/auth.store";
+import { APP_INFO } from "../../app/appInfo";
 
 interface MainSidebarProps {
   currentDepartmentId: string;
@@ -61,24 +61,26 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
         <div className={`flex items-center ${collapsed ? "justify-center" : "gap-2.5"}`}>
           <div className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 shadow-[0_12px_24px_theme(colors.primary.DEFAULT/18%)] backdrop-blur-md">
             <img
-              src="/logo.png"
-              alt="myClinical logo"
-              className="h-5 w-5 object-contain"
+              src="/ithere-icon.svg"
+              alt="Ithere Care logo"
+              className="h-6 w-6 object-contain"
               onError={(e) => {
                 e.currentTarget.style.display = "none";
               }}
             />
-            {/* <Sparkles className="absolute -right-1 -top-1 h-3.5 w-3.5 text-warning-300" /> */}
           </div>
 
           {!collapsed && (
             <div className="min-w-0">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.24em] text-primary-300/90">
-                Enterprise HMIS
+              <p className="truncate text-[9px] font-semibold uppercase tracking-[0.2em] text-primary-300/90">
+                Ithere Systems
               </p>
               <h2 className="truncate text-base font-bold tracking-tight text-white">
-                myClinical
+                {APP_INFO.name}
               </h2>
+              <p className="truncate text-[9px] text-slate-400">
+                Hospital Edition
+              </p>
             </div>
           )}
         </div>
@@ -293,9 +295,17 @@ export const MainSidebar: React.FC<MainSidebarProps> = ({
               </div>
             </div>
 
-            <p className="mt-2 text-center text-[9px] uppercase tracking-[0.2em] text-slate-500">
-              © {new Date().getFullYear()} myClinical HMIS
-            </p>
+            <div className="mt-2 text-center">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-primary-300/80">
+                {APP_INFO.deploymentName}
+              </p>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">
+                {APP_INFO.attribution} • {APP_INFO.shortVersion}
+              </p>
+              <p className="text-[8px] uppercase tracking-[0.15em] text-slate-500 mt-0.5">
+                © {new Date().getFullYear()} {APP_INFO.parentCompany}
+              </p>
+            </div>
           </div>
         )}
       </div>

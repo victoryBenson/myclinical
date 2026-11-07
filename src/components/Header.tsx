@@ -15,6 +15,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useAuthStore } from "../store/auth.store";
+import { APP_INFO } from "../app/appInfo";
 import type { DepartmentConfig } from "../navigation/navigationConfig";
 
 interface HeaderProps {
@@ -151,7 +152,10 @@ export default function Header({
                 {user?.name || "Dr. Alex"}
               </p>
               <p className="text-[11px] text-slate-400 truncate">
-                {user?.email || "alex.clinic@myclinical.health"}
+                {user?.email || APP_INFO.defaultEmail}
+              </p>
+              <p className="mt-1 text-[10px] font-medium text-primary-600 dark:text-primary-400 truncate">
+                {APP_INFO.name} • {APP_INFO.shortVersion}
               </p>
             </div>
 

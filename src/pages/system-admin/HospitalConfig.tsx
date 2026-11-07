@@ -1,6 +1,7 @@
 import React from "react";
 import HmisPlaceholderPage from "../../components/ui/HmisPlaceholderPage";
 import { Building2, FileText, Shield } from "lucide-react";
+import { APP_INFO } from "../../app/appInfo";
 
 export const HospitalConfig: React.FC = () => {
   return (
@@ -17,10 +18,10 @@ export const HospitalConfig: React.FC = () => {
         { key: "statutory-ids", label: "Tax Identification, CAC & CAC Numbers" },
       ]}
       metrics={[
-        { title: "Institution Name", value: "myClinical Multispecialty", icon: Building2 },
-        { title: "Operating Campuses", value: "Main Campus + Annex", icon: Building2 },
+        { title: "Deployment Solution", value: APP_INFO.deploymentName, icon: Building2 },
+        { title: "Product Attribution", value: `${APP_INFO.attribution} (${APP_INFO.shortVersion})`, icon: Building2, valueColor: "text-emerald-600" },
         { title: "Document Watermark & Logo", value: "High-Resolution Active", icon: FileText, valueColor: "text-emerald-600" },
-        { title: "Regulatory Registration", value: "HEFAMAA Approved", icon: Shield },
+        { title: "Parent Organization", value: APP_INFO.parentCompany, icon: Shield },
       ]}
       capabilities={[
         "Upload hospital emblem, official letterhead banner, and digital medical director stamp for prescription and discharge slips",
