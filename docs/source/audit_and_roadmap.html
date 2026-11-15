@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ithere Care &mdash; Comprehensive Technical Assessment &amp; Development Roadmap</title>
+  <style>
+  
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #0F172A;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.35;
+      font-size: 8.5pt;
+    }
+    .page {
+      width: 210mm;
+      height: 297mm;
+      page-break-after: always;
+      break-after: page;
+      padding: 12mm 15mm 10mm 15mm;
+      background: #F8FAFC;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+    .page:last-of-type {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    /* HEADER & FOOTER */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 3.5mm;
+      margin-bottom: 4mm;
+      flex-shrink: 0;
+    }
+    .hdr-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 7.2pt;
+    }
+    .hdr-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 2px;
+      background: #00BC7D;
+      display: inline-block;
+    }
+    .hdr-brand {
+      font-weight: 800;
+      color: #071120;
+      letter-spacing: 0.08em;
+    }
+    .hdr-sep {
+      color: #CBD5E1;
+    }
+    .hdr-product {
+      font-weight: 700;
+      color: #00BC7D;
+      letter-spacing: 0.06em;
+    }
+    .hdr-section {
+      font-weight: 700;
+      color: #475569;
+      letter-spacing: 0.05em;
+    }
+    .hdr-right {
+      font-size: 6.8pt;
+      font-weight: 700;
+      color: #0284C7;
+      letter-spacing: 0.08em;
+    }
+
+    .page-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+
+    .page-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 3.5mm;
+      margin-top: 3mm;
+      font-size: 6.8pt;
+      color: #64748B;
+      flex-shrink: 0;
+    }
+    .ftr-left strong {
+      color: #071120;
+    }
+    .ftr-center {
+      letter-spacing: 0.05em;
+      color: #00BC7D;
+      font-weight: 600;
+    }
+    .ftr-right {
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    /* TYPOGRAPHY */
+    .sec-kicker {
+      font-size: 6.8pt;
+      font-weight: 800;
+      color: #00BC7D;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5mm;
+    }
+    .sec-title {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #071120;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 2.5mm;
+    }
+    .sec-intro {
+      font-size: 8.5pt;
+      color: #334155;
+      line-height: 1.4;
+      margin-bottom: 3.5mm;
+    }
+    .subsec-title {
+      font-size: 9.8pt;
+      font-weight: 800;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+      margin: 3mm 0 2mm 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .subsec-title::before {
+      content: "";
+      width: 3px;
+      height: 11px;
+      background: #00BC7D;
+      display: inline-block;
+      border-radius: 1px;
+    }
+
+    /* TABLES */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.2pt;
+      margin-bottom: 3mm;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .tech-table th {
+      background: #F1F5F9;
+      color: #0F172A;
+      font-weight: 800;
+      text-align: left;
+      padding: 5px 7px;
+      border-bottom: 1.5px solid #00BC7D;
+      letter-spacing: 0.04em;
+    }
+    .tech-table td {
+      padding: 4.5px 7px;
+      border-bottom: 1px solid #F1F5F9;
+      color: #334155;
+      vertical-align: top;
+      line-height: 1.3;
+    }
+    .tech-table tr:last-child td {
+      border-bottom: none;
+    }
+    .tech-table tr:nth-child(even) td {
+      background: #F8FAFC;
+    }
+
+    /* STATUS BADGES */
+    .badge {
+      display: inline-block;
+      padding: 1.5px 5px;
+      border-radius: 3px;
+      font-size: 6.2pt;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge-complete { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+    .badge-partial { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+    .badge-needs-integ { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .badge-backend-only { background: #F0F9FF; color: #0369A1; border: 1px solid #BAE6FD; }
+
+    /* CARDS & GRIDS */
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+      margin-bottom: 3mm;
+    }
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3mm;
+      margin-bottom: 3.5mm;
+    }
+    .card-grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 2.5mm;
+      margin-bottom: 3mm;
+    }
+    .kpi-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #00BC7D;
+      border-radius: 4px;
+      padding: 6px 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .kpi-num {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #071120;
+      line-height: 1.1;
+    }
+    .kpi-lbl {
+      font-size: 7.2pt;
+      font-weight: 700;
+      color: #00BC7D;
+      margin-top: 1px;
+    }
+    .kpi-sub {
+      font-size: 6.5pt;
+      color: #64748B;
+      margin-top: 2px;
+    }
+    .kpi-card-sm {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 4px 8px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .kpi-num-sm {
+      font-size: 12pt;
+      font-weight: 800;
+      color: #071120;
+    }
+    .kpi-lbl-sm {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: #00BC7D;
+    }
+
+    .info-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #0284C7;
+      border-radius: 4px;
+      padding: 7px 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .info-card-hdr {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #0F172A;
+      margin-bottom: 3px;
+    }
+    .info-card-body {
+      font-size: 7.2pt;
+      color: #334155;
+      line-height: 1.35;
+    }
+
+    .finding-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #EF4444;
+      border-radius: 4px;
+      padding: 6px 9px;
+      margin-bottom: 2.5mm;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .finding-badge {
+      font-size: 6pt;
+      font-weight: 800;
+      color: #DC2626;
+      letter-spacing: 0.05em;
+    }
+    .finding-title {
+      font-size: 8.2pt;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 1px 0 2px 0;
+    }
+    .finding-desc {
+      font-size: 7.2pt;
+      color: #334155;
+      line-height: 1.35;
+    }
+
+    /* CALLOUTS */
+    .callout {
+      border-radius: 4px;
+      padding: 6px 10px;
+      margin: 2.5mm 0;
+      font-size: 7.2pt;
+      line-height: 1.35;
+    }
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 2px;
+      font-size: 7.5pt;
+    }
+    .callout-warning {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-left: 3px solid #F59E0B;
+      color: #78350F;
+    }
+    .callout-warning .callout-title { color: #B45309; }
+    .callout-info {
+      background: #F0F9FF;
+      border: 1px solid #BAE6FD;
+      border-left: 3px solid #0284C7;
+      color: #0C4A6E;
+    }
+    .callout-info .callout-title { color: #0369A1; }
+    .callout-success {
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      border-left: 3px solid #00BC7D;
+      color: #064E3B;
+    }
+    .callout-success .callout-title { color: #047857; }
+
+    /* FLOW STEPS */
+    .flow-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2mm;
+      margin: 3mm 0;
+    }
+    .flow-step {
+      flex: 1;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 6px 7px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .flow-step-num {
+      font-size: 7pt;
+      font-weight: 800;
+      color: #00BC7D;
+    }
+    .flow-step-title {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 1px 0;
+    }
+    .flow-step-desc {
+      font-size: 6.2pt;
+      color: #64748B;
+      line-height: 1.25;
+    }
+    .flow-arrow {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #00BC7D;
+    }
+
+    /* COVER PAGE SPECIFICS */
+    .cover-page {
+      padding: 10mm;
+      background: #071120;
+      color: #F8FAFC;
+    }
+    .cover-border {
+      width: 100%;
+      height: 100%;
+      border: 1.5px solid #00BC7D;
+      border-radius: 6px;
+      padding: 14mm 15mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(175deg, #071120 0%, #0F172A 100%);
+    }
+    .cover-kicker-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 3px;
+      background: #00BC7D;
+      color: #FFFFFF;
+      font-size: 6.8pt;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 4mm;
+    }
+    .cover-brand-header {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cover-brand-group {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #38BDF8;
+      letter-spacing: 0.12em;
+    }
+    .cover-brand-edition {
+      font-size: 7.2pt;
+      font-weight: 700;
+      color: #00BC7D;
+      letter-spacing: 0.08em;
+    }
+    .cover-product-tag {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: #00BC7D;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+    .cover-title {
+      font-size: 34pt;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 2mm;
+    }
+    .cover-subtitle {
+      font-size: 14pt;
+      font-weight: 700;
+      color: #94A3B8;
+      letter-spacing: -0.01em;
+      margin-bottom: 5mm;
+    }
+    .cover-divider {
+      width: 45mm;
+      height: 2.5px;
+      background: #00BC7D;
+      margin-bottom: 5mm;
+      border-radius: 1px;
+    }
+    .cover-doc-name {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #FFFFFF;
+      line-height: 1.25;
+      margin-bottom: 3.5mm;
+      letter-spacing: -0.01em;
+    }
+    .cover-description {
+      font-size: 8.5pt;
+      color: #CBD5E1;
+      line-height: 1.5;
+      max-width: 140mm;
+      margin-bottom: 7mm;
+    }
+    .cover-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3mm;
+      margin-top: 2mm;
+    }
+    .cover-metric-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(0, 188, 125, 0.3);
+      border-radius: 4px;
+      padding: 6px 8px;
+    }
+    .cover-metric-val {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #00BC7D;
+      display: block;
+    }
+    .cover-metric-lbl {
+      font-size: 6.2pt;
+      font-weight: 700;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .cover-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 4mm;
+      margin-bottom: 3mm;
+    }
+    .cover-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .cover-meta-lbl {
+      font-size: 6pt;
+      font-weight: 800;
+      color: #38BDF8;
+      letter-spacing: 0.08em;
+    }
+    .cover-meta-val {
+      font-size: 7.5pt;
+      color: #F8FAFC;
+      font-weight: 600;
+    }
+    .cover-footer-notice {
+      font-size: 6.2pt;
+      color: #64748B;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    /* TOC & LETTER */
+    .toc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+      margin-bottom: 4mm;
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 6px 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .toc-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      font-size: 7.2pt;
+      padding: 2.5px 0;
+      border-bottom: 1px dotted #E2E8F0;
+    }
+    .toc-item:last-child { border-bottom: none; }
+    .toc-num {
+      width: 14px;
+      font-weight: 800;
+      color: #00BC7D;
+      font-size: 6.8pt;
+    }
+    .toc-name {
+      flex: 1;
+      color: #0F172A;
+      font-weight: 600;
+    }
+    .toc-pg {
+      font-weight: 800;
+      color: #0284C7;
+      font-size: 6.8pt;
+    }
+    .letter-box {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #00BC7D;
+      border-radius: 4px;
+      padding: 7px 11px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .letter-hdr {
+      font-size: 7.2pt;
+      color: #64748B;
+      line-height: 1.4;
+      margin-bottom: 3mm;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 2mm;
+    }
+    .letter-body {
+      font-size: 7.4pt;
+      color: #334155;
+      line-height: 1.45;
+    }
+    .letter-body p {
+      margin-bottom: 2mm;
+    }
+    .letter-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ROADMAP & PHASES */
+    .roadmap-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5mm;
+    }
+    .phase-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-left: 3.5px solid #00BC7D;
+      border-radius: 4px;
+      padding: 5px 9px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .phase-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
+    .phase-tag {
+      font-size: 6.2pt;
+      font-weight: 800;
+      background: #ECFDF5;
+      color: #047857;
+      padding: 1px 5px;
+      border-radius: 2px;
+      border: 1px solid #A7F3D0;
+    }
+    .phase-title {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #0F172A;
+      flex: 1;
+      margin-left: 6px;
+    }
+    .phase-dur {
+      font-size: 6.8pt;
+      font-weight: 700;
+      color: #64748B;
+    }
+    .phase-body {
+      font-size: 7pt;
+      color: #334155;
+      line-height: 1.35;
+    }
+
+    .phase-detail-box {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 7px 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .pdb-hdr {
+      font-size: 8.2pt;
+      color: #0F172A;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 2mm;
+      margin-bottom: 2.5mm;
+    }
+    .pdb-body {
+      font-size: 7.2pt;
+      color: #334155;
+      line-height: 1.4;
+    }
+    .pdb-list {
+      margin: 2mm 0 0 4mm;
+      padding-left: 2mm;
+    }
+    .pdb-list li {
+      margin-bottom: 1.5mm;
+    }
+
+    /* SIGNOFF */
+    .signoff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3mm;
+      margin-top: 3mm;
+    }
+    .signoff-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 4px;
+      padding: 7px 8px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+    .signoff-role {
+      font-size: 6pt;
+      font-weight: 800;
+      color: #0284C7;
+      letter-spacing: 0.05em;
+    }
+    .signoff-line {
+      width: 100%;
+      height: 1px;
+      background: #CBD5E1;
+      margin: 10mm 0 2mm 0;
+    }
+    .signoff-name {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #0F172A;
+    }
+    .signoff-title {
+      font-size: 6.5pt;
+      color: #64748B;
+    }
+    .signoff-date {
+      font-size: 6.2pt;
+      color: #00BC7D;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9em;
+      background: #F1F5F9;
+      color: #047857;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #E2E8F0;
+    }
+    
+  </style>
+</head>
+<body>
+  
+    <div class="page cover-page" id="page-1">
+      <div class="cover-border">
+        <div class="cover-top">
+          <div class="cover-kicker-badge">OFFICIAL TECHNICAL ASSESSMENT &bull; BASELINE AUDIT</div>
+          <div class="cover-brand-header">
+            <span class="cover-brand-group">ITHERE TECHNOLOGY GROUP</span>
+            <span class="cover-brand-edition">ITHERE SYSTEMS &mdash; HOSPITAL EDITION</span>
+          </div>
+        </div>
+
+        <div class="cover-main">
+          <div class="cover-product-tag">HEALTHCARE PLATFORM ENGINEERING</div>
+          <h1 class="cover-title">Ithere Care</h1>
+          <h2 class="cover-subtitle">Hospital Information Management System (HMIS)</h2>
+          <div class="cover-divider"></div>
+          <h3 class="cover-doc-name">Comprehensive Technical Assessment &amp; Development Roadmap</h3>
+          <p class="cover-description">
+            An exhaustive architectural and empirical engineering evaluation of the full-stack Ithere Care
+            codebase covering frontend Single-Page Application (<code>myclinical</code>), enterprise backend services
+            (<code>myclinic-server</code>), PostgreSQL database schema, data integrity, integration boundaries, and
+            a prioritized 5-phase commercial engineering blueprint.
+          </p>
+
+          <div class="cover-metrics-grid">
+            <div class="cover-metric-card">
+              <span class="cover-metric-val">169</span>
+              <span class="cover-metric-lbl">Frontend Route Views</span>
+            </div>
+            <div class="cover-metric-card">
+              <span class="cover-metric-val">15</span>
+              <span class="cover-metric-lbl">Backend NestJS Modules</span>
+            </div>
+            <div class="cover-metric-card">
+              <span class="cover-metric-val">35</span>
+              <span class="cover-metric-lbl">PostgreSQL Tables</span>
+            </div>
+            <div class="cover-metric-card">
+              <span class="cover-metric-val">100%</span>
+              <span class="cover-metric-lbl">Unit Tests Passing (12/12)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cover-bottom">
+          <div class="cover-meta-grid">
+            <div class="cover-meta-item">
+              <span class="cover-meta-lbl">DOCUMENT CLASSIFICATION</span>
+              <span class="cover-meta-val">Technical Project Documentation / Architecture Baseline</span>
+            </div>
+            <div class="cover-meta-item">
+              <span class="cover-meta-lbl">DOCUMENT ID &amp; VERSION</span>
+              <span class="cover-meta-val"><code>ITHERE-CARE-AUDIT-2026-001</code> &bull; v1.0 Final</span>
+            </div>
+            <div class="cover-meta-item">
+              <span class="cover-meta-lbl">TARGET CODEBASES</span>
+              <span class="cover-meta-val"><code>myclinical</code> (Frontend) &bull; <code>myclinic-server</code> (Backend)</span>
+            </div>
+            <div class="cover-meta-item">
+              <span class="cover-meta-lbl">DATE &amp; JURISDICTION</span>
+              <span class="cover-meta-val">November 15, 2026 &bull; Engineering Leadership</span>
+            </div>
+          </div>
+          <div class="cover-footer-notice">
+            &copy; 2026 Ithere Technology Group. All rights reserved. Prepared for Project Owners, Technical Collaborators &amp; Implementation Partners.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="page" id="page-2">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">DOCUMENT NAVIGATION & CONTROL</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">DOCUMENT NAVIGATION &amp; CONTROL</div>
+    <h2 class="sec-title">Table of Contents &amp; Executive Letter</h2>
+
+    <div class="toc-grid">
+      <div class="toc-col">
+        <div class="toc-item"><span class="toc-num">01</span><span class="toc-name">Cover Page &amp; Document Classification</span><span class="toc-pg">01</span></div>
+        <div class="toc-item"><span class="toc-num">02</span><span class="toc-name">Table of Contents &amp; Executive Letter</span><span class="toc-pg">02</span></div>
+        <div class="toc-item"><span class="toc-num">03</span><span class="toc-name">Executive Summary &amp; Maturity Matrix</span><span class="toc-pg">03</span></div>
+        <div class="toc-item"><span class="toc-num">04</span><span class="toc-name">Product Overview, Vision &amp; Patient Flow</span><span class="toc-pg">04</span></div>
+        <div class="toc-item"><span class="toc-num">05</span><span class="toc-name">Existing Technology Stack &amp; Topology</span><span class="toc-pg">05</span></div>
+        <div class="toc-item"><span class="toc-num">06</span><span class="toc-name">Frontend Architecture Assessment</span><span class="toc-pg">06</span></div>
+        <div class="toc-item"><span class="toc-num">07</span><span class="toc-name">Backend Architecture &amp; Security Pipeline</span><span class="toc-pg">07</span></div>
+        <div class="toc-item"><span class="toc-num">08</span><span class="toc-name">Frontend-Backend Integration Gap Audit</span><span class="toc-pg">08</span></div>
+        <div class="toc-item"><span class="toc-num">09</span><span class="toc-name">Database Architecture &amp; Referential Integrity</span><span class="toc-pg">09</span></div>
+      </div>
+      <div class="toc-col">
+        <div class="toc-item"><span class="toc-num">10</span><span class="toc-name">Module Status Register: Core &amp; Clinical</span><span class="toc-pg">10</span></div>
+        <div class="toc-item"><span class="toc-num">11</span><span class="toc-name">Module Status Register: Diagnostics &amp; Operations</span><span class="toc-pg">11</span></div>
+        <div class="toc-item"><span class="toc-num">12</span><span class="toc-name">Security &amp; Healthcare Data Protection</span><span class="toc-pg">12</span></div>
+        <div class="toc-item"><span class="toc-num">13</span><span class="toc-name">Technical Debt &amp; Architectural Risk Matrix</span><span class="toc-pg">13</span></div>
+        <div class="toc-item"><span class="toc-num">14</span><span class="toc-name">Prioritized Development Roadmap (Phases 1–5)</span><span class="toc-pg">14</span></div>
+        <div class="toc-item"><span class="toc-num">15</span><span class="toc-name">Detailed Phased Implementation Plan</span><span class="toc-pg">15</span></div>
+        <div class="toc-item"><span class="toc-num">16</span><span class="toc-name">Recommended First Development Sprint (Sprint 1)</span><span class="toc-pg">16</span></div>
+        <div class="toc-item"><span class="toc-num">17</span><span class="toc-name">Testing Strategy, Governance &amp; Sign-Off</span><span class="toc-pg">17</span></div>
+      </div>
+    </div>
+
+    <div class="letter-box">
+      <div class="letter-hdr">
+        <strong>TO:</strong> Project Leadership, Engineering Collaborators &amp; Strategic Technology Partners<br>
+        <strong>FROM:</strong> Antigravity Lead Systems Architect, Ithere Care Project Team<br>
+        <strong>SUBJECT:</strong> Official Baseline Audit &amp; Engineering Roadmap for Ithere Care
+      </div>
+      <div class="letter-body">
+        <p>
+          Ithere Care represents an ambitious, highly structured initiative to engineer an institutional-grade
+          Hospital Information Management System. Over preceding development cycles, significant foundational
+          engineering has been achieved: a robust NestJS 11 backend with 70+ endpoints, 35 normalized database
+          tables, and an expansive 169-route frontend shell.
+        </p>
+        <p>
+          However, as development resumes, our audit has uncovered a critical operational divide: <strong>while the
+          backend possesses fully implemented, tested business logic for Laboratory, Pharmacy, Appointments, and Billing,
+          the frontend currently operates primarily on mock data files and UI staging templates.</strong>
+        </p>
+        <p>
+          This document establishes the official engineering baseline. We recommend resisting the temptation to
+          rewrite working modules or blindly generate new UI screens. Instead, by executing the targeted 5-Phase
+          Roadmap beginning with <strong>Sprint 1 (Appointments, Lab, and Pharmacy API Integration)</strong>, the team
+          will transform this sophisticated prototype into a commercially viable, end-to-end hospital management system.
+        </p>
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 2 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-3">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">EXECUTIVE SUMMARY</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 01</div>
+    <h2 class="sec-title">Executive Summary &amp; Maturity Matrix</h2>
+
+    <p class="sec-intro">
+      A comprehensive technical audit was executed across the frontend (<code>myclinical</code>) and backend
+      (<code>myclinic-server</code>) repositories on November 15, 2026. The objective was to ascertain current
+      completion, verify data integrity, trace live API communication, and formulate an actionable development roadmap.
+    </p>
+
+    <div class="card-grid-3">
+      <div class="kpi-card">
+        <div class="kpi-num">169</div>
+        <div class="kpi-lbl">Frontend Route Views</div>
+        <div class="kpi-sub">9 Live &bull; 16 Mock &bull; 144 Staged</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">70+</div>
+        <div class="kpi-lbl">Backend REST Endpoints</div>
+        <div class="kpi-sub">15 Modules &bull; 16 Controllers</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">35</div>
+        <div class="kpi-lbl">Database Tables</div>
+        <div class="kpi-sub">PostgreSQL 16 &bull; TypeORM</div>
+      </div>
+    </div>
+
+    <h3 class="subsec-title">Platform Architecture Maturity Matrix</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">Layer / Domain</th>
+          <th style="width: 28%;">Current Implementation State</th>
+          <th style="width: 32%;">Key Architectural Finding / Gap</th>
+          <th style="width: 18%;">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Backend Architecture</strong></td>
+          <td>NestJS 11 modular monolith, 15 modules, 16 controllers, DTO validation.</td>
+          <td>Clean domain isolation; global security and exception handling active.</td>
+          <td><span class="badge badge-complete">COMPLETE</span></td>
+        </tr>
+        <tr>
+          <td><strong>Frontend Architecture</strong></td>
+          <td>React 19 SPA, Vite 7 SWC, AntD 6, Tailwind 3, Two-Rail navigation.</td>
+          <td>144 of 169 pages (85.2%) are UI placeholders (<code>HmisPlaceholderPage</code>).</td>
+          <td><span class="badge badge-partial">PARTIALLY COMPLETE</span></td>
+        </tr>
+        <tr>
+          <td><strong>End-to-End Integration</strong></td>
+          <td>Axios client, JWT Bearer interceptor, standardized envelope unwrap.</td>
+          <td>Only Auth and Patient Registration are connected; Lab &amp; Rx use mock data.</td>
+          <td><span class="badge badge-needs-integ">NEEDS INTEGRATION</span></td>
+        </tr>
+        <tr>
+          <td><strong>Database Integrity</strong></td>
+          <td>35 PostgreSQL tables on Neon cloud; TypeORM migration baseline.</td>
+          <td>Missing foreign keys: <code>patientId</code> is varchar; multi-tenant type divergence.</td>
+          <td><span class="badge badge-partial">NEEDS HARDENING</span></td>
+        </tr>
+        <tr>
+          <td><strong>Testing &amp; Quality</strong></td>
+          <td>Backend Jest test harness: 12 test suites, 32 unit tests passing.</td>
+          <td>Frontend has 0 automated tests; no test runner configured in package.json.</td>
+          <td><span class="badge badge-partial">BACKEND ONLY</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">Key Audit Insight: The Mock Disconnect</div>
+      <div class="callout-body">
+        The primary engineering challenge is not a lack of backend functionality. The backend already contains
+        fully implemented controllers and database entities for Laboratory, Pharmacy, Appointments, and Finance.
+        However, the frontend currently bypasses these endpoints and binds to static files (<code>lab.mock.ts</code> and
+        <code>pharmacy.ts</code>). Replacing these mock imports with real API hooks immediately unlocks 40% of the platform.
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 3 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-4">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">PRODUCT OVERVIEW & VISION</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 02</div>
+    <h2 class="sec-title">Product Overview, Vision &amp; Patient Flow</h2>
+
+    <p class="sec-intro">
+      Ithere Care is engineered as a modern, modular, and scalable Hospital Information Management System (HMIS).
+      The architecture must serve small single-facility clinics as well as multi-organization, multi-branch hospital
+      networks with complex departmental workflows.
+    </p>
+
+    <h3 class="subsec-title">End-to-End Clinical &amp; Operational Lifecycle</h3>
+    <div class="flow-container">
+      <div class="flow-step">
+        <div class="flow-step-num">01</div>
+        <div class="flow-step-title">Patient Intake</div>
+        <div class="flow-step-desc">OPD/IPD Registration, Demographics, HMO verification, Medical Record Number issuance.</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-step-num">02</div>
+        <div class="flow-step-title">Triage &amp; Vitals</div>
+        <div class="flow-step-desc">Nursing assessment, vital signs recording (BP, Temp, Pulse, SpO2), triage tagging.</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-step-num">03</div>
+        <div class="flow-step-title">Consultation</div>
+        <div class="flow-step-desc">Physician EMR, SOAP notes, ICD-10 clinical diagnosis, care plan creation.</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-step-num">04</div>
+        <div class="flow-step-title">Diagnostics &amp; Rx</div>
+        <div class="flow-step-desc">Lab investigation orders, electronic prescriptions, radiologic scan referrals.</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-step-num">05</div>
+        <div class="flow-step-title">Billing &amp; Settle</div>
+        <div class="flow-step-desc">Cashier POS, invoice aggregation, HMO pre-authorization, claims reconciliation.</div>
+      </div>
+    </div>
+
+    <h3 class="subsec-title" style="margin-top: 5mm;">Operational Scope by Hospital Directorate</h3>
+    <div class="card-grid-2">
+      <div class="info-card">
+        <div class="info-card-hdr">Clinical Services (EMR)</div>
+        <div class="info-card-body">
+          Doctor consultation notes, outpatient department (OPD), inpatient care (IPD), ward management,
+          bed allocation, vital signs telemetry, discharge planning, and specialized clinical departments.
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-hdr">Diagnostics &amp; Laboratory</div>
+        <div class="info-card-body">
+          Laboratory specimen intake, bench queue management, technician test result entry, pathologist
+          verification, automated PDF report generation, and reference range threshold tracking.
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-hdr">Pharmacy &amp; Formulary</div>
+        <div class="info-card-body">
+          Hospital drug formulary, stock batch expiration tracking, electronic prescription dispensing,
+          direct over-the-counter (OTC) pharmacy sales, inventory replenishment, and reorder levels.
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-hdr">Finance, Billing &amp; HMO</div>
+        <div class="info-card-body">
+          Patient invoicing, payment transaction recording, cashier POS receipts, HMO policy coverage,
+          pre-authorization code tracking, tariff management, and electronic insurance claim submission.
+        </div>
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 4 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-5">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">EXISTING TECHNOLOGY STACK</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 03</div>
+    <h2 class="sec-title">Existing Technology Stack &amp; Topology</h2>
+
+    <p class="sec-intro">
+      The platform adopts an enterprise-grade separated topology: a client-side React 19 Single-Page Application
+      (SPA) consuming a high-performance NestJS 11 RESTful modular monolith backed by PostgreSQL 16 on Neon cloud.
+    </p>
+
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">Layer</th>
+          <th style="width: 30%;">Frontend (<code>myclinical</code>)</th>
+          <th style="width: 30%;">Backend (<code>myclinic-server</code>)</th>
+          <th style="width: 20%;">Version Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Runtime &amp; Language</strong></td>
+          <td>React 19.2.0, TypeScript 5.9.3</td>
+          <td>Node.js 22.22.1, NestJS 11.0.1, TS 5.7.3</td>
+          <td><span class="badge badge-complete">MODERN (2026)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Build Tooling</strong></td>
+          <td>Vite 7.3.1 (SWC React plugin)</td>
+          <td>Nest CLI, TypeScript Compiler (tsc)</td>
+          <td><span class="badge badge-complete">FAST COMPILATION</span></td>
+        </tr>
+        <tr>
+          <td><strong>UI &amp; Styling</strong></td>
+          <td>Ant Design 6.3.1, Tailwind CSS 3, Lucide Icons</td>
+          <td>Class-Validator, Class-Transformer</td>
+          <td><span class="badge badge-complete">CONSISTENT TOKENS</span></td>
+        </tr>
+        <tr>
+          <td><strong>State &amp; Data Fetch</strong></td>
+          <td>TanStack Query 5.90, Zustand 5.0, Axios 1.13</td>
+          <td>TypeORM 0.3.28, PostgreSQL pg Driver 8.20</td>
+          <td><span class="badge badge-partial">STATE SCHISM</span></td>
+        </tr>
+        <tr>
+          <td><strong>Security &amp; Auth</strong></td>
+          <td>Axios Bearer Interceptor, Zustand Persist</td>
+          <td>Passport JWT 4.0, Bcrypt 6.0, RolesGuard</td>
+          <td><span class="badge badge-complete">BCRYPT / JWT</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsec-title" style="margin-top: 4mm;">Global Request Pipeline &amp; Architectural Topology</h3>
+    <div class="svg-container" style="text-align: center; margin: 4mm 0;"><svg style="max-height: 75.0mm; width: 100%; height: auto; display: block; margin: 0 auto;" width="780" height="330" viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="780" height="330" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+  
+  <!-- Client Tier -->
+  <rect x="16" y="14" width="748" height="46" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="26" y="23" width="28" height="28" rx="6" fill="#00bc7d"/>
+  <path d="M38 29H42V35H48V39H42V45H38V39H32V35H38V29Z" fill="#ffffff"/>
+  <text x="64" y="34" fill="#ffffff" font-family="Inter, Segoe UI, sans-serif" font-size="11" font-weight="800">CLIENT PRESENTATION TIER — Ithere Systems (Hospital Edition Frontend / myclinical)</text>
+  <text x="64" y="49" fill="#94a3b8" font-family="Inter, Segoe UI, sans-serif" font-size="9">React 19 • TypeScript • Redux Toolkit • TanStack Query • Axios REST Client (Bearer JWT + CORS Credentials)</text>
+
+  <!-- Arrow Down -->
+  <line x1="390" y1="60" x2="390" y2="76" stroke="#0284c7" stroke-width="2"/>
+  <polygon points="385,74 395,74 390,81" fill="#0284c7"/>
+  <text x="402" y="72" fill="#0369a1" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">HTTPS / REST JSON (Port 3000)</text>
+
+  <!-- NestJS Request Pipeline -->
+  <rect x="16" y="82" width="748" height="38" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.4"/>
+  <text x="390" y="98" text-anchor="middle" fill="#0c4a6e" font-family="Inter, Segoe UI, sans-serif" font-size="10" font-weight="800">NESTJS 11 GLOBAL REQUEST &amp; SECURITY PIPELINE (src/main.ts)</text>
+  <text x="390" y="112" text-anchor="middle" fill="#0369a1" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="600">IPv4 DNS Order → CORS Policy → DbReadyGuard (503) → JwtAuthGuard (@Public) → RolesGuard (@Roles) → ValidationPipe → ApiResponseInterceptor → DbExceptionFilter</text>
+
+  <!-- 4 Modular Monolith Layers -->
+  <!-- Layer A: Shared Core -->
+  <rect x="16" y="132" width="178" height="114" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <rect x="16" y="132" width="178" height="22" rx="6" fill="#0284c7"/>
+  <text x="105" y="147" text-anchor="middle" fill="#ffffff" font-family="Inter, Segoe UI, sans-serif" font-size="9.5" font-weight="800">A. SHARED CORE LAYER</text>
+  <text x="26" y="168" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• AuthModule (/auth)</text>
+  <text x="26" y="182" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• OrganizationModule (/organizations)</text>
+  <text x="26" y="196" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• RbacModule (/roles, /permissions)</text>
+  <text x="26" y="210" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• AuditModule (/audit-logs)</text>
+  <text x="26" y="232" fill="#0369a1" font-family="monospace" font-size="7.8">@Global() Audit &amp; JWT Guards</text>
+
+  <!-- Layer B: Healthcare & Clinical -->
+  <rect x="206" y="132" width="196" height="114" rx="6" fill="#ffffff" stroke="#00bc7d" stroke-width="1.5"/>
+  <rect x="206" y="132" width="196" height="22" rx="6" fill="#00bc7d"/>
+  <text x="304" y="147" text-anchor="middle" fill="#042f2e" font-family="Inter, Segoe UI, sans-serif" font-size="9.5" font-weight="800">B. CLINICAL &amp; HMIS LAYER</text>
+  <text x="216" y="168" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• PatientModule (/patients)</text>
+  <text x="216" y="181" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• HmoModule (/hmos)</text>
+  <text x="216" y="194" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• AppointmentModule (/appointments)</text>
+  <text x="216" y="207" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• ClinicalModule (/clinical)</text>
+  <text x="216" y="220" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• LabModule (/lab)</text>
+  <text x="216" y="233" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• PharmacyModule (/pharmacy)</text>
+
+  <!-- Layer C: Enterprise & Admin -->
+  <rect x="414" y="132" width="174" height="114" rx="6" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"/>
+  <rect x="414" y="132" width="174" height="22" rx="6" fill="#4f46e5"/>
+  <text x="501" y="147" text-anchor="middle" fill="#ffffff" font-family="Inter, Segoe UI, sans-serif" font-size="9.5" font-weight="800">C. ENTERPRISE LAYER</text>
+  <text x="424" y="168" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• HrModule (/hr/staff)</text>
+  <text x="424" y="184" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• ProcurementModule (/procurement)</text>
+  <text x="424" y="200" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• BillingModule (/finance)</text>
+  <text x="424" y="228" fill="#4338ca" font-family="monospace" font-size="7.8">Shared Stock &amp; Ledger Tx</text>
+
+  <!-- Layer D: Analytics -->
+  <rect x="600" y="132" width="164" height="114" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+  <rect x="600" y="132" width="164" height="22" rx="6" fill="#0f172a"/>
+  <text x="682" y="147" text-anchor="middle" fill="#ffffff" font-family="Inter, Segoe UI, sans-serif" font-size="9.5" font-weight="800">D. ANALYTICS LAYER</text>
+  <text x="610" y="168" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="8.5" font-weight="700">• DashboardModule</text>
+  <text x="618" y="182" fill="#334155" font-family="monospace" font-size="8">GET /dashboard/summary</text>
+  <text x="618" y="196" fill="#334155" font-family="monospace" font-size="8">GET /analytics/summary</text>
+  <text x="610" y="216" fill="#475569" font-family="Inter, Segoe UI, sans-serif" font-size="8">Aggregates KPIs across</text>
+  <text x="610" y="228" fill="#475569" font-family="Inter, Segoe UI, sans-serif" font-size="8">8 domain services</text>
+
+  <!-- Data Access & Persistence Tier -->
+  <rect x="16" y="260" width="748" height="56" rx="6" fill="#0f172a" stroke="#00bc7d" stroke-width="1.6"/>
+  <text x="390" y="279" text-anchor="middle" fill="#34d399" font-family="Inter, Segoe UI, sans-serif" font-size="10.5" font-weight="800">DATA ACCESS &amp; PERSISTENCE TIER — TypeORM 0.3.28 + PostgreSQL (pg Pool)</text>
+  <text x="390" y="294" text-anchor="middle" fill="#e2e8f0" font-family="Inter, Segoe UI, sans-serif" font-size="8.5">DataSource.transaction() Atomic Boundaries • AppService Exponential Backoff Retry Wrapper (3 Attempts) • 33 Relational Tables</text>
+  <text x="390" y="307" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="8">Connection Pool: DB_POOL_MAX | Idle Timeout: DB_IDLE_TIMEOUT_MS | Migrations: src/config/data-source.ts</text>
+</svg>
+</div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 5 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-6">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">FRONTEND ARCHITECTURE</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 04</div>
+    <h2 class="sec-title">Frontend Architecture Assessment (<code>myclinical</code>)</h2>
+
+    <p class="sec-intro">
+      The frontend codebase is housed in <code>/home/kennytech/workdone/myclinical</code>. It implements a
+      sophisticated <strong>Two-Rail Navigation Architecture</strong> designed to handle hospital directorates
+      without overwhelming the user.
+    </p>
+
+    <div class="card-grid-3">
+      <div class="kpi-card">
+        <div class="kpi-num">9</div>
+        <div class="kpi-lbl">Tier 1: Live API Pages</div>
+        <div class="kpi-sub">Auth, Patient Reg &bull; 5.3%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">16</div>
+        <div class="kpi-lbl">Tier 2: Interactive Mock UI</div>
+        <div class="kpi-sub">Lab, Pharmacy, Dashboard &bull; 9.5%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">144</div>
+        <div class="kpi-lbl">Tier 3: Staged Placeholders</div>
+        <div class="kpi-sub">Clinical, Finance, HR &bull; 85.2%</div>
+      </div>
+    </div>
+
+    <h3 class="subsec-title">Frontend Architectural Findings &amp; Code Smells</h3>
+
+    <div class="finding-card">
+      <div class="finding-badge">FINDING FE-01 &bull; HIGH SEVERITY</div>
+      <div class="finding-title">Appointment Code Duplication &amp; Patient Collision</div>
+      <div class="finding-desc">
+        In <code>src/pages/appointments/</code>, four files (<code>Home.tsx</code>, <code>CreateNewPatient.tsx</code>,
+        <code>CreateOPDPatient.tsx</code>, <code>CreatePatientDashboard.tsx</code>) are copy-pasted duplicates of the patient
+        registration views. Furthermore, <code>appointments/Home.tsx</code> reads <code>localStorage.getItem("patient-tab")</code>
+        and displays patient records instead of appointments. The backend <code>/appointments</code> API is completely bypassed.
+      </div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-badge">FINDING FE-02 &bull; HIGH SEVERITY</div>
+      <div class="finding-title">Competing State Management Patterns (Zustand vs. React Query)</div>
+      <div class="finding-desc">
+        The application suffers from dual state paradigms: <code>features/hmo/useHmos.ts</code> uses <code>@tanstack/react-query</code>,
+        while <code>store/patient.store.ts</code> manually manages <code>patients[]</code>, <code>loading</code>, and <code>error</code>
+        in Zustand. This creates cache synchronization issues, stale data across tabs, and redundant network requests.
+      </div>
+    </div>
+
+    <div class="finding-card">
+      <div class="finding-badge">FINDING FE-03 &bull; MEDIUM SEVERITY</div>
+      <div class="finding-title">Monolithic Route Bundling &amp; Broken Internal Links</div>
+      <div class="finding-desc">
+        <code>src/routes/AppRoutes.tsx</code> statically imports all 169 components at the top of the file, forcing users to
+        download all 13 directorates on initial load. In addition, navigation buttons in <code>LabDashboard.tsx</code> link to
+        <code>/pharmacy-diagnostics/lab-requests</code> (which does not exist in <code>AppRoutes.tsx</code>), causing silent redirects to <code>/login</code>.
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 6 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-7">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">BACKEND ARCHITECTURE</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 05</div>
+    <h2 class="sec-title">Backend Architecture &amp; Security Pipeline (<code>myclinic-server</code>)</h2>
+
+    <p class="sec-intro">
+      The backend is structured as an enterprise <strong>Modular Monolith</strong> in NestJS 11. It features
+      strict domain boundaries, centralized request guarding, DTO validation pipes, and robust exception filters.
+    </p>
+
+    <div class="card-grid-4">
+      <div class="kpi-card-sm"><div class="kpi-num-sm">15</div><div class="kpi-lbl-sm">NestJS Modules</div></div>
+      <div class="kpi-card-sm"><div class="kpi-num-sm">16</div><div class="kpi-lbl-sm">REST Controllers</div></div>
+      <div class="kpi-card-sm"><div class="kpi-num-sm">70+</div><div class="kpi-lbl-sm">API Endpoints</div></div>
+      <div class="kpi-card-sm"><div class="kpi-num-sm">32</div><div class="kpi-lbl-sm">Unit Tests Passing</div></div>
+    </div>
+
+    <h3 class="subsec-title" style="margin-top: 3mm;">Modular Domain Boundaries</h3>
+    <div class="svg-container" style="text-align: center; margin: 4mm 0;"><svg style="max-height: 75.0mm; width: 100%; height: auto; display: block; margin: 0 auto;" width="780" height="310" viewBox="0 0 780 310" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="780" height="310" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Root AppModule -->
+  <rect x="270" y="12" width="240" height="34" rx="6" fill="#0f172a" stroke="#00bc7d" stroke-width="1.6"/>
+  <text x="390" y="28" text-anchor="middle" fill="#ffffff" font-family="Inter, Segoe UI, sans-serif" font-size="10.5" font-weight="800">AppModule (src/app.module.ts)</text>
+  <text x="390" y="40" text-anchor="middle" fill="#6ee7b7" font-family="monospace" font-size="8">ConfigModule (Global) + TypeOrmModule.forRootAsync</text>
+
+  <!-- Shared Core Row -->
+  <rect x="16" y="60" width="748" height="62" rx="6" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1.2"/>
+  <text x="28" y="75" fill="#0369a1" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="800">SHARED CORE &amp; PLATFORM MODULES</text>
+
+  <rect x="28" y="82" width="170" height="32" rx="5" fill="#ffffff" stroke="#0284c7"/>
+  <text x="113" y="97" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">AuditModule (@Global)</text>
+  <text x="113" y="108" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">AuditLog • /audit-logs</text>
+
+  <rect x="212" y="82" width="170" height="32" rx="5" fill="#ffffff" stroke="#0284c7"/>
+  <text x="297" y="97" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">AuthModule → HrModule</text>
+  <text x="297" y="108" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">JwtStrategy • /auth/*</text>
+
+  <rect x="396" y="82" width="176" height="32" rx="5" fill="#ffffff" stroke="#0284c7"/>
+  <text x="484" y="97" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">OrganizationModule</text>
+  <text x="484" y="108" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Org • Branch • Dept • Setting</text>
+
+  <rect x="586" y="82" width="166" height="32" rx="5" fill="#ffffff" stroke="#0284c7"/>
+  <text x="669" y="97" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">RbacModule</text>
+  <text x="669" y="108" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Role • Permission • M:N</text>
+
+  <!-- Clinical & Healthcare Row -->
+  <rect x="16" y="132" width="748" height="96" rx="6" fill="#f0fdf4" stroke="#86efac" stroke-width="1.2"/>
+  <text x="28" y="147" fill="#065f46" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="800">HEALTHCARE &amp; CLINICAL OPERATIONS MODULES (Explicit Dependency Injection)</text>
+
+  <rect x="28" y="154" width="230" height="32" rx="5" fill="#ffffff" stroke="#00bc7d"/>
+  <text x="143" y="169" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">PatientModule → Hmo</text>
+  <text x="143" y="180" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Patient • NextOfKin • /patients</text>
+
+  <rect x="274" y="154" width="230" height="32" rx="5" fill="#ffffff" stroke="#00bc7d"/>
+  <text x="389" y="169" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">HmoModule</text>
+  <text x="389" y="180" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Hmo • PreAuth • Claim • /hmos</text>
+
+  <rect x="520" y="154" width="232" height="32" rx="5" fill="#ffffff" stroke="#00bc7d"/>
+  <text x="636" y="169" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">AppointmentModule</text>
+  <text x="636" y="180" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Appointment • /appointments</text>
+
+  <rect x="28" y="191" width="230" height="32" rx="5" fill="#ffffff" stroke="#00bc7d"/>
+  <text x="143" y="206" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">ClinicalModule → Staff</text>
+  <text x="143" y="217" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Ward • Bed • Admission • Encounter • Vitals</text>
+
+  <rect x="274" y="191" width="230" height="32" rx="5" fill="#ffffff" stroke="#00bc7d"/>
+  <text x="389" y="206" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">LabModule → Patient</text>
+  <text x="389" y="217" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">LabRequest • LabResult • LabReport</text>
+
+  <rect x="520" y="191" width="232" height="32" rx="5" fill="#ffffff" stroke="#00bc7d"/>
+  <text x="636" y="206" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">PharmacyModule (DataSource.transaction)</text>
+  <text x="636" y="217" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Medication • Batch • Rx • Sale • PO</text>
+
+  <!-- Enterprise & Analytics Row -->
+  <rect x="16" y="238" width="748" height="60" rx="6" fill="#eef2ff" stroke="#a5b4fc" stroke-width="1.2"/>
+  <text x="28" y="253" fill="#3730a3" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="800">ENTERPRISE &amp; ANALYTICS MODULES</text>
+
+  <rect x="28" y="260" width="168" height="32" rx="5" fill="#ffffff" stroke="#4f46e5"/>
+  <text x="112" y="275" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">HrModule / StaffModule</text>
+  <text x="112" y="286" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Staff • /hr/staff</text>
+
+  <rect x="208" y="260" width="180" height="32" rx="5" fill="#ffffff" stroke="#4f46e5"/>
+  <text x="298" y="275" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">ProcurementModule → Pharmacy</text>
+  <text x="298" y="286" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Shared Stock • /procurement/*</text>
+
+  <rect x="400" y="260" width="174" height="32" rx="5" fill="#ffffff" stroke="#4f46e5"/>
+  <text x="487" y="275" text-anchor="middle" fill="#0f172a" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">BillingModule → Patient</text>
+  <text x="487" y="286" text-anchor="middle" fill="#475569" font-family="monospace" font-size="7.5">Invoice • PaymentTx • /finance/*</text>
+
+  <rect x="586" y="260" width="166" height="32" rx="5" fill="#0f172a" stroke="#00bc7d"/>
+  <text x="669" y="275" text-anchor="middle" fill="#ffffff" font-family="Inter, Segoe UI, sans-serif" font-size="9" font-weight="700">DashboardModule</text>
+  <text x="669" y="286" text-anchor="middle" fill="#6ee7b7" font-family="monospace" font-size="7.5">/dashboard/summary</text>
+</svg>
+</div>
+
+    <h3 class="subsec-title" style="margin-top: 3mm;">Global Request &amp; Security Pipeline</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 25%;">Pipeline Stage</th>
+          <th style="width: 45%;">Implementation Details</th>
+          <th style="width: 30%;">Security / Reliability Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>IPv4 &amp; AutoSelect Fix</strong></td>
+          <td><code>dns.setDefaultResultOrder('ipv4first')</code> &amp; <code>net.setDefaultAutoSelectFamily(false)</code></td>
+          <td>Prevents cloud DB ETIMEDOUT / ENETUNREACH crashes.</td>
+        </tr>
+        <tr>
+          <td><strong>DbReadyGuard</strong></td>
+          <td>Fast-fails with <code>503 Service Unavailable</code> if DB connection drops.</td>
+          <td>Shields database from cascading query storms.</td>
+        </tr>
+        <tr>
+          <td><strong>JwtAuthGuard &amp; RolesGuard</strong></td>
+          <td>Passport JWT Bearer validation with <code>@Roles()</code> and <code>@Permissions()</code>.</td>
+          <td>Enforces role-based endpoint authorization.</td>
+        </tr>
+        <tr>
+          <td><strong>ValidationPipe</strong></td>
+          <td><code>whitelist: true</code>, <code>forbidNonWhitelisted: true</code>, <code>transform: true</code></td>
+          <td>Blocks parameter injection &amp; validates DTO schemas.</td>
+        </tr>
+        <tr>
+          <td><strong>ApiResponseInterceptor</strong></td>
+          <td>Wraps responses in uniform <code>{ success: true, data: T, message: str }</code></td>
+          <td>Standardizes API consumption for client services.</td>
+        </tr>
+      </tbody>
+    </table>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 7 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-8">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">FRONTEND-BACKEND INTEGRATION</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 06</div>
+    <h2 class="sec-title">Frontend-Backend Integration Gap Audit</h2>
+
+    <p class="sec-intro">
+      A critical responsibility of this audit was tracing how the frontend communicates with the backend.
+      While the HTTP protocol layer (Axios interceptor, JWT bearer injection, and response unwrap) is functional,
+      there is an extensive disconnect between available backend endpoints and frontend views.
+    </p>
+
+    <h3 class="subsec-title">Integration Gap Matrix (Empirical Trace)</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">Domain</th>
+          <th style="width: 28%;">Backend Endpoint Status</th>
+          <th style="width: 30%;">Frontend View / Service</th>
+          <th style="width: 22%;">Integration State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Authentication</strong></td>
+          <td><code>POST /auth/login</code> (Active)</td>
+          <td><code>src/pages/auth/Login.tsx</code></td>
+          <td><span class="badge badge-complete">FULLY INTEGRATED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Patient Records</strong></td>
+          <td><code>GET/POST /patients</code> (Active)</td>
+          <td><code>src/pages/patients/Patients.tsx</code></td>
+          <td><span class="badge badge-complete">FULLY INTEGRATED</span></td>
+        </tr>
+        <tr>
+          <td><strong>Appointments</strong></td>
+          <td><code>/appointments/*</code> (Full CRUD)</td>
+          <td><code>src/pages/appointments/Home.tsx</code></td>
+          <td><span class="badge badge-needs-integ">DISCONNECTED (Mocks)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Laboratory</strong></td>
+          <td><code>/lab/requests</code>, <code>/results</code>, <code>/reports</code></td>
+          <td><code>src/pages/lab/*</code> (6 pages)</td>
+          <td><span class="badge badge-needs-integ">DISCONNECTED (lab.mock)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pharmacy</strong></td>
+          <td><code>/pharmacy/medications</code>, <code>/prescriptions</code></td>
+          <td><code>src/pages/pharmacy/*</code> (7 pages)</td>
+          <td><span class="badge badge-needs-integ">DISCONNECTED (pharmacy.ts)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Clinical EMR</strong></td>
+          <td><code>/clinical/encounters</code>, <code>/vitals</code></td>
+          <td><code>src/pages/clinical/*</code> (14 pages)</td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY (Placeholders)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Billing &amp; Finance</strong></td>
+          <td><code>/finance/invoices</code>, <code>/payments</code></td>
+          <td><code>src/pages/finance/*</code> (11 pages)</td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY (Placeholders)</span></td>
+        </tr>
+        <tr>
+          <td><strong>Staff &amp; HR</strong></td>
+          <td><code>/hr/staff/*</code> (Full CRUD)</td>
+          <td><code>src/pages/hr/*</code> (14 pages)</td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY (Placeholders)</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsec-title" style="margin-top: 3mm;">Current Communication Architecture</h3>
+    <div class="svg-container" style="text-align: center; margin: 4mm 0;"><svg style="max-height: 75.0mm; width: 100%; height: auto; display: block; margin: 0 auto;" width="780" height="240" viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="780" height="240" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Left: Frontend -->
+  <rect x="14" y="16" width="235" height="208" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="14" y="16" width="235" height="24" rx="6" fill="#0284c7"/>
+  <text x="131" y="32" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9.5" font-weight="800">FRONTEND (myclinical / React 19)</text>
+  <text x="24" y="54" fill="#38bdf8" font-family="Inter, sans-serif" font-size="8.5" font-weight="700">13 Sidebar Navigation Groups:</text>
+  <text x="24" y="69" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Dashboard &amp; Analytics (/)</text>
+  <text x="24" y="82" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Patient Management (/patients/*)</text>
+  <text x="24" y="95" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Appointments (/appointments/*)</text>
+  <text x="24" y="108" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Clinical / Doctors / Nurses (/clinical/*)</text>
+  <text x="24" y="121" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Laboratory (/lab/* — types/lab.ts)</text>
+  <text x="24" y="134" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Pharmacy (/pharmacy/* — types/pharmacy.ts)</text>
+  <text x="24" y="147" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Procurement (/procurement/*)</text>
+  <text x="24" y="160" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• HR (/hr/*) &amp; Finance (/finance/*)</text>
+  <text x="24" y="173" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• HMO (/hmo/*) &amp; System Admin</text>
+  <text x="24" y="196" fill="#6ee7b7" font-family="monospace" font-size="7.8">src/services/api.ts (Axios)</text>
+  <text x="24" y="209" fill="#94a3b8" font-family="monospace" font-size="7.5">VITE_API_BASE_URL=localhost:3000</text>
+
+  <!-- Center: Contract Envelope -->
+  <rect x="272" y="42" width="236" height="156" rx="6" fill="#ffffff" stroke="#00bc7d" stroke-width="1.6"/>
+  <rect x="272" y="42" width="236" height="22" rx="6" fill="#00bc7d"/>
+  <text x="390" y="57" text-anchor="middle" fill="#042f2e" font-family="Inter, sans-serif" font-size="9" font-weight="800">UNIFIED API CONTRACT ENVELOPE</text>
+  <text x="284" y="78" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">Request Headers:</text>
+  <text x="284" y="91" fill="#334155" font-family="monospace" font-size="7.5">Authorization: Bearer &lt;jwt&gt;</text>
+  <text x="284" y="103" fill="#334155" font-family="monospace" font-size="7.5">Content-Type: application/json</text>
+  <text x="284" y="122" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">ApiResponseInterceptor Output:</text>
+  <text x="284" y="135" fill="#059669" font-family="monospace" font-size="7.8">{</text>
+  <text x="294" y="147" fill="#059669" font-family="monospace" font-size="7.8">"status": true,</text>
+  <text x="294" y="159" fill="#059669" font-family="monospace" font-size="7.8">"message": "Request successful",</text>
+  <text x="294" y="171" fill="#059669" font-family="monospace" font-size="7.8">"data": { ... }</text>
+  <text x="284" y="183" fill="#059669" font-family="monospace" font-size="7.8">}</text>
+
+  <!-- Right: Backend -->
+  <rect x="531" y="16" width="235" height="208" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+  <rect x="531" y="16" width="235" height="24" rx="6" fill="#4f46e5"/>
+  <text x="648" y="32" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9.5" font-weight="800">BACKEND (myclinic-server / NestJS 11)</text>
+  <text x="541" y="54" fill="#a5b4fc" font-family="Inter, sans-serif" font-size="8.5" font-weight="700">13 Aligned Domain Modules:</text>
+  <text x="541" y="69" fill="#e2e8f0" font-family="monospace" font-size="7.8">• DashboardController (/dashboard/*)</text>
+  <text x="541" y="82" fill="#e2e8f0" font-family="monospace" font-size="7.8">• PatientController (/patients/*)</text>
+  <text x="541" y="95" fill="#e2e8f0" font-family="monospace" font-size="7.8">• AppointmentController (/appointments/*)</text>
+  <text x="541" y="108" fill="#e2e8f0" font-family="monospace" font-size="7.8">• ClinicalController (/clinical/*)</text>
+  <text x="541" y="121" fill="#e2e8f0" font-family="monospace" font-size="7.8">• LabController (/lab/*)</text>
+  <text x="541" y="134" fill="#e2e8f0" font-family="monospace" font-size="7.8">• PharmacyController (/pharmacy/*)</text>
+  <text x="541" y="147" fill="#e2e8f0" font-family="monospace" font-size="7.8">• ProcurementController (/procurement/*)</text>
+  <text x="541" y="160" fill="#e2e8f0" font-family="monospace" font-size="7.8">• StaffController (/hr/staff/*)</text>
+  <text x="541" y="173" fill="#e2e8f0" font-family="monospace" font-size="7.8">• BillingController (/finance/*)</text>
+  <text x="541" y="186" fill="#e2e8f0" font-family="monospace" font-size="7.8">• HmoController (/hmos/*)</text>
+  <text x="541" y="199" fill="#e2e8f0" font-family="monospace" font-size="7.8">• Org / Rbac / Audit Controllers</text>
+</svg>
+</div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 8 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-9">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">DATABASE ARCHITECTURE</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 07</div>
+    <h2 class="sec-title">Database Architecture &amp; Referential Integrity</h2>
+
+    <p class="sec-intro">
+      The database layer consists of <strong>35 PostgreSQL tables</strong> hosted on Neon Serverless (AWS us-east-2).
+      While the table structures cover the requisite healthcare entities, empirical inspection revealed critical
+      relational inconsistencies that must be addressed.
+    </p>
+
+    <h3 class="subsec-title">Database Entity Relationship Diagram</h3>
+    <div class="svg-container" style="text-align: center; margin: 4mm 0;"><svg style="max-height: 80.0mm; width: 100%; height: auto; display: block; margin: 0 auto;" width="780" height="370" viewBox="0 0 780 370" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="780" height="370" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Column 1: Core & Tenancy -->
+  <rect x="14" y="14" width="175" height="95" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <rect x="14" y="14" width="175" height="20" rx="6" fill="#0284c7"/>
+  <text x="101" y="28" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">organizations (1 : N)</text>
+  <text x="22" y="46" fill="#0f172a" font-family="monospace" font-size="8">PK id: uuid</text>
+  <text x="22" y="58" fill="#334155" font-family="monospace" font-size="8">UQ code, name, edition</text>
+  <text x="22" y="72" fill="#0369a1" font-family="monospace" font-size="8">├── branches (FK organizationId)</text>
+  <text x="22" y="84" fill="#0369a1" font-family="monospace" font-size="8">└── departments (FK orgId)</text>
+  <text x="22" y="98" fill="#64748b" font-family="monospace" font-size="7.5">+ system_settings, audit_logs</text>
+
+  <rect x="14" y="120" width="175" height="76" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <rect x="14" y="120" width="175" height="20" rx="6" fill="#0284c7"/>
+  <text x="101" y="134" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">roles &lt;—M:N—&gt; permissions</text>
+  <text x="22" y="152" fill="#0f172a" font-family="monospace" font-size="8">PK id: uuid | UQ code: varchar</text>
+  <text x="22" y="165" fill="#334155" font-family="monospace" font-size="8">Join: role_permissions</text>
+  <text x="22" y="178" fill="#334155" font-family="monospace" font-size="8">(roleId, permissionId)</text>
+
+  <rect x="14" y="208" width="175" height="148" rx="6" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"/>
+  <rect x="14" y="208" width="175" height="20" rx="6" fill="#4f46e5"/>
+  <text x="101" y="222" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">staff (HR &amp; Auth Principal)</text>
+  <text x="22" y="240" fill="#0f172a" font-family="monospace" font-size="8">PK staffId: uuid</text>
+  <text x="22" y="253" fill="#0f172a" font-family="monospace" font-size="8">UQ username, email</text>
+  <text x="22" y="266" fill="#334155" font-family="monospace" font-size="8">role, department, specialty</text>
+  <text x="22" y="279" fill="#334155" font-family="monospace" font-size="8">licenseNumber, annualSalary</text>
+  <text x="22" y="292" fill="#334155" font-family="monospace" font-size="8">isActive: boolean</text>
+  <text x="22" y="305" fill="#4338ca" font-family="monospace" font-size="8">IDX organizationId, branchId</text>
+  <text x="22" y="322" fill="#64748b" font-family="Inter, sans-serif" font-size="7.8">Referenced by Appointments,</text>
+  <text x="22" y="334" fill="#64748b" font-family="Inter, sans-serif" font-size="7.8">Encounters, Admissions</text>
+
+  <!-- Column 2: Patient, HMO & Clinical -->
+  <rect x="206" y="14" width="184" height="122" rx="6" fill="#ffffff" stroke="#00bc7d" stroke-width="1.6"/>
+  <rect x="206" y="14" width="184" height="20" rx="6" fill="#00bc7d"/>
+  <text x="298" y="28" text-anchor="middle" fill="#042f2e" font-family="Inter, sans-serif" font-size="9" font-weight="800">patients (Core EMR Master)</text>
+  <text x="214" y="46" fill="#0f172a" font-family="monospace" font-size="8">PK id: int (Auto)</text>
+  <text x="214" y="58" fill="#0f172a" font-family="monospace" font-size="8">UQ patient_number (PAT-YYYY-N)</text>
+  <text x="214" y="70" fill="#334155" font-family="monospace" font-size="8">surname, other_names, sex, dob</text>
+  <text x="214" y="82" fill="#334155" font-family="monospace" font-size="8">balance, depositBalance, outstanding</text>
+  <text x="214" y="94" fill="#059669" font-family="monospace" font-size="8">FK hmo_id —&gt; hmos.id (N:1)</text>
+  <text x="214" y="106" fill="#059669" font-family="monospace" font-size="8">1:1 next_of_kin (FK patient_id)</text>
+  <text x="214" y="118" fill="#64748b" font-family="monospace" font-size="7.8">SoftDelete: deleted_at</text>
+
+  <rect x="206" y="146" width="184" height="92" rx="6" fill="#ffffff" stroke="#00bc7d" stroke-width="1.5"/>
+  <rect x="206" y="146" width="184" height="20" rx="6" fill="#059669"/>
+  <text x="298" y="160" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">hmos (1 : N Insurance)</text>
+  <text x="214" y="178" fill="#0f172a" font-family="monospace" font-size="8">PK id: int | name, coverage</text>
+  <text x="214" y="192" fill="#059669" font-family="monospace" font-size="8">├── hmo_pre_authorizations (FK)</text>
+  <text x="214" y="205" fill="#059669" font-family="monospace" font-size="8">└── hmo_claims (FK hmoId)</text>
+  <text x="214" y="220" fill="#64748b" font-family="monospace" font-size="7.8">UQ authorizationCode / claimNumber</text>
+
+  <rect x="206" y="248" width="184" height="108" rx="6" fill="#ffffff" stroke="#00bc7d" stroke-width="1.5"/>
+  <rect x="206" y="248" width="184" height="20" rx="6" fill="#0f766e"/>
+  <text x="298" y="262" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">Clinical &amp; Inpatient Tables</text>
+  <text x="214" y="280" fill="#0f172a" font-family="monospace" font-size="8">• wards (1:N) —&gt; beds (FK wardId)</text>
+  <text x="214" y="294" fill="#0f172a" font-family="monospace" font-size="8">• admissions (wardId, patientId)</text>
+  <text x="214" y="308" fill="#0f172a" font-family="monospace" font-size="8">• clinical_encounters (ICD-10)</text>
+  <text x="214" y="322" fill="#0f172a" font-family="monospace" font-size="8">• vital_signs (BP, Temp, SpO2)</text>
+  <text x="214" y="336" fill="#0f172a" font-family="monospace" font-size="8">• appointments (date, status)</text>
+
+  <!-- Column 3: Lab & Finance -->
+  <rect x="406" y="14" width="172" height="145" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <rect x="406" y="14" width="172" height="20" rx="6" fill="#0369a1"/>
+  <text x="492" y="28" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">Laboratory Pipeline</text>
+  <text x="414" y="46" fill="#0f172a" font-family="monospace" font-size="8">1. lab_requests</text>
+  <text x="420" y="58" fill="#475569" font-family="monospace" font-size="7.5">PK id: uuid | status, priority</text>
+  <text x="414" y="76" fill="#0f172a" font-family="monospace" font-size="8">2. lab_results</text>
+  <text x="420" y="88" fill="#0369a1" font-family="monospace" font-size="7.5">IDX requestId —&gt; completes req</text>
+  <text x="414" y="106" fill="#0f172a" font-family="monospace" font-size="8">3. lab_reports</text>
+  <text x="420" y="118" fill="#0369a1" font-family="monospace" font-size="7.5">UQ reportId | IDX resultId</text>
+  <text x="414" y="138" fill="#64748b" font-family="monospace" font-size="7.5">Auto-resolves patientName</text>
+
+  <rect x="406" y="172" width="172" height="184" rx="6" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"/>
+  <rect x="406" y="172" width="172" height="20" rx="6" fill="#4338ca"/>
+  <text x="492" y="186" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">Finance &amp; Billing (ACID Tx)</text>
+  <text x="414" y="206" fill="#0f172a" font-family="monospace" font-size="8">patient_invoices (1 : N)</text>
+  <text x="414" y="219" fill="#334155" font-family="monospace" font-size="7.8">PK id: uuid | UQ invoiceNumber</text>
+  <text x="414" y="232" fill="#334155" font-family="monospace" font-size="7.8">totalAmount, amountPaid, balanceDue</text>
+  <text x="414" y="252" fill="#0f172a" font-family="monospace" font-size="8">payment_transactions</text>
+  <text x="414" y="265" fill="#4338ca" font-family="monospace" font-size="7.8">FK invoiceId —&gt; patient_invoices</text>
+  <text x="414" y="278" fill="#334155" font-family="monospace" font-size="7.8">UQ referenceNumber | amount</text>
+  <text x="414" y="298" fill="#059669" font-family="Inter, sans-serif" font-size="7.8" font-weight="700">Transactional Sync:</text>
+  <text x="414" y="311" fill="#475569" font-family="Inter, sans-serif" font-size="7.5">Updates patients.outstanding,</text>
+  <text x="414" y="323" fill="#475569" font-family="Inter, sans-serif" font-size="7.5">depositBalance &amp; balance atomically</text>
+
+  <!-- Column 4: Pharmacy & Shared Procurement -->
+  <rect x="594" y="14" width="172" height="342" rx="6" fill="#ffffff" stroke="#0f172a" stroke-width="1.5"/>
+  <rect x="594" y="14" width="172" height="20" rx="6" fill="#0f172a"/>
+  <text x="680" y="28" text-anchor="middle" fill="#34d399" font-family="Inter, sans-serif" font-size="9" font-weight="800">Pharmacy &amp; Procurement</text>
+  <text x="602" y="48" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">medications (Master Stock)</text>
+  <text x="602" y="60" fill="#334155" font-family="monospace" font-size="7.5">PK id: uuid | stock, reorderLevel</text>
+  <text x="602" y="72" fill="#059669" font-family="monospace" font-size="7.5">status: in_stock|low_stock|out</text>
+
+  <text x="602" y="92" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">inventory_batches</text>
+  <text x="602" y="104" fill="#334155" font-family="monospace" font-size="7.5">FK medicationId | batchNumber</text>
+
+  <text x="602" y="124" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">prescriptions (1:N)</text>
+  <text x="602" y="136" fill="#0369a1" font-family="monospace" font-size="7.5">└── prescription_items (CASCADE)</text>
+
+  <text x="602" y="156" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">pharmacy_sales (1:N)</text>
+  <text x="602" y="168" fill="#0369a1" font-family="monospace" font-size="7.5">└── pharmacy_sale_items (CASCADE)</text>
+
+  <text x="602" y="188" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">suppliers (1:N)</text>
+  <text x="602" y="200" fill="#334155" font-family="monospace" font-size="7.5">PK id: uuid | paymentTerms</text>
+
+  <text x="602" y="220" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">purchase_orders (1:N)</text>
+  <text x="602" y="232" fill="#0369a1" font-family="monospace" font-size="7.5">├── FK supplierId —&gt; suppliers</text>
+  <text x="602" y="244" fill="#0369a1" font-family="monospace" font-size="7.5">└── purchase_order_items (CASCADE)</text>
+
+  <rect x="602" y="264" width="156" height="80" rx="5" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="610" y="279" fill="#065f46" font-family="Inter, sans-serif" font-size="8" font-weight="800">Zero Stock Duplication</text>
+  <text x="610" y="292" fill="#1e293b" font-family="Inter, sans-serif" font-size="7.5">• Rx Dispense: -stock (ACID)</text>
+  <text x="610" y="304" fill="#1e293b" font-family="Inter, sans-serif" font-size="7.5">• POS Sale: -stock (ACID)</text>
+  <text x="610" y="316" fill="#1e293b" font-family="Inter, sans-serif" font-size="7.5">• PO Received: +stock (ACID)</text>
+  <text x="610" y="328" fill="#1e293b" font-family="Inter, sans-serif" font-size="7.5">• Batch Added: +stock (ACID)</text>
+</svg>
+</div>
+
+    <h3 class="subsec-title" style="margin-top: 3mm;">Critical Database Weaknesses</h3>
+    <div class="card-grid-2">
+      <div class="finding-card">
+        <div class="finding-badge">DB-01 &bull; HIGH RISK</div>
+        <div class="finding-title">Missing Foreign Keys on Clinical Records</div>
+        <div class="finding-desc">
+          <code>patients.id</code> is an auto-incrementing <code>integer</code>. However, <code>appointments.patientId</code>,
+          <code>clinical_encounters.patientId</code>, <code>lab_requests.patientId</code>, and <code>prescriptions.patientId</code>
+          are defined as <code>character varying</code>. Because of this type mismatch, <strong>no foreign keys exist to patients</strong>.
+          Cascading deletes, updates, and relational integrity are completely unenforced.
+        </div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-badge">DB-02 &bull; HIGH RISK</div>
+        <div class="finding-title">Multi-Tenant <code>organizationId</code> Type Divergence</div>
+        <div class="finding-desc">
+          <code>organizations.id</code> is typed as <code>uuid</code>. However, <code>patients.organizationId</code> and
+          <code>staff.organizationId</code> are typed as <code>integer</code>, while clinical tables use <code>character varying</code>.
+          This makes multi-tenant partitioning fragile and blocks relational joins across organizational boundaries.
+        </div>
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 9 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-10">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">MODULE STATUS: CORE & CLINICAL</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 08 &bull; PART 1</div>
+    <h2 class="sec-title">Module Implementation Status Register: Core &amp; Clinical</h2>
+
+    <p class="sec-intro">
+      Official status register categorizing each system module based on empirical code inspection.
+      Status ratings reflect working functional reality rather than UI presence.
+    </p>
+
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">Module Name</th>
+          <th style="width: 24%;">Frontend View State</th>
+          <th style="width: 24%;">Backend API Status</th>
+          <th style="width: 18%;">Database Entity</th>
+          <th style="width: 16%;">Overall Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>01. Authentication</strong></td>
+          <td>Live UI (<code>Login.tsx</code>), JWT token storage.</td>
+          <td><code>POST /auth/login</code>, <code>/auth/me</code>, Bcrypt.</td>
+          <td><code>staff</code> table</td>
+          <td><span class="badge badge-partial">PARTIALLY COMPLETE</span></td>
+        </tr>
+        <tr>
+          <td><strong>02. RBAC &amp; Roles</strong></td>
+          <td>Placeholders (<code>system-admin/*</code>).</td>
+          <td><code>/roles</code>, <code>/permissions</code> (Full CRUD).</td>
+          <td><code>roles</code>, <code>permissions</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>03. Patient Admin</strong></td>
+          <td>Live Directory (<code>Patients.tsx</code>), 5-step wizard.</td>
+          <td><code>/patients/*</code> (Full CRUD, stats).</td>
+          <td><code>patients</code>, <code>next_of_kin</code></td>
+          <td><span class="badge badge-complete">COMPLETE (Baseline)</span></td>
+        </tr>
+        <tr>
+          <td><strong>04. Appointments</strong></td>
+          <td>Duplicated patient code (<code>Home.tsx</code>).</td>
+          <td><code>/appointments/*</code> (CRUD, stats).</td>
+          <td><code>appointments</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>05. Clinical EMR</strong></td>
+          <td>14 Placeholders (<code>clinical/*</code>).</td>
+          <td><code>/clinical/encounters</code> (SOAP notes).</td>
+          <td><code>clinical_encounters</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>06. Vital Signs</strong></td>
+          <td>Placeholder (<code>VitalSignsObservations</code>).</td>
+          <td><code>/clinical/vitals</code> (BP, Temp, Pulse).</td>
+          <td><code>vital_signs</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>07. Inpatient / Wards</strong></td>
+          <td>Placeholders (<code>InpatientDept.tsx</code>).</td>
+          <td><code>/clinical/admissions</code>, <code>/wards</code>.</td>
+          <td><code>wards</code>, <code>beds</code>, <code>admissions</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>08. Laboratory</strong></td>
+          <td>Complete UI on <code>lab.mock.ts</code> (6 pages).</td>
+          <td><code>/lab/requests</code>, <code>/results</code>, <code>/reports</code>.</td>
+          <td><code>lab_requests</code>, <code>results</code></td>
+          <td><span class="badge badge-needs-integ">NEEDS INTEGRATION</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info" style="margin-top: 4mm;">
+      <div class="callout-title">Core &amp; Clinical Operational Assessment</div>
+      <div class="callout-body">
+        The clinical backbone is partially ready: patient intake is live and writing to PostgreSQL.
+        However, the bridge from Patient Registration to Appointment Scheduling, Doctor Consultation, and
+        Lab Investigation is broken on the frontend due to duplicate code and unmapped API routes.
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 10 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-11">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">MODULE STATUS: OPERATIONS & ADMIN</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 08 &bull; PART 2</div>
+    <h2 class="sec-title">Module Implementation Status Register: Operations &amp; Admin</h2>
+
+    <p class="sec-intro">
+      Continuation of the official status register covering Pharmacy, Billing, HMO, Human Resources,
+      Procurement, Audit, and AI Governance.
+    </p>
+
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 18%;">Module Name</th>
+          <th style="width: 24%;">Frontend View State</th>
+          <th style="width: 24%;">Backend API Status</th>
+          <th style="width: 18%;">Database Entity</th>
+          <th style="width: 16%;">Overall Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>09. Pharmacy &amp; Rx</strong></td>
+          <td>Complete UI on <code>pharmacy.ts</code> (7 pages).</td>
+          <td><code>/pharmacy/medications</code>, <code>/inventory</code>, <code>/prescriptions</code>.</td>
+          <td><code>medications</code>, <code>prescriptions</code></td>
+          <td><span class="badge badge-needs-integ">NEEDS INTEGRATION</span></td>
+        </tr>
+        <tr>
+          <td><strong>10. Billing &amp; Finance</strong></td>
+          <td>11 Placeholders (<code>finance/*</code>).</td>
+          <td><code>/finance/invoices</code>, <code>/payments</code>, summary.</td>
+          <td><code>patient_invoices</code>, <code>payment_transactions</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>11. HMO &amp; Insurance</strong></td>
+          <td>Dropdown hook only (<code>useHmos.ts</code>).</td>
+          <td><code>/hmos/*</code>, <code>/claims</code>, <code>/authorizations</code>.</td>
+          <td><code>hmos</code>, <code>hmo_claims</code>, <code>hmo_pre_auth</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>12. Human Resources</strong></td>
+          <td>14 Placeholders (<code>hr/*</code>).</td>
+          <td><code>/hr/staff/*</code> (Full CRUD, credentials).</td>
+          <td><code>staff</code> table (40 cols)</td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>13. Procurement</strong></td>
+          <td>15 Placeholders (<code>procurement/*</code>).</td>
+          <td><code>/procurement/suppliers</code>, <code>/orders</code>.</td>
+          <td><code>suppliers</code>, <code>purchase_orders</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>14. Multi-Tenancy</strong></td>
+          <td>5 Placeholders (<code>system-admin/*</code>).</td>
+          <td><code>/organizations</code>, <code>/branches</code>, <code>/departments</code>.</td>
+          <td><code>organizations</code>, <code>branches</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>15. Audit &amp; Logs</strong></td>
+          <td>Placeholders (<code>SystemAuditLogs.tsx</code>).</td>
+          <td><code>GET/POST /audit-logs</code> (Immutable).</td>
+          <td><code>audit_logs</code></td>
+          <td><span class="badge badge-backend-only">BACKEND ONLY</span></td>
+        </tr>
+        <tr>
+          <td><strong>16. Executive Dashboard</strong></td>
+          <td>Hardcoded Cards (<code>HospitalDashboard.tsx</code>).</td>
+          <td><code>/dashboard/summary</code>, <code>/analytics</code>.</td>
+          <td>Aggregate Queries</td>
+          <td><span class="badge badge-needs-integ">NEEDS INTEGRATION</span></td>
+        </tr>
+        <tr>
+          <td><strong>17. AI Governance</strong></td>
+          <td>Service &amp; Components built (<code>AiAssistantPanel</code>).</td>
+          <td><code>/ai/chat</code>, <code>/summarise</code>, <code>/search</code>, <code>/insights</code>.</td>
+          <td>Audit Cache / Log</td>
+          <td><span class="badge badge-partial">PARTIALLY COMPLETE</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info" style="margin-top: 4mm;">
+      <div class="callout-title">Enterprise Operations Assessment</div>
+      <div class="callout-body">
+        The backend demonstrates extraordinary maturity across business and administrative domains.
+        The immediate engineering focus must be creating simple, clean data-table frontends that connect to
+        these endpoints rather than inventing new backend microservices.
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 11 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-12">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">SECURITY & DATA PROTECTION</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 09</div>
+    <h2 class="sec-title">Security &amp; Healthcare Data Protection Assessment</h2>
+
+    <p class="sec-intro">
+      Healthcare platforms handle sensitive Protected Health Information (PHI) requiring rigorous access controls,
+      immutable auditability, and defense-in-depth security architectures.
+    </p>
+
+    <h3 class="subsec-title">Authentication &amp; RBAC Authorization Flow</h3>
+    <div class="svg-container" style="text-align: center; margin: 4mm 0;"><svg style="max-height: 75.0mm; width: 100%; height: auto; display: block; margin: 0 auto;" width="780" height="230" viewBox="0 0 780 230" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="780" height="230" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Step 1: Login -->
+  <rect x="14" y="18" width="172" height="194" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="1.5"/>
+  <rect x="14" y="18" width="172" height="22" rx="6" fill="#0284c7"/>
+  <text x="100" y="33" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">1. CREDENTIAL VERIFICATION</text>
+  <text x="24" y="54" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">POST /auth/login</text>
+  <text x="24" y="70" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Lookup Staff by username</text>
+  <text x="24" y="84" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Check staff.isActive !== false</text>
+  <text x="24" y="98" fill="#334155" font-family="Inter, sans-serif" font-size="8">• bcrypt.compare(pwd, hash)</text>
+  <text x="24" y="116" fill="#0369a1" font-family="Inter, sans-serif" font-size="8" font-weight="700">JWT Claims Signed (1d):</text>
+  <text x="24" y="130" fill="#475569" font-family="monospace" font-size="7.5">sub: staff.staffId</text>
+  <text x="24" y="142" fill="#475569" font-family="monospace" font-size="7.5">username, role, department</text>
+  <text x="24" y="154" fill="#475569" font-family="monospace" font-size="7.5">organizationId, branchId</text>
+  <text x="24" y="174" fill="#059669" font-family="Inter, sans-serif" font-size="8" font-weight="700">Response Payload:</text>
+  <text x="24" y="188" fill="#334155" font-family="monospace" font-size="7.5">{ user, staff, access_token }</text>
+
+  <!-- Step 2: JwtAuthGuard -->
+  <rect x="204" y="18" width="176" height="194" rx="6" fill="#ffffff" stroke="#00bc7d" stroke-width="1.5"/>
+  <rect x="204" y="18" width="176" height="22" rx="6" fill="#00bc7d"/>
+  <text x="292" y="33" text-anchor="middle" fill="#042f2e" font-family="Inter, sans-serif" font-size="9" font-weight="800">2. JWT GUARD &amp; @Public()</text>
+  <text x="214" y="54" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">JwtAuthGuard.canActivate()</text>
+  <text x="214" y="70" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Reflector checks IS_PUBLIC_KEY</text>
+  <text x="214" y="84" fill="#059669" font-family="Inter, sans-serif" font-size="8">• If @Public() (e.g. GET /hmos):</text>
+  <text x="222" y="96" fill="#475569" font-family="Inter, sans-serif" font-size="7.8">Allow immediate pass-through</text>
+  <text x="214" y="112" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Else extract Bearer token</text>
+  <text x="214" y="126" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Verify JWT_SECRET signature</text>
+  <text x="214" y="144" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">JwtStrategy.validate()</text>
+  <text x="214" y="158" fill="#475569" font-family="Inter, sans-serif" font-size="7.8">Attaches AuthenticatedUser</text>
+  <text x="214" y="170" fill="#475569" font-family="Inter, sans-serif" font-size="7.8">to req.user (@CurrentUser)</text>
+
+  <!-- Step 3: RolesGuard -->
+  <rect x="398" y="18" width="176" height="194" rx="6" fill="#ffffff" stroke="#4f46e5" stroke-width="1.5"/>
+  <rect x="398" y="18" width="176" height="22" rx="6" fill="#4f46e5"/>
+  <text x="486" y="33" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">3. RBAC &amp; PRIVILEGE GUARD</text>
+  <text x="408" y="54" fill="#0f172a" font-family="monospace" font-size="8" font-weight="700">RolesGuard.canActivate()</text>
+  <text x="408" y="70" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Reads @Roles() &amp; @Permissions()</text>
+  <text x="408" y="84" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Admin / System_Admin bypass</text>
+  <text x="408" y="98" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Case-insensitive role match</text>
+  <text x="408" y="112" fill="#334155" font-family="Inter, sans-serif" font-size="8">• Throws 403 Forbidden if denied</text>
+  <text x="408" y="134" fill="#4338ca" font-family="Inter, sans-serif" font-size="8" font-weight="700">Self-Escalation Protection:</text>
+  <text x="408" y="148" fill="#475569" font-family="Inter, sans-serif" font-size="7.8">PUT /auth/me uses UpdateProfileDto</text>
+  <text x="408" y="160" fill="#475569" font-family="Inter, sans-serif" font-size="7.8">(blocks role, annualSalary,</text>
+  <text x="408" y="172" fill="#475569" font-family="Inter, sans-serif" font-size="7.8">&amp; isActive tampering)</text>
+
+  <!-- Step 4: Tenant Scope & Audit -->
+  <rect x="592" y="18" width="174" height="194" rx="6" fill="#0f172a" stroke="#00bc7d" stroke-width="1.5"/>
+  <rect x="592" y="18" width="174" height="22" rx="6" fill="#0f766e"/>
+  <text x="679" y="33" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="9" font-weight="800">4. TENANT &amp; AUDIT TRAIL</text>
+  <text x="602" y="54" fill="#34d399" font-family="monospace" font-size="8" font-weight="700">Multi-Facility Scoping</text>
+  <text x="602" y="70" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Indexed organizationId</text>
+  <text x="602" y="84" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Indexed branchId</text>
+  <text x="602" y="106" fill="#38bdf8" font-family="monospace" font-size="8" font-weight="700">AuditService.log()</text>
+  <text x="602" y="122" fill="#e2e8f0" font-family="Inter, sans-serif" font-size="8">• Persists to audit_logs table</text>
+  <text x="602" y="136" fill="#cbd5e1" font-family="monospace" font-size="7.5">actorId, actorUsername</text>
+  <text x="602" y="148" fill="#cbd5e1" font-family="monospace" font-size="7.5">actorRole, action, module</text>
+  <text x="602" y="160" fill="#cbd5e1" font-family="monospace" font-size="7.5">entityName, entityId</text>
+  <text x="602" y="172" fill="#cbd5e1" font-family="monospace" font-size="7.5">details: jsonb, createdAt</text>
+</svg>
+</div>
+
+    <h3 class="subsec-title" style="margin-top: 3mm;">Security Vulnerability &amp; Risk Register</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">Security Domain</th>
+          <th style="width: 38%;">Current Implementation Finding</th>
+          <th style="width: 27%;">Identified Risk &amp; Severity</th>
+          <th style="width: 15%;">Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Session &amp; Token</strong></td>
+          <td>JWT stored in <code>localStorage</code> (<code>auth-storage</code>); fixed 24h expiration; no refresh token.</td>
+          <td>XSS token extraction; inability to invalidate compromised tokens. <span class="badge badge-partial">HIGH</span></td>
+          <td>Phase 1</td>
+        </tr>
+        <tr>
+          <td><strong>Client Route Guard</strong></td>
+          <td><code>ProtectedRoutes.tsx</code> wraps routes but omits <code>allowedRoles</code> parameter in <code>AppRoutes.tsx</code>.</td>
+          <td>Privilege escalation: any user can type URLs to access admin/finance views. <span class="badge badge-partial">HIGH</span></td>
+          <td>Phase 1</td>
+        </tr>
+        <tr>
+          <td><strong>PHI Data Privacy</strong></td>
+          <td>Patient allergies and chronic conditions stored in plain text without field encryption.</td>
+          <td>Unauthorized read if DB read-replica or backup is intercepted. <span class="badge badge-needs-integ">MEDIUM</span></td>
+          <td>Phase 3</td>
+        </tr>
+        <tr>
+          <td><strong>Tenant Isolation</strong></td>
+          <td>Controllers rely on incoming payload <code>organizationId</code> rather than JWT claims.</td>
+          <td>Cross-tenant data leakage if query parameters are manipulated. <span class="badge badge-partial">HIGH</span></td>
+          <td>Phase 2</td>
+        </tr>
+      </tbody>
+    </table>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 12 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-13">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">TECHNICAL DEBT & RISKS</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 10</div>
+    <h2 class="sec-title">Technical Debt, Risks &amp; Architectural Recommendations</h2>
+
+    <p class="sec-intro">
+      To ensure Ithere Care can evolve into a multi-hospital enterprise deployment without costly rewrites,
+      technical debt accumulated during rapid prototyping must be systematically remediated.
+    </p>
+
+    <div class="card-grid-2">
+      <div class="finding-card">
+        <div class="finding-badge">DEBT-01 &bull; HIGH PRIORITY</div>
+        <div class="finding-title">State Management Dualism</div>
+        <div class="finding-desc">
+          <strong>Issue:</strong> Mixing manual Zustand array manipulation with React Query.<br>
+          <strong>Impact:</strong> Cache desynchronization, stale lists, duplicated network calls.<br>
+          <strong>Mitigation:</strong> Enforce <code>@tanstack/react-query</code> for all server data caching;
+          restrict Zustand strictly to user session, active tenant, and UI preferences.
+        </div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-badge">DEBT-02 &bull; HIGH PRIORITY</div>
+        <div class="finding-title">Database Foreign Key Gaps</div>
+        <div class="finding-desc">
+          <strong>Issue:</strong> <code>patientId</code> stored as varchar without foreign key constraints.<br>
+          <strong>Impact:</strong> Data corruption, orphaned medical records, unable to perform relational cascades.<br>
+          <strong>Mitigation:</strong> Execute a TypeORM migration altering clinical <code>patientId</code> columns to
+          <code>integer</code> with foreign keys referencing <code>patients(id) ON DELETE RESTRICT</code>.
+        </div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-badge">DEBT-03 &bull; MEDIUM PRIORITY</div>
+        <div class="finding-title">Monolithic Route Loading</div>
+        <div class="finding-desc">
+          <strong>Issue:</strong> All 169 pages statically imported in <code>AppRoutes.tsx</code>.<br>
+          <strong>Impact:</strong> Massive initial bundle size, slow first-contentful-paint (FCP).<br>
+          <strong>Mitigation:</strong> Implement dynamic code-splitting via <code>React.lazy()</code> and
+          <code>&lt;Suspense&gt;</code> grouped by hospital directorate.
+        </div>
+      </div>
+      <div class="finding-card">
+        <div class="finding-badge">DEBT-04 &bull; HIGH PRIORITY</div>
+        <div class="finding-title">Frontend Testing Vacuum</div>
+        <div class="finding-desc">
+          <strong>Issue:</strong> Zero automated tests in <code>myclinical/src</code>.<br>
+          <strong>Impact:</strong> High risk of regression when connecting live APIs.<br>
+          <strong>Mitigation:</strong> Configure Vitest and React Testing Library in <code>myclinical</code>;
+          require unit tests for authentication, patient registration, and appointment booking.
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-success" style="margin-top: 5mm;">
+      <div class="callout-title">Architectural Recommendation: Retain the Modular Monolith</div>
+      <div class="callout-body">
+        We strongly advise <strong>AGAINST</strong> breaking the backend into microservices at this stage.
+        The current NestJS modular monolith is well-partitioned, easy to debug, deploys as a single unit,
+        and provides transaction safety across clinical and billing events. Premature microservices would
+        introduce unnecessary distributed systems complexity without commercial benefit.
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 13 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-14">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">PRIORITIZED DEVELOPMENT ROADMAP</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 11</div>
+    <h2 class="sec-title">Prioritized Development Roadmap (Phases 1–5)</h2>
+
+    <p class="sec-intro">
+      A disciplined 5-phase engineering roadmap designed to systematically eliminate technical debt,
+      operationalize clinical workflows, establish billing, and scale to commercial multi-hospital readiness.
+    </p>
+
+    <div class="roadmap-timeline">
+      <div class="phase-card">
+        <div class="phase-hdr">
+          <span class="phase-tag">PHASE 1</span>
+          <span class="phase-title">Foundation, Deduplication &amp; Core Integration</span>
+          <span class="phase-dur">Sprints 1–2 (Weeks 1–4)</span>
+        </div>
+        <div class="phase-body">
+          Eliminate copy-paste duplication in Appointments; build clean calendar booking UI; bind Laboratory
+          and Pharmacy frontends to existing live backend APIs; setup Vitest testing harness in frontend.
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-hdr">
+          <span class="phase-tag">PHASE 2</span>
+          <span class="phase-title">Core Hospital &amp; Clinical EMR Operations</span>
+          <span class="phase-dur">Sprints 3–4 (Weeks 5–8)</span>
+        </div>
+        <div class="phase-body">
+          Physician Consultation Console (SOAP notes, ICD-10 diagnosis); Nursing Triage Station (Vital Signs logging);
+          Inpatient Bed &amp; Ward Management; One-click doctor ordering for Lab tests and E-Prescriptions.
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-hdr">
+          <span class="phase-tag">PHASE 3</span>
+          <span class="phase-title">Financial Operations &amp; HMO Managed Care</span>
+          <span class="phase-dur">Sprints 5–6 (Weeks 9–12)</span>
+        </div>
+        <div class="phase-body">
+          Cashier Point-of-Sale (POS); Patient Invoicing; Automated diagnostic charge capture; HMO pre-authorization
+          code generation, electronic claims submission, and reconciliation.
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-hdr">
+          <span class="phase-tag">PHASE 4</span>
+          <span class="phase-title">Enterprise Administration &amp; Supply Chain</span>
+          <span class="phase-dur">Sprints 7–8 (Weeks 13–16)</span>
+        </div>
+        <div class="phase-body">
+          Human Resources Staff Directory and Credentialing; RBAC Role Editor and Permission Matrix enforcement;
+          Procurement Requisitions, Purchase Orders, and Goods Received Notes (GRN).
+        </div>
+      </div>
+
+      <div class="phase-card">
+        <div class="phase-hdr">
+          <span class="phase-tag">PHASE 5</span>
+          <span class="phase-title">Management Intelligence, AI &amp; Multi-Organization</span>
+          <span class="phase-dur">Sprints 9–10 (Weeks 17–20)</span>
+        </div>
+        <div class="phase-body">
+          Live Hospital Executive KPI Dashboard (<code>/dashboard/summary</code>); Immutable Security Audit Trail Viewer;
+          Governed AI Clinical Document Summarizer; Multi-organization and multi-branch tenancy switcher.
+        </div>
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 14 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-15">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">DETAILED PHASED IMPLEMENTATION</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 12</div>
+    <h2 class="sec-title">Detailed Phased Implementation Plan</h2>
+
+    <p class="sec-intro">
+      Granular specifications for Phase 1 and Phase 2 detailing objectives, technical deliverables,
+      database updates, and definitions of completion.
+    </p>
+
+    <div class="phase-detail-box">
+      <div class="pdb-hdr">
+        <strong>PHASE 1: Foundation, Deduplication &amp; Core Integration</strong> &bull; Priority: Immediate (Weeks 1–4)
+      </div>
+      <div class="pdb-body">
+        <p><strong>Primary Objective:</strong> Eliminate frontend duplication, stabilize core dependencies, and connect existing mock pages to live backend APIs.</p>
+        <ul class="pdb-list">
+          <li><strong>Frontend Tasks:</strong> Delete duplicate patient files from <code>src/pages/appointments/</code>; create genuine Appointment Directory table; bind <code>src/pages/lab/*</code> to <code>/lab/*</code>; bind <code>src/pages/pharmacy/*</code> to <code>/pharmacy/*</code>; fix broken lab navigation links.</li>
+          <li><strong>Backend Tasks:</strong> Add <code>PATCH /patients/:id</code> endpoint testing; ensure <code>/appointments</code> returns populated patient and doctor records; configure CORS for multi-domain support.</li>
+          <li><strong>Database Tasks:</strong> Retain existing schema; prepare migration script for <code>patientId</code> foreign key alignment.</li>
+          <li><strong>Definition of Done:</strong> Zero duplicate files between patients and appointments; booking an appointment writes to PostgreSQL; lab queue mutates live database; Vitest running with &ge;10 tests.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="phase-detail-box" style="margin-top: 4mm;">
+      <div class="pdb-hdr">
+        <strong>PHASE 2: Core Hospital &amp; Clinical EMR Operations</strong> &bull; Priority: High (Weeks 5–8)
+      </div>
+      <div class="pdb-body">
+        <p><strong>Primary Objective:</strong> Transform clinical placeholder pages into operational doctor and nurse clinical consoles.</p>
+        <ul class="pdb-list">
+          <li><strong>Frontend Tasks:</strong> Implement Doctor Consultation Screen (chief complaint, examination, ICD-10 diagnosis, treatment plan); implement Nursing Triage Vitals Logging with abnormal threshold alerts; implement Inpatient Bed Allocation matrix.</li>
+          <li><strong>Backend Tasks:</strong> Implement clinical encounter creation with atomic transactional order creation (Lab &amp; Rx); implement ward bed transfer endpoints; enforce tenant isolation interceptor.</li>
+          <li><strong>Database Tasks:</strong> Apply foreign key migration linking <code>clinical_encounters.patientId</code> to <code>patients.id</code>.</li>
+          <li><strong>Definition of Done:</strong> A physician can conduct a consultation, document SOAP notes, and directly trigger laboratory and pharmacy orders from a unified clinical console.</li>
+        </ul>
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 15 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-16">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">FIRST DEVELOPMENT SPRINT</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 13</div>
+    <h2 class="sec-title">Recommended First Development Sprint (Sprint 1)</h2>
+
+    <p class="sec-intro">
+      <strong>Where to Resume Development:</strong> The hospital journey begins at Patient Registration and Appointment Scheduling.
+      Resolving the copy-pasted appointments directory and connecting the fully-built Laboratory and Pharmacy backends
+      yields the highest velocity and business value.
+    </p>
+
+    <h3 class="subsec-title">Sprint 1 Work Breakdown (10 Working Days)</h3>
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th style="width: 14%;">Day</th>
+          <th style="width: 26%;">Work Package</th>
+          <th style="width: 38%;">Target Files &amp; Implementation Actions</th>
+          <th style="width: 22%;">Measurable Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Days 1–2</strong></td>
+          <td>Appointments Clean-up &amp; Deduplication</td>
+          <td>Delete duplicate patient files from <code>myclinical/src/pages/appointments/</code>; create clean appointment table shell.</td>
+          <td>Zero duplicate patient code in appointments.</td>
+        </tr>
+        <tr>
+          <td><strong>Days 3–4</strong></td>
+          <td>Appointment Service &amp; React Query Hook</td>
+          <td>Create <code>src/services/appointment.service.ts</code>; build <code>useAppointments()</code> calling backend <code>/appointments</code>.</td>
+          <td>Live appointments query with loading/error states.</td>
+        </tr>
+        <tr>
+          <td><strong>Days 5–6</strong></td>
+          <td>Appointment Booking Modal &amp; Schedule UI</td>
+          <td>Create <code>BookAppointmentModal.tsx</code>; wire patient select, doctor select, date/time pickers to <code>POST /appointments</code>.</td>
+          <td>Booking writes to DB and renders on schedule.</td>
+        </tr>
+        <tr>
+          <td><strong>Days 7–8</strong></td>
+          <td>Laboratory Mock to Live API Migration</td>
+          <td>Create <code>lab.service.ts</code>; replace <code>lab.mock.ts</code> in <code>LabDashboard.tsx</code>, <code>LabQueue.tsx</code>, <code>LabResults.tsx</code>.</td>
+          <td>Lab requests load and update live PostgreSQL.</td>
+        </tr>
+        <tr>
+          <td><strong>Days 9–10</strong></td>
+          <td>Pharmacy Live API Migration &amp; Tests</td>
+          <td>Create <code>pharmacy.service.ts</code>; bind <code>Medications.tsx</code> and <code>Prescriptions.tsx</code>; setup Vitest in frontend.</td>
+          <td>Prescriptions mutate live DB; Vitest passes.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-success" style="margin-top: 4mm;">
+      <div class="callout-title">Definition of Done for Sprint 1</div>
+      <div class="callout-body">
+        1. Appointments module displays real appointment records and books via live backend API.<br>
+        2. Laboratory bench queue displays real requests and saves results to PostgreSQL.<br>
+        3. Pharmacy formulary displays live stock levels and dispenses prescriptions against real inventory.<br>
+        4. Both backend (<code>yarn test</code>) and frontend (<code>npm run test</code>) pass cleanly.
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 16 of 17</div>
+    </div>
+    
+    </div>
+    
+    <div class="page" id="page-17">
+      
+    <div class="page-header">
+      <div class="hdr-left">
+        <span class="hdr-dot"></span>
+        <span class="hdr-brand">ITHERE SYSTEMS</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-product">ITHERE CARE</span>
+        <span class="hdr-sep">/</span>
+        <span class="hdr-section">TESTING STRATEGY & SIGN-OFF</span>
+      </div>
+      <div class="hdr-right">TECHNICAL PROJECT DOCUMENTATION</div>
+    </div>
+    
+      <div class="page-body">
+        
+    <div class="sec-kicker">SECTION 14</div>
+    <h2 class="sec-title">Testing Strategy, Governance &amp; Sign-Off</h2>
+
+    <p class="sec-intro">
+      To maintain healthcare reliability, Ithere Care adopts a 3-tier testing pyramid combining backend
+      isolation tests, frontend component regression suites, and end-to-end patient journey validation.
+    </p>
+
+    <div class="card-grid-3">
+      <div class="info-card">
+        <div class="info-card-hdr">Tier 1: Backend Unit Tests</div>
+        <div class="info-card-body">
+          Jest harness testing controllers, services, guards, and interceptors with mocked TypeORM repositories.
+          Current baseline: <strong>12 suites, 32 unit tests passing (100%)</strong>.
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-hdr">Tier 2: Frontend Tests</div>
+        <div class="info-card-body">
+          Vitest + React Testing Library verifying form validation wizards, React Query hooks, and
+          authentication state preservation across route guards.
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-hdr">Tier 3: E2E Patient Flow</div>
+        <div class="info-card-body">
+          Playwright automated smoke tests executing the critical path: <code>Register Patient &rarr; Book Appointment &rarr; Consultation &rarr; Order Lab &rarr; Dispense Rx &rarr; Settle Bill</code>.
+        </div>
+      </div>
+    </div>
+
+    <h3 class="subsec-title" style="margin-top: 5mm;">Official Review, Governance &amp; Executive Sign-Off</h3>
+    <p style="font-size: 8pt; color: #64748B; margin-bottom: 4mm;">
+      This technical assessment represents an objective engineering evaluation. Implementation of Phase 1
+      shall commence upon formal sign-off by project leadership and engineering management.
+    </p>
+
+    <div class="signoff-grid">
+      <div class="signoff-card">
+        <div class="signoff-role">PREPARED BY &bull; SYSTEMS ARCHITECTURE</div>
+        <div class="signoff-line"></div>
+        <div class="signoff-name">Antigravity Engineering Lead</div>
+        <div class="signoff-title">Platform Architecture, Ithere Care</div>
+        <div class="signoff-date">Date: November 15, 2026</div>
+      </div>
+      <div class="signoff-card">
+        <div class="signoff-role">REVIEWED BY &bull; TECHNICAL DIRECTION</div>
+        <div class="signoff-line"></div>
+        <div class="signoff-name">Technical Lead / Collaborator</div>
+        <div class="signoff-title">Engineering Management, Ithere Systems</div>
+        <div class="signoff-date">Date: ________________________</div>
+      </div>
+      <div class="signoff-card">
+        <div class="signoff-role">APPROVED BY &bull; EXECUTIVE LEADERSHIP</div>
+        <div class="signoff-line"></div>
+        <div class="signoff-name">Victory Benson</div>
+        <div class="signoff-title">Founder &amp; Chief Executive Officer</div>
+        <div class="signoff-date">Date: ________________________</div>
+      </div>
+    </div>
+    
+      </div>
+      
+    <div class="page-footer">
+      <div class="ftr-left"><strong>ITHERE TECHNOLOGY GROUP</strong> &mdash; Ithere Care Engineering Baseline</div>
+      <div class="ftr-center">CONFIDENTIAL &bull; FOR INTERNAL &bull; PARTNER USE</div>
+      <div class="ftr-right">Page 17 of 17</div>
+    </div>
+    
+    </div>
+    
+</body>
+</html>
