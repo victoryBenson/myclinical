@@ -1101,7 +1101,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
 
   return (
     <div
-      className={`rounded-2xl border p-4.5 shadow-xs transition-all duration-200 flex flex-col justify-between ${variantStyles[variant]}`}
+      className={`rounded-2xl border p-4 shadow-xs transition-all duration-200 flex flex-col justify-between ${variantStyles[variant]}`}
     >
       <div className="flex items-center justify-between">
         <span className="text-[10px] uppercase font-bold tracking-wider opacity-70">

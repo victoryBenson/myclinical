@@ -52,7 +52,7 @@ export const ITHERE_CARE_MANIFEST: ProductIdentityManifest = {
   currentVersion: "0.1.0",
   status: "Development",
   releaseDate: "2026-11-06",
-  edition: "Ithere Systems — Hospital Edition",
+  edition: "Ithere Systems - Hospital Edition",
   deploymentModel: "Integrated Enterprise Solution",
   buildInfo: {
     baselineCommit: "ae06a5b",
