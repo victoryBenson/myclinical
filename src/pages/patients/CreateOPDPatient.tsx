@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { Input, Select, Steps, Form } from "antd";
 import CustomDatePicker from "../../components/ui/CustomDatePicker";
 import { useHmos } from "../../features/hmo/useHmos";
-import { usePatientStore } from "../../store/patient.store";
+import { useCreatePatient } from "../../features/patient/usePatients";
 import type { CreatePatientDto } from "../../types/patients/createPatientDto";
 
 const { Option } = Select;  
@@ -11,8 +11,7 @@ const { Option } = Select;
 const CreateOpdPatient: React.FC = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const prev = () => setCurrentStep((prev) => prev - 1);
-    const [loading, setLoading] = useState(false)
-    const { createPatient } = usePatientStore();
+    const { mutateAsync: createPatient, isPending } = useCreatePatient();
     const { data: hmos = [], isLoading: hmosLoading, isError: hmosError } = useHmos();
     const [form] = Form.useForm();
     const values = form.getFieldsValue(true);
@@ -54,7 +53,7 @@ const CreateOpdPatient: React.FC = () => {
             }
 
             setCurrentStep((prev) => prev + 1);
-        } catch (error) {
+        } catch {
             console.log("Validation failed");
         }
     };
@@ -62,17 +61,14 @@ const CreateOpdPatient: React.FC = () => {
   
 const handleSubmit = async () => {
   try {
-    setLoading(true);
-
     const formValues = await form.getFieldsValue(true);
 
     const payload: CreatePatientDto = {
-    ...formValues,
-    date_of_birth: formValues.date_of_birth
+      ...formValues,
+      date_of_birth: formValues.date_of_birth
         ? formValues.date_of_birth.format?.("YYYY-MM-DD")
         : null,
-
-    is_out_patient: true
+      is_out_patient: true,
     };
     
     await createPatient(payload);
@@ -80,11 +76,10 @@ const handleSubmit = async () => {
     toast.success("Patient Created Successfully");
     form.resetFields();
     setCurrentStep(0);
-  } catch (error: any) {
-    console.log(error?.response?.data);
+  } catch (error: unknown) {
+    const err = error as { response?: { data?: unknown } };
+    console.error("Create OPD patient error:", err?.response?.data || error);
     toast.error("Failed to create patient");
-  } finally {
-    setLoading(false);
   }
 };
 
@@ -438,10 +433,10 @@ const handleSubmit = async () => {
                 <button
                     type="button"
                     onClick={handleSubmit}
-                    disabled={loading}
+                    disabled={isPending}
                     className="px-6 py-2 rounded-xl bg-primary text-white hover:bg-primary-dark transition disabled:opacity-50"
                     >
-                    {loading ? "Submitting..." : "Submit Patient"}
+                    {isPending ? "Submitting..." : "Submit Patient"}
                 </button>
             )}
             </div>

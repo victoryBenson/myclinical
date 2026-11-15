@@ -14,7 +14,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { tabDetails } from "../../data/patients";
-import { usePatientStore } from "../../store/patient.store";
+import { usePatients } from "../../features/patient/usePatients";
 import PatientProfileModal from "../../components/modal/patients/PatientProfile";
 import PatientFilters from "../../components/Patients/PatientsFilter";
 import CreatePatient from "./CreatePatientDashboard";
@@ -43,7 +43,7 @@ const Patients: React.FC = () => {
   const [selectedPatient, setSelectedPatient] =
     useState<Patient | null>(null);
 
-  const { patients, loading, fetchPatients } = usePatientStore();
+  const { data: patients = [], isLoading: loading } = usePatients();
 
   const [viewOpd, setViewOpd] = useState(false);
 
@@ -240,9 +240,6 @@ const Patients: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPatients();
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("patient-tab", tab);

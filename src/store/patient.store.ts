@@ -1,70 +1,48 @@
 import { create } from "zustand";
-import { patientService } from "../services/patient.service";
-import type { CreatePatientDto } from "../types/patients/createPatientDto";
-import type { Patient } from "../types/patients/fetchPatientDto";
+import type { Patient } from "../types/patients";
 
-interface PatientStore {
-  patients: Patient[];
 
-  loading: boolean;
+export interface PatientUiState {
+  selectedPatient: Patient | null;
+  activeTab: string;
+  filtersVisible: boolean;
+  isProfileOpen: boolean;
+  isOpdProfileOpen: boolean;
 
-  error: string | null;
+  setSelectedPatient: (patient: Patient | null) => void;
+  setActiveTab: (tab: string) => void;
+  setFiltersVisible: (visible: boolean) => void;
+  toggleFilters: () => void;
+  setIsProfileOpen: (open: boolean) => void;
+  setIsOpdProfileOpen: (open: boolean) => void;
+  resetUiState: () => void;
+}
 
-  fetchPatients: () => Promise<void>;
-  createPatient: (data: CreatePatientDto) => Promise<void>;
-};
+export const usePatientUiStore = create<PatientUiState>((set) => ({
+  selectedPatient: null,
+  activeTab: "all",
+  filtersVisible: true,
+  isProfileOpen: false,
+  isOpdProfileOpen: false,
 
-export const usePatientStore = create<PatientStore>(
-  (set) => ({
-    patients: [],
+  setSelectedPatient: (patient) => set({ selectedPatient: patient }),
+  setActiveTab: (activeTab) => set({ activeTab }),
+  setFiltersVisible: (filtersVisible) => set({ filtersVisible }),
+  toggleFilters: () => set((state) => ({ filtersVisible: !state.filtersVisible })),
+  setIsProfileOpen: (isProfileOpen) => set({ isProfileOpen }),
+  setIsOpdProfileOpen: (isOpdProfileOpen) => set({ isOpdProfileOpen }),
+  resetUiState: () =>
+    set({
+      selectedPatient: null,
+      activeTab: "all",
+      filtersVisible: true,
+      isProfileOpen: false,
+      isOpdProfileOpen: false,
+    }),
+}));
 
-    loading: false,
-
-    error: null,
-
-    fetchPatients: async () => {
-      try {
-        set({
-          loading: true,
-          error: null,
-        });
-
-        const patients = await patientService.getPatients();
-
-        set({
-          patients,
-          loading: false,
-        });
-      } catch (error) {
-        set({
-          error: "Failed to fetch patients",
-          loading: false,
-        });
-
-        console.log(error);
-      }
-    },
-    createPatient: async (data: CreatePatientDto) => {
-      try {
-        set({
-          loading: true,
-          error: null,
-        });
-
-        const newPatient = await patientService.createPatient(data);
-
-        set((state) => ({
-          patients: [...state.patients, newPatient],
-          loading: false,
-        }));
-      } catch (error) {
-        set({
-          error: "Failed to create patient",
-          loading: false,
-        });
-        throw error;
-        console.log(error); 
-      }
-    },
-  })
-);
+/**
+ * Backward compatibility alias for the patient UI store.
+ * @deprecated Prefer `usePatientUiStore` for client UI state or `usePatients` / `useCreatePatient` for server state.
+ */
+export const usePatientStore = usePatientUiStore;
