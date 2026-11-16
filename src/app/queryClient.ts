@@ -1,12 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 
-/**
- * Global QueryClient instance configured with production-grade caching defaults.
- *
- * Stale time is set to 1 minute to prevent redundant network refetches during rapid
- * component transitions and tab switching, while keeping data fresh.
- * Garbage collection time (gcTime) is 10 minutes to retain inactive cache entries.
- */
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -53,9 +47,7 @@ if (typeof window !== "undefined" && "BroadcastChannel" in window) {
   }
 }
 
-/**
- * Broadcast query invalidation across all open browser tabs.
- */
+
 export const broadcastQueryInvalidation = (queryKey: readonly unknown[]) => {
   if (syncChannel) {
     try {

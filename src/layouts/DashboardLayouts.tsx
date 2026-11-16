@@ -1,8 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import MainSidebar from "../components/navigation/MainSidebar";
 import DepartmentSubSidebar from "../components/navigation/DepartmentSubSidebar";
 import Header from "../components/Header";
+import PageLoader from "../components/ui/PageLoader";
+import RouteErrorBoundary from "../components/ui/RouteErrorBoundary";
 import {
   findDepartmentByPath,
 } from "../navigation/navigationConfig";
@@ -83,7 +85,11 @@ export default function DashboardLayout({
 
         {/* Operational Page Content (Dedicated independent scroll container) */}
         <main className="flex-1 overflow-y-auto min-h-0 bg-slate-50 dark:bg-[#0f0f0f] focus:outline-none">
-          <Outlet />
+          <RouteErrorBoundary>
+            <Suspense fallback={<PageLoader />}>
+              <Outlet />
+            </Suspense>
+          </RouteErrorBoundary>
         </main>
       </div>
     </div>

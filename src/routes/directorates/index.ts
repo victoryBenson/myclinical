@@ -1,0 +1,13 @@
+export { dashboardRoutes } from "./dashboard.routes";
+export { patientRoutes } from "./patients.routes";
+export { clinicalRoutes } from "./clinical.routes";
+export { pharmacyDiagnosticsRoutes } from "./pharmacyDiagnostics.routes";
+export { financeRoutes } from "./finance.routes";
+export { hmoRoutes } from "./hmo.routes";
+export { hrRoutes } from "./hr.routes";
+export { procurementRoutes } from "./procurement.routes";
+export { qualityRoutes } from "./quality.routes";
+export { operationsRoutes } from "./operations.routes";
+export { ictRoutes } from "./ict.routes";
+export { analyticsRoutes } from "./analytics.routes";
+export { systemAdminRoutes } from "./systemAdmin.routes";
