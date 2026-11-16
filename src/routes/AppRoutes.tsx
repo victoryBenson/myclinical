@@ -20,7 +20,6 @@ import {
   systemAdminRoutes,
 } from "./directorates";
 
-// Public auth page loaded on-demand
 const Login = lazy(() => import("../pages/auth/Login"));
 
 interface AppRoutesProps {
@@ -41,7 +40,6 @@ export default function AppRoutes({ isDark, toggleTheme }: AppRoutesProps) {
           }
         >
           <Routes>
-            {/* Public Authentication Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/auth/login" element={<Login />} />
             <Route
@@ -53,55 +51,27 @@ export default function AppRoutes({ isDark, toggleTheme }: AppRoutesProps) {
               }
             />
 
-            {/* Protected HMIS Application Shell */}
-            <Route
-              element={
-                <ProtectedRoute>
-                  <DashboardLayout isDark={isDark} toggleTheme={toggleTheme} />
-                </ProtectedRoute>
-              }
-            >
-              {/* 1. Dashboard Directorates */}
-              {dashboardRoutes}
-
-              {/* 2. Patient Management */}
-              {patientRoutes}
-
-              {/* 3. Clinical Services */}
-              {clinicalRoutes}
-
-              {/* 4. Pharmacy, Laboratory & Diagnostics */}
-              {pharmacyDiagnosticsRoutes}
-
-              {/* 5. Finance & Billing */}
-              {financeRoutes}
-
-              {/* 6. HMO & Health Insurance */}
-              {hmoRoutes}
-
-              {/* 7. Administration & Human Resources */}
-              {hrRoutes}
-
-              {/* 8. Procurement & Supply Chain */}
-              {procurementRoutes}
-
-              {/* 9. Quality Assurance & Compliance */}
-              {qualityRoutes}
-
-              {/* 10. Operations & Facilities */}
-              {operationsRoutes}
-
-              {/* 11. ICT & Digital Health */}
-              {ictRoutes}
-
-              {/* 12. Reports & Analytics */}
-              {analyticsRoutes}
-
-              {/* 13. System Administration */}
-              {systemAdminRoutes}
-            </Route>
-
-            {/* Default Catch-all Fallback */}
+              <Route
+                element={
+                  <ProtectedRoute>
+                    <DashboardLayout isDark={isDark} toggleTheme={toggleTheme} />
+                  </ProtectedRoute>
+                }
+              >
+                {dashboardRoutes}
+                {patientRoutes}
+                {clinicalRoutes}
+                {pharmacyDiagnosticsRoutes}
+                {financeRoutes}
+                {hmoRoutes}
+                {hrRoutes}
+                {procurementRoutes}
+                {qualityRoutes}
+                {operationsRoutes}
+                {ictRoutes}
+                {analyticsRoutes}
+                {systemAdminRoutes}
+              </Route>
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         </Suspense>

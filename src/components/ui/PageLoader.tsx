@@ -2,9 +2,7 @@ import type { FC } from "react";
 import { Loader2, Activity } from "lucide-react";
 
 interface PageLoaderProps {
-  /** If true, fills the full viewport; otherwise fills the parent container */
   fullScreen?: boolean;
-  /** Optional message displayed below the loader */
   message?: string;
 }
 
@@ -23,15 +21,12 @@ export const PageLoader: FC<PageLoaderProps> = ({
       aria-live="polite"
     >
       <div className="relative flex items-center justify-center">
-        {/* Outer ambient glow pulse */}
         <div className="absolute h-16 w-16 rounded-full bg-primary/15 dark:bg-primary/20 animate-ping" />
 
-        {/* Central icon container */}
         <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-white dark:bg-gray-800 border border-slate-200/80 dark:border-gray-700 shadow-sm">
           <Activity className="h-6 w-6 text-primary animate-pulse" />
         </div>
 
-        {/* Outer spinner ring */}
         <Loader2 className="absolute -inset-1 h-16 w-16 animate-spin text-primary/40 dark:text-primary/30" />
       </div>
 
